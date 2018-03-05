@@ -1,0 +1,51 @@
+\documentclass[11pt, a4paper]{report}
+
+\usepackage[german]{babel} 
+
+\usepackage{etoolbox}
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{}
+
+\usepackage[utf8]{inputenc}
+\usepackage{txfonts}
+\usepackage{pdflscape}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[frame]{}{\thechapter}{0pt}{}
+\titlespacing*{\chapter}{0cm}{-\topskip}{0pt}[0pt]
+\titleformat{\chapter}{\normalfont\huge\bf}{\thechapter.}{20pt}{\huge\bf}
+
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\includegraphics[width=5cm]{fhnw}}
+\rhead{}
+
+\usepackage{tabularx}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\begin{document}
+	\title{\textbf{Projektplanung}\\- \\Tippspiel WM 2018}
+	\author{
+			\begin{tabular}{l  l}
+				Modul: & Workshop DSS (wodss)\\
+				Autoren: & Kevin Kirn, Hoang Tran\\ \\
+				Hochschule: & Hochschule für Technik\\
+				Studiengang: & Informatik\\
+				Betreuende Dozenten: & Prof. Dr. Dominik Gruntz\\
+				& Prof. Dr. Jürg Luthiger\\
+				& Prof. Dierk König\\
+				& Dr. Arno Wagner
+			\end{tabular}
+	}
+	
+	\maketitle
+	\tableofcontents
+	
+	\include{Introduction}
+	\include{Roles}
+	\include{Architecture}
+	\include{Milestones}
+	
+\end{document}
