@@ -14,7 +14,6 @@ import ch.fhnw.wodss.tournament.model.Account;
 import ch.fhnw.wodss.tournament.persistance.AccountRepository;
 
 @SpringBootApplication
-// TODO KKI move me into a configuration class
 @EnableJpaRepositories("ch.fhnw.wodss.tournament.persistance")
 public class TournamentApplication {
 
@@ -33,7 +32,7 @@ public class TournamentApplication {
 
 			@Override
 			public void run(String... arg0) throws Exception {
-				accountRepository.save(new Account("kevin", "kevin"));
+				accountRepository.save(new Account("username", "password"));
 			}
 
 		};

@@ -1,4 +1,4 @@
-package ch.fhnw.wodss.tournament.configuration;
+package ch.fhnw.wodss.tournament.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import ch.fhnw.wodss.tournament.model.Account;
 import ch.fhnw.wodss.tournament.persistance.AccountRepository;
@@ -26,6 +29,7 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
 	}
 
 	@Bean
+	// TODO logging
 	UserDetailsService userDetailsService() {
 		return new UserDetailsService() {
 
