@@ -14,12 +14,20 @@ class Login extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
+  // perform authentication against api
   authenticate() {
+    if(!(this.state.username && this.state.password)) {
+      // TODO make be beautiful
+      alert("Please fill all fields!");
+      return;
+    }
+      
+
     let base64 = require('base-64');
-    const AUTHORIZATION_FAILED = 401;
+    
     let headers = new Headers();
     headers.append('Authorization', 'Basic ' + base64.encode(this.state.username + ":" + this.state.password));
-    headers.append('X-Requested-With', 'XMLHttpRequest');
+    //headers.append('X-Requested-With', 'XMLHttpRequest');
 
     fetch("http://localhost:8080/authenticate", { headers: headers, method : 'post' })
       .then((response) => {
@@ -31,7 +39,8 @@ class Login extends Component {
         console.log(err);
     });
   }
-  
+
+  // update states on value change
   handleInputChange(event){
     const target = event.target;
     const value = target.value;
