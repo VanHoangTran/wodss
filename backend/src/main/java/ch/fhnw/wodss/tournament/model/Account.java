@@ -1,15 +1,8 @@
 package ch.fhnw.wodss.tournament.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import ch.fhnw.wodss.tournament.model.permission.Permission;
 
 /**
  * Representation of a application's user.
@@ -18,7 +11,7 @@ import ch.fhnw.wodss.tournament.model.permission.Permission;
  */
 
 @Entity
-public class User {
+public class Account {
 
 	@Id
 	@GeneratedValue
@@ -34,15 +27,12 @@ public class User {
 
 	private boolean active;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private List<Permission> permissions;
+	public Account() {
+	}
 
-	public User(String username, String password, String mail) {
-		this.permissions = new ArrayList<>();
-
+	public Account(String username, String password) {
 		this.username = username;
 		this.password = password;
-		this.mail = mail;
 
 		// new users are inactive until mail verification
 		this.verified = false;
@@ -95,10 +85,6 @@ public class User {
 
 	public void setActive(boolean active) {
 		this.active = active;
-	}
-
-	public void addPermission(Permission p) {
-		permissions.add(p);
 	}
 
 }
