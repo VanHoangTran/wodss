@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet"
+          href="css/bootstrap-material-design.min.css"
+          integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Hello, world!</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">LOGO</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="tippspiel3.html">Tippspiel</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="tippteam.html">Tippteam</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Admin</a>
+            </li>
+        </ul>
+    </div>
+    <!--<img id="avatar" src="https://api.adorable.io/avatars/36/Hoang.png"/>-->
+</nav>
+
+<div id="content">
+
+    <div id="accordionMatches"></div>
+
+</div>
+
+<footer>
+    Tippspiel WM 2018<br>
+    Modul WODSS (Workshop Distibuted Software Systems)<br>
+    By Hoang Tran &amp; Kevin Kirn
+</footer>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="js/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+<script src="js/popper.min.js" crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="js/bootstrap-material-design.js" crossorigin="anonymous"></script>
+
+
+<script>
+    let data = {countries:[], phases:[]};
+
+    $(document).ready(function () {
+        $.getJSON("data.json", function(json) {
+            onDataLoaded(json);
+        });
+    });
+
+    function onDataLoaded(json) {
+        data = json;
+        displayMatches();
+    }
+
+    function displayMatches() {
+        for (let i = 0; i < data.phases.length; i++) {
+            let phase = data.phases[i];
+            let show = i === 0;
+            console.log(i === 0);
+            let phaseCard = $(createPhaseCard('accordionMatches', i, phase.title, show));
+
+            let matchCardsContainer = $(phaseCard.find('.card-body')[0]);
+
+            phase.matches.forEach(match => {
+                let matchCard = $(createMatchCard(match));
+                matchCardsContainer.append(matchCard);
+            });
+            $('#accordionMatches').append(phaseCard);
+        }
+
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+
+    function createPhaseCard(parentId, index, title, show = false) {
+        return '<div class="card card-phase"><div class="card-header">' +
+            '<button class="btn btn-link" data-toggle="collapse" ' +
+            'data-target="#' + parentId + '_' + index + '">' + title +
+            '</button></div>' +
+            '<div id="' + parentId + '_' + index + '" ' +
+            'class="collapse' + (show ? ' show' : '') + '" ' +
+            'data-parent="#' + parentId + '">' +
+            '<div class="card-body card-phase-content-container"></div></div></div>';
+    }
+
+    function createMatchCard(match) {
+        return '<div class="card card-match"><div class="card-header">' +
+            match.country1 + ' vs. ' + match.country2 + '</div>' +
+            '<div class="flags"></div><div class="card-body"><div class="counter">' +
+            '<img src="img/flag/' + getCountryByName(match.country1).flagName + '.svg" class="img-flag" title="'+getCountryByName(match.country1).fullName+'" data-toggle="tooltip" data-placement="bottom">' +
+            '<div class="btn-group btngrp-counter" role="group">' +
+            '<button type="button" class="btn btn-outline-danger">-</button>' +
+            '<a class="btn btn-secondary disabled">0</a>' +
+            '<button type="button" class="btn btn-outline-success">+</button>' +
+            '</div></div><div class="counter second">' +
+            '<img src="img/flag/' + getCountryByName(match.country2).flagName + '.svg" class="img-flag" title="'+getCountryByName(match.country2).fullName+'" data-toggle="tooltip" data-placement="bottom">' +
+            '<div class="btn-group btngrp-counter" role="group">' +
+            '<button type="button" class="btn btn-outline-danger">-</button>' +
+            '<a class="btn btn-secondary disabled">0</a>' +
+            '<button type="button" class="btn btn-outline-success">+</button>' +
+            '</div></div></div><div class="card-footer time"><span>' +
+            match.date + ', ' + match.time +
+            '</span></div></div>';
+    }
+
+    function getCountryByName(name) {
+        for (let i = 0; i < data.countries.length; i++) {
+            let country = data.countries[i];
+            if (country.name === name) {
+                return country;
+            }
+        }
+        return null;
+    }
+</script>
+</body>
+</html>
+
+
+

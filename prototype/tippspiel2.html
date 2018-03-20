@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet"
+          href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+          integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet" href="style2.css">
+    <title>Hello, world!</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg" style="background-color: #4CAF50;">
+    <a class="navbar-brand" href="#">LOGO</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Tippspiel<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Tippteam</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Admin</a>
+            </li>
+        </ul>
+    </div>
+    <img id="avatar" src="https://api.adorable.io/avatars/36/Hoang.png"/>
+</nav>
+
+<div id="content">
+
+    <div id="accordionMatches">adfasdfasdfasf</div>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            Gesamtgruppe
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Die lustige Tippgruppe</a>
+            <a class="dropdown-item" href="#">Gruppe ALPHA</a>
+            <a class="dropdown-item" href="#">FHNW Tipper</a>
+        </div>
+    </div>
+
+    <div class="card game">
+        <div class="card-header">
+            FRA vs. AUS
+        </div>
+        <div class="flags">
+        </div>
+        <div class="card-body">
+            <div class="counter">
+                <img class="img-flag right" title="Frankreich" data-toggle="tooltip" data-placement="bottom"
+                     src="https://image.flaticon.com/icons/svg/552/552029.svg">
+                <div class="btn-group btngrp-counter" role="group">
+                    <button type="button" class="btn btn-outline-danger">-</button>
+                    <a class="btn btn-secondary disabled">0</a>
+                    <button type="button" class="btn btn-outline-success">+</button>
+                </div>
+            </div>
+            <div class="counter second">
+                <img class="img-flag left" title="Australien" data-toggle="tooltip" data-placement="bottom"
+                     src="https://image.flaticon.com/icons/svg/551/551976.svg">
+                <div class="btn-group btngrp-counter second" role="group">
+                    <button type="button" class="btn btn-outline-danger">-</button>
+                    <a class="btn btn-secondary disabled">0</a>
+                    <button type="button" class="btn btn-outline-success">+</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer time">
+            <span>16.06.2018, 12:00</span>
+        </div>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+
+
+<script>
+    $(document).ready(function () {
+        // add matches
+        initMatches();
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+    });
+
+    const countries = [
+        {fullName: 'Afghanistan', name: 'AFG', isoShortName: 'AF', flagName: 'afghanistan'},
+        {fullName: 'Ägypten', name: 'EGY', isoShortName: 'EG', flagName: 'egypt'},
+        {fullName: 'Albanien', name: 'ALB', isoShortName: 'AL', flagName: 'albania'},
+        {fullName: 'Algerien', name: 'ALG', isoShortName: 'DZ', flagName: 'algeria'},
+        {fullName: 'Amerikanische Jungferninseln', name: 'VIR', isoShortName: 'VI', flagName: 'virgin-islands'},
+        {fullName: 'Amerikanisch-Samoa', name: 'ASA', isoShortName: 'AS', flagName: 'american-samoa'},
+        {fullName: 'Andorra', name: 'AND', isoShortName: 'AD', flagName: 'andorra'},
+        {fullName: 'Angola', name: 'ANG', isoShortName: 'AO', flagName: 'angola'},
+        {fullName: 'Anguilla', name: 'AIA', isoShortName: 'AI', flagName: 'anguilla'},
+        {fullName: 'Antigua und Barbuda', name: 'ATG', isoShortName: 'AG', flagName: 'antigua-and-barbuda'},
+        {fullName: 'Äquatorialguinea', name: 'EQG', isoShortName: 'GQ', flagName: 'equatorial-guinea'},
+        {fullName: 'Argentinien', name: 'ARG', isoShortName: 'AR', flagName: 'argentina'},
+        {fullName: 'Armenien', name: 'ARM', isoShortName: 'AM', flagName: 'armenia'},
+        {fullName: 'Aruba', name: 'ARU', isoShortName: 'AW', flagName: 'aruba'},
+        {fullName: 'Aserbaidschan', name: 'AZE', isoShortName: 'AZ', flagName: 'azerbaijan'},
+        {fullName: 'Äthiopien', name: 'ETH', isoShortName: 'ET', flagName: 'ethiopia'},
+        {fullName: 'Australien', name: 'AUS', isoShortName: 'AU', flagName: 'australia'},
+        {fullName: 'Bahamas', name: 'BAH', isoShortName: 'BS', flagName: 'bahamas'},
+        {fullName: 'Bahrain', name: 'BHR', isoShortName: 'BH', flagName: 'bahrain'},
+        {fullName: 'Bangladesch', name: 'BAN', isoShortName: 'BD', flagName: 'bangladesh'},
+        {fullName: 'Barbados', name: 'BRB', isoShortName: 'BB', flagName: 'barbados'},
+        {fullName: 'Belarus', name: 'BLR', isoShortName: 'BB', flagName: 'belarus'},
+        {fullName: 'Belgien', name: 'BEL', isoShortName: 'BE', flagName: 'belgium'},
+        {fullName: 'Belize', name: 'BLZ', isoShortName: 'BZ', flagName: 'belize'},
+        {fullName: 'Benin', name: 'BEN', isoShortName: 'BJ', flagName: 'benin'},
+        {fullName: 'Bermuda', name: 'BER', isoShortName: 'BM', flagName: 'bermuda'},
+        {fullName: 'Bhutan', name: 'BHU', isoShortName: 'BT', flagName: 'bhutan'},
+        {fullName: 'Bolivien', name: 'BOL', isoShortName: 'BO', flagName: 'bolivia'},
+        {fullName: 'Bosnien und Herzegowina', name: 'BIH', isoShortName: 'BA', flagName: 'bosnia-and-herzegovina'},
+        {fullName: 'Botswana', name: 'BOT', isoShortName: 'BW', flagName: 'botswana'},
+        {fullName: 'Brasilien', name: 'BRA', isoShortName: 'BR', flagName: 'brazil'},
+        {fullName: 'Britische Jungferninseln', name: 'VGB', isoShortName: 'VG', flagName: 'british-virgin-islands'},
+        {fullName: 'Brunei', name: 'BRU', isoShortName: 'BN', flagName: 'brunei'},
+        {fullName: 'Bulgarien', name: 'BUL', isoShortName: 'BG', flagName: 'bulgaria'},
+        {fullName: 'Burkina Faso', name: 'BFA', isoShortName: 'BF', flagName: 'burkina-faso'},
+        {fullName: 'Burundi', name: 'BDI', isoShortName: 'BI', flagName: 'burundi'},
+        {fullName: 'Cayman Islands', name: 'CAY', isoShortName: 'BI', flagName: 'cayman-islands'},
+        {fullName: 'Chile', name: 'CHI', isoShortName: 'CL', flagName: 'chile'},
+        {fullName: 'China, Volksrepublik', name: 'CHN', isoShortName: 'CN', flagName: 'china'},
+        {fullName: 'Chinese Taipei', name: 'TPE', isoShortName: 'CN', flagName: ''},
+        {fullName: 'Cookinseln', name: 'COK', isoShortName: 'CK', flagName: 'cook-islands'},
+        {fullName: 'Costa Rica', name: 'CRC', isoShortName: 'CR', flagName: 'costa-rica'},
+        {fullName: 'Côte d\'Ivoire', name: 'CIV', isoShortName: 'CR', flagName: 'ivory-coast'},
+        {fullName: 'Curaçao', name: 'CUW', isoShortName: 'CW', flagName: 'curacao'},
+        {fullName: 'Dänemark', name: 'DEN', isoShortName: 'DK', flagName: 'denmark'},
+        {fullName: 'Deutschland', name: 'GER', isoShortName: 'DE', flagName: 'germany'},
+        {fullName: 'Dominica', name: 'DMA', isoShortName: 'DM', flagName: 'dominica'},
+        {fullName: 'Dominikanische Republik', name: 'DOM', isoShortName: 'DO', flagName: 'dominican-republic'},
+        {fullName: 'Dschibuti', name: 'DJI', isoShortName: 'DJ', flagName: 'djibouti'},
+        {fullName: 'Ecuador', name: 'ECU', isoShortName: 'EC', flagName: 'ecuador'},
+        {fullName: 'El Salvador', name: 'SLV', isoShortName: 'SV', flagName: 'el-salvador'},
+        {fullName: 'England', name: 'ENG', isoShortName: 'CI', flagName: 'england'},
+        {fullName: 'Eritrea', name: 'ERI', isoShortName: 'ER', flagName: 'eritrea'},
+        {fullName: 'Estland', name: 'EST', isoShortName: 'EE', flagName: 'estonia'},
+        {fullName: 'Färöer', name: 'FRO', isoShortName: 'FK', flagName: 'faroe-islands'},
+        {fullName: 'Fidschi', name: 'FIJ', isoShortName: 'FJ', flagName: 'fiji'},
+        {fullName: 'Finnland', name: 'FIN', isoShortName: 'FI', flagName: 'finland'},
+        {fullName: 'Frankreich', name: 'FRA', isoShortName: 'FR', flagName: 'france'},
+        {fullName: 'Französisch-Polynesien', name: 'TAH', isoShortName: 'PF', flagName: ''},
+        {fullName: 'Gabun', name: 'GAB', isoShortName: 'GA', flagName: 'gabon'},
+        {fullName: 'Gambia', name: 'GAM', isoShortName: 'GM', flagName: 'gambia'},
+        {fullName: 'Georgien', name: 'GEO', isoShortName: 'GE', flagName: 'georgia'},
+        {fullName: 'Ghana', name: 'GHA', isoShortName: 'GH', flagName: 'ghana'},
+        {fullName: 'Gibraltar', name: 'GIB', isoShortName: 'GI', flagName: 'gibraltar'},
+        {fullName: 'Grenada', name: 'GRN', isoShortName: 'GD', flagName: 'grenada'},
+        {fullName: 'Griechenland', name: 'GRE', isoShortName: 'GR', flagName: 'greece'},
+        {fullName: 'Guam', name: 'GUM', isoShortName: 'GU', flagName: 'guam'},
+        {fullName: 'Guatemala', name: 'GUA', isoShortName: 'GT', flagName: 'guatemala'},
+        {fullName: 'Guinea', name: 'GUI', isoShortName: 'GN', flagName: 'guinea'},
+        {fullName: 'Guinea-Bissau', name: 'GNB', isoShortName: 'GW', flagName: 'guinea-bissau'},
+        {fullName: 'Guyana', name: 'GUY', isoShortName: 'GY', flagName: ''},
+        {fullName: 'Haiti', name: 'HAI', isoShortName: 'HT', flagName: 'haiti'},
+        {fullName: 'Honduras', name: 'HON', isoShortName: 'HN', flagName: 'honduras'},
+        {fullName: 'Hongkong', name: 'HKG', isoShortName: 'HK', flagName: 'hong-kong'},
+        {fullName: 'Indien', name: 'IND', isoShortName: 'IN', flagName: 'india'},
+        {fullName: 'Indonesien', name: 'IDN', isoShortName: 'ID', flagName: 'indonesia'},
+        {fullName: 'Irak', name: 'IRQ', isoShortName: 'IQ', flagName: 'iraq'},
+        {fullName: 'Iran', name: 'IRN', isoShortName: 'IR', flagName: 'iran'},
+        {fullName: 'Irland', name: 'IRL', isoShortName: 'IE', flagName: 'ireland'},
+        {fullName: 'Island', name: 'ISL', isoShortName: 'IS', flagName: 'iceland'},
+        {fullName: 'Israel', name: 'ISR', isoShortName: 'IL', flagName: 'israel'},
+        {fullName: 'Italien', name: 'ITA', isoShortName: 'IT', flagName: 'italy'},
+        {fullName: 'Jamaika', name: 'JAM', isoShortName: 'JM', flagName: 'jamaica'},
+        {fullName: 'Japan', name: 'JPN', isoShortName: 'JP', flagName: 'japan'},
+        {fullName: 'Jemen', name: 'YEM', isoShortName: 'YE', flagName: 'yemen'},
+        {fullName: 'Jordanien', name: 'JOR', isoShortName: 'JO', flagName: 'jordan'},
+        {fullName: 'Kambodscha', name: 'CAM', isoShortName: 'KH', flagName: 'cambodia'},
+        {fullName: 'Kamerun', name: 'CMR', isoShortName: 'CM', flagName: 'cameroon'},
+        {fullName: 'Kanada', name: 'CAN', isoShortName: 'CA', flagName: 'canada'},
+        {fullName: 'Kap Verde', name: 'CPV', isoShortName: 'CV', flagName: 'cape-verde'},
+        {fullName: 'Kasachstan', name: 'KAZ', isoShortName: 'KZ', flagName: 'kazakhstan'},
+        {fullName: 'Katar', name: 'QAT', isoShortName: 'QA', flagName: 'qatar'},
+        {fullName: 'Kenia', name: 'KEN', isoShortName: 'KE', flagName: 'kenya'},
+        {fullName: 'Kirgisistan', name: 'KGZ', isoShortName: 'KG', flagName: 'kyrgyzstan'},
+        {fullName: 'Kolumbien', name: 'COL', isoShortName: 'CO', flagName: 'colombia'},
+        {fullName: 'Komoren', name: 'COM', isoShortName: 'KM', flagName: 'comoros'},
+        {
+            fullName: 'Kongo, Demokratische Republik',
+            name: 'COD',
+            isoShortName: 'KM',
+            flagName: 'democratic-republic-of-congo'
+        },
+        {fullName: 'Kongo, Republik', name: 'CGO', isoShortName: 'KM', flagName: 'congo'},
+        {fullName: 'Korea, Demokratische Volksrepublik', name: 'PRK', isoShortName: 'KM', flagName: 'north-korea'},
+        {fullName: 'Korea, Republik', name: 'KOR', isoShortName: 'KM', flagName: 'south-korea'},
+        {fullName: 'Kosovo', name: 'KOS', isoShortName: 'XK', flagName: 'saudi-arabia'},
+        {fullName: 'Kroatien', name: 'CRO', isoShortName: 'HR', flagName: 'croatia'},
+        {fullName: 'Kuba', name: 'CUB', isoShortName: 'CU', flagName: 'cuba'},
+        {fullName: 'Kuwait', name: 'KUW', isoShortName: 'KW', flagName: 'kosovo'},
+        {fullName: 'Laos', name: 'LAO', isoShortName: 'LA', flagName: 'laos'},
+        {fullName: 'Lesotho', name: 'LES', isoShortName: 'LS', flagName: 'lesotho'},
+        {fullName: 'Lettland', name: 'LVA', isoShortName: 'LV', flagName: 'latvia'},
+        {fullName: 'Libanon', name: 'LIB', isoShortName: 'LB', flagName: 'lebanon'},
+        {fullName: 'Liberia', name: 'LBR', isoShortName: 'LR', flagName: 'liberia'},
+        {fullName: 'Libyen', name: 'LBY', isoShortName: 'LY', flagName: 'libya'},
+        {fullName: 'Liechtenstein', name: 'LIE', isoShortName: 'LI', flagName: 'liechtenstein'},
+        {fullName: 'Litauen', name: 'LTU', isoShortName: 'LT', flagName: 'lithuania'},
+        {fullName: 'Luxemburg', name: 'LUX', isoShortName: 'LU', flagName: 'luxembourg'},
+        {fullName: 'Macau', name: 'MAC', isoShortName: 'MO', flagName: 'macao'},
+        {fullName: 'Madagaskar', name: 'MAD', isoShortName: 'MG', flagName: 'madagascar'},
+        {fullName: 'Malawi', name: 'MWI', isoShortName: 'MW', flagName: 'malawi'},
+        {fullName: 'Malaysia', name: 'MAS', isoShortName: 'MY', flagName: 'malaysia'},
+        {fullName: 'Malediven', name: 'MDV', isoShortName: 'MV', flagName: 'maldives'},
+        {fullName: 'Mali', name: 'MLI', isoShortName: 'ML', flagName: 'mali'},
+        {fullName: 'Malta', name: 'MLT', isoShortName: 'MT', flagName: 'malta'},
+        {fullName: 'Marokko', name: 'MAR', isoShortName: 'MA', flagName: 'morocco'},
+        {fullName: 'Mauretanien', name: 'MTN', isoShortName: 'MR', flagName: 'mauritania'},
+        {fullName: 'Mauritius', name: 'MRI', isoShortName: 'MU', flagName: 'mauritius'},
+        {fullName: 'Mazedonien', name: 'MKD', isoShortName: 'MK', flagName: 'macedonia'},
+        {fullName: 'Mexiko', name: 'MEX', isoShortName: 'MX', flagName: 'mexico'},
+        {fullName: 'Moldau', name: 'MDA', isoShortName: 'FM', flagName: 'moldova'},
+        {fullName: 'Mongolei', name: 'MNG', isoShortName: 'MN', flagName: 'mongolia'},
+        {fullName: 'Montenegro', name: 'MNE', isoShortName: 'ME', flagName: 'montenegro'},
+        {fullName: 'Montserrat', name: 'MSR', isoShortName: 'MS', flagName: 'montserrat'},
+        {fullName: 'Mosambik', name: 'MOZ', isoShortName: 'MZ', flagName: 'mozambique'},
+        {fullName: 'Myanmar', name: 'MYA', isoShortName: 'MM', flagName: 'myanmar'},
+        {fullName: 'Namibia', name: 'NAM', isoShortName: 'NA', flagName: 'namibia'},
+        {fullName: 'Nepal', name: 'NEP', isoShortName: 'NP', flagName: 'nepal'},
+        {fullName: 'Neukaledonien', name: 'NCL', isoShortName: 'NC', flagName: 'france'},
+        {fullName: 'Neuseeland', name: 'NZL', isoShortName: 'NZ', flagName: 'new-zealand'},
+        {fullName: 'Nicaragua', name: 'NCA', isoShortName: 'NI', flagName: 'nicaragua'},
+        {fullName: 'Niederlande', name: 'NED', isoShortName: 'NL', flagName: 'netherlands'},
+        {fullName: 'Niger', name: 'NIG', isoShortName: 'NE', flagName: 'niger'},
+        {fullName: 'Nigeria', name: 'NGA', isoShortName: 'NG', flagName: 'nigeria'},
+        {fullName: 'Nordirland', name: 'NIR', isoShortName: 'NU', flagName: ''},
+        {fullName: 'Norwegen', name: 'NOR', isoShortName: 'NO', flagName: 'norway'},
+        {fullName: 'Oman', name: 'OMA', isoShortName: 'OM', flagName: 'oman'},
+        {fullName: 'Österreich', name: 'AUT', isoShortName: 'AT', flagName: 'austria'},
+        {fullName: 'Pakistan', name: 'PAK', isoShortName: 'PK', flagName: 'pakistan'},
+        {fullName: 'Palästina', name: 'PLE', isoShortName: 'PK', flagName: 'palestine'},
+        {fullName: 'Panama', name: 'PAN', isoShortName: 'PA', flagName: 'panama'},
+        {fullName: 'Papua-Neuguinea', name: 'PNG', isoShortName: 'PG', flagName: 'papua-new-guinea'},
+        {fullName: 'Paraguay', name: 'PAR', isoShortName: 'PY', flagName: 'paraguay'},
+        {fullName: 'Peru', name: 'PER', isoShortName: 'PE', flagName: 'peru'},
+        {fullName: 'Philippinen', name: 'PHI', isoShortName: 'PH', flagName: 'philippines'},
+        {fullName: 'Polen', name: 'POL', isoShortName: 'PL', flagName: 'poland'},
+        {fullName: 'Portugal', name: 'POR', isoShortName: 'PT', flagName: 'portugal'},
+        {fullName: 'Puerto Rico', name: 'PUR', isoShortName: 'PR', flagName: 'puerto-rico'},
+        {fullName: 'Ruanda', name: 'RWA', isoShortName: 'RW', flagName: 'rwanda'},
+        {fullName: 'Rumänien', name: 'ROU', isoShortName: 'RO', flagName: 'romania'},
+        {fullName: 'Russland', name: 'RUS', isoShortName: 'RU', flagName: 'russia'},
+        {fullName: 'Salomonen', name: 'SOL', isoShortName: 'PM', flagName: 'solomon-islands'},
+        {fullName: 'Sambia', name: 'ZAM', isoShortName: 'ZM', flagName: 'zambia'},
+        {fullName: 'Samoa', name: 'SAM', isoShortName: 'WS', flagName: 'samoa'},
+        {fullName: 'San Marino', name: 'SMR', isoShortName: 'SM', flagName: 'san-marino'},
+        {fullName: 'São Tomé und Príncipe', name: 'STP', isoShortName: 'ST', flagName: 'sao-tome-and-principe'},
+        {fullName: 'Saudi-Arabien', name: 'KSA', isoShortName: 'SA', flagName: 'kuwait'},
+        {fullName: 'Schottland', name: 'SCO', isoShortName: 'SA', flagName: 'scotland'},
+        {fullName: 'Schweden', name: 'SWE', isoShortName: 'SE', flagName: 'sweden'},
+        {fullName: 'Schweiz', name: 'SUI', isoShortName: 'CH', flagName: 'switzerland'},
+        {fullName: 'Senegal', name: 'SEN', isoShortName: 'SN', flagName: 'senegal'},
+        {fullName: 'Serbien', name: 'SRB', isoShortName: 'RS', flagName: 'serbia'},
+        {fullName: 'Seychellen', name: 'SEY', isoShortName: 'SC', flagName: 'seychelles'},
+        {fullName: 'Sierra Leone', name: 'SLE', isoShortName: 'SL', flagName: 'sierra-leone'},
+        {fullName: 'Simbabwe', name: 'ZIM', isoShortName: 'ZW', flagName: 'zimbabwe'},
+        {fullName: 'Singapur', name: 'SIN', isoShortName: 'SG', flagName: 'singapore'},
+        {fullName: 'Slowakei', name: 'SVK', isoShortName: 'SK', flagName: 'slovakia'},
+        {fullName: 'Slowenien', name: 'SVN', isoShortName: 'SI', flagName: 'slovenia'},
+        {fullName: 'Somalia', name: 'SOM', isoShortName: 'SO', flagName: 'somalia'},
+        {fullName: 'Spanien', name: 'ESP', isoShortName: 'ES', flagName: 'spain'},
+        {fullName: 'Sri Lanka', name: 'SRI', isoShortName: 'LK', flagName: 'sri-lanka'},
+        {fullName: 'St. Kitts und Nevis', name: 'SKN', isoShortName: 'KN', flagName: 'saint-kitts-and-nevis'},
+        {fullName: 'St. Lucia', name: 'LCA', isoShortName: 'VC', flagName: 'st-lucia'},
+        {
+            fullName: 'St. Vincent und die Grenadinen',
+            name: 'VIN',
+            isoShortName: 'VC',
+            flagName: 'st-vincent-and-the-grenadines'
+        },
+        {fullName: 'Südafrika', name: 'RSA', isoShortName: 'ZA', flagName: 'south-africa'},
+        {fullName: 'Sudan', name: 'SDN', isoShortName: 'SD', flagName: 'sudan'},
+        {fullName: 'Südsudan', name: 'SSD', isoShortName: 'SS', flagName: 'south-sudan'},
+        {fullName: 'Suriname', name: 'SUR', isoShortName: 'SR', flagName: 'suriname'},
+        {fullName: 'Swasiland', name: 'SWZ', isoShortName: 'SZ', flagName: ''},
+        {fullName: 'Syrien', name: 'SYR', isoShortName: 'SY', flagName: 'syria'},
+        {fullName: 'Tadschikistan', name: 'TJK', isoShortName: 'TJ', flagName: 'tajikistan'},
+        {fullName: 'Tansania', name: 'TAN', isoShortName: 'TZ', flagName: 'tanzania'},
+        {fullName: 'Thailand', name: 'THA', isoShortName: 'TH', flagName: 'thailand'},
+        {fullName: 'Timor-Leste', name: 'TLS', isoShortName: 'TH', flagName: 'east-timor'},
+        {fullName: 'Togo', name: 'TOG', isoShortName: 'TG', flagName: 'togo'},
+        {fullName: 'Tonga', name: 'TGA', isoShortName: 'TO', flagName: 'tonga'},
+        {fullName: 'Trinidad und Tobago', name: 'TRI', isoShortName: 'TT', flagName: 'trinidad-and-tobago'},
+        {fullName: 'Tschad', name: 'CHA', isoShortName: 'TD', flagName: 'chad'},
+        {fullName: 'Tschechien', name: 'CZE', isoShortName: 'TD', flagName: 'czech-republic'},
+        {fullName: 'Tunesien', name: 'TUN', isoShortName: 'TN', flagName: 'tunisia'},
+        {fullName: 'Türkei', name: 'TUR', isoShortName: 'TR', flagName: 'turkey'},
+        {fullName: 'Turkmenistan', name: 'TKM', isoShortName: 'TM', flagName: 'turkmenistan'},
+        {fullName: 'Turks- und Caicosinseln', name: 'TCA', isoShortName: 'TC', flagName: 'turks-and-caicos'},
+        {fullName: 'Uganda', name: 'UGA', isoShortName: 'UG', flagName: 'uganda'},
+        {fullName: 'Ukraine', name: 'UKR', isoShortName: 'UA', flagName: 'ukraine'},
+        {fullName: 'Ungarn', name: 'HUN', isoShortName: 'HU', flagName: 'hungary'},
+        {fullName: 'Uruguay', name: 'URU', isoShortName: 'UY', flagName: 'uruguay'},
+        {fullName: 'Usbekistan', name: 'UZB', isoShortName: 'UZ', flagName: 'uzbekistan'},
+        {fullName: 'Vanuatu', name: 'VAN', isoShortName: 'VU', flagName: 'vanuatu'},
+        {fullName: 'Venezuela', name: 'VEN', isoShortName: 'VE', flagName: 'venezuela'},
+        {fullName: 'Vereinigte Arabische Emirate', name: 'UAE', isoShortName: 'VE', flagName: 'united-arab-emirates'},
+        {fullName: 'Vereinigte Staaten', name: 'USA', isoShortName: 'VE', flagName: 'united-states-of-america'},
+        {fullName: 'Vietnam', name: 'VIE', isoShortName: 'VN', flagName: 'vietnam'},
+        {fullName: 'Wales', name: 'WAL', isoShortName: 'VN', flagName: 'wales'},
+        {
+            fullName: 'Zentralafrikanische Republik',
+            name: 'CTA',
+            isoShortName: 'CF',
+            flagName: 'central-african-republic'
+        },
+        {fullName: 'Zypern', name: 'CYP', isoShortName: 'CY', flagName: 'cyprus'},
+    ];
+
+    function initMatches() {
+        // @formatter:off
+        let phases = [
+            {
+                title: 'Gruppenphase, 1. Spieltag',
+                matches: [
+                    {date: '14.06.2018', time: '17:00', country1: 'RUS', country2: 'KSA', stadion: 'Luzhniki-Stadion'} ,
+                    {date: '15.06.2018', time: '14:00', country1: 'EGY', country2: 'URU', stadion: 'Jekaterinburg-Arena'},
+                    {date: '15.06.2018', time: '17:00', country1: 'MAR', country2: 'IRN', stadion: 'St. Petersburg-Stadion'},
+                    {date: '15.06.2018', time: '20:00', country1: 'POR', country2: 'ESP', stadion: 'Fisht-Stadion'},
+                    {date: '16.06.2018', time: '12:00', country1: 'FRA', country2: 'AUS', stadion: 'Kasan-Arena'},
+                    {date: '16.06.2018', time: '15:00', country1: 'ARG', country2: 'ISL', stadion: 'Spartak-Stadion'},
+                    {date: '16.06.2018', time: '18:00', country1: 'PER', country2: 'DEN', stadion: 'Mordwinien-Arena'},
+                    {date: '16.06.2018', time: '21:00', country1: 'CRO', country2: 'NGA', stadion: 'Kaliningrad-Stadion'},
+                    {date: '17.06.2018', time: '14:00', country1: 'COK', country2: 'SRB', stadion: 'Samara-Arena'},
+                    {date: '17.06.2018', time: '17:00', country1: 'GER', country2: 'MEX', stadion: 'Luzhniki-Stadion'},
+                    {date: '17.06.2018', time: '20:00', country1: 'BRA', country2: 'SUI', stadion: 'Rostow-Arena'},
+                    {date: '18.06.2018', time: '14:00', country1: 'SWE', country2: 'SDN', stadion: 'Nischni-Nowgorod-Stadion'},
+                    {date: '18.06.2018', time: '17:00', country1: 'BEL', country2: 'PAN', stadion: 'Fisht-Stadion'},
+                    {date: '18.06.2018', time: '20:00', country1: 'TUN', country2: 'ENG', stadion: 'Wolgograd-Arena'},
+                    {date: '19.06.2018', time: '14:00', country1: 'COL', country2: 'JPN', stadion: 'Mordwinien-Arena'},
+                    {date: '19.06.2018', time: '17:00', country1: 'POL', country2: 'SEN', stadion: 'Spartak-Stadion'},
+                ]
+            },
+            {
+                title: 'Gruppenphase, 2. Spieltag',
+                matches: [
+                    {date: '14.06.2018', time: '17:00', country1: 'RUS', country2: 'KSA', stadion: 'Luzhniki-Stadion'} ,
+                    {date: '15.06.2018', time: '14:00', country1: 'EGY', country2: 'URU', stadion: 'Jekaterinburg-Arena'},
+                    {date: '15.06.2018', time: '17:00', country1: 'MAR', country2: 'IRN', stadion: 'St. Petersburg-Stadion'},
+                    {date: '15.06.2018', time: '20:00', country1: 'POR', country2: 'ESP', stadion: 'Fisht-Stadion'},
+                    {date: '16.06.2018', time: '12:00', country1: 'FRA', country2: 'AUS', stadion: 'Kasan-Arena'},
+                    {date: '16.06.2018', time: '15:00', country1: 'ARG', country2: 'ISL', stadion: 'Spartak-Stadion'},
+                    {date: '16.06.2018', time: '18:00', country1: 'PER', country2: 'DEN', stadion: 'Mordwinien-Arena'},
+                    {date: '16.06.2018', time: '21:00', country1: 'CRO', country2: 'NGA', stadion: 'Kaliningrad-Stadion'},
+                    {date: '17.06.2018', time: '14:00', country1: 'COK', country2: 'SRB', stadion: 'Samara-Arena'},
+                    {date: '17.06.2018', time: '17:00', country1: 'GER', country2: 'MEX', stadion: 'Luzhniki-Stadion'},
+                    {date: '17.06.2018', time: '20:00', country1: 'BRA', country2: 'SUI', stadion: 'Rostow-Arena'},
+                    {date: '18.06.2018', time: '14:00', country1: 'SWE', country2: 'SDN', stadion: 'Nischni-Nowgorod-Stadion'},
+                    {date: '18.06.2018', time: '17:00', country1: 'BEL', country2: 'PAN', stadion: 'Fisht-Stadion'},
+                    {date: '18.06.2018', time: '20:00', country1: 'TUN', country2: 'ENG', stadion: 'Wolgograd-Arena'},
+                    {date: '19.06.2018', time: '14:00', country1: 'COL', country2: 'JPN', stadion: 'Mordwinien-Arena'},
+                    {date: '19.06.2018', time: '17:00', country1: 'POL', country2: 'SEN', stadion: 'Spartak-Stadion'},
+                ]
+            }
+        ];
+        // @formatter:on
+        for (let i = 0; i < phases.length; i++) {
+            let phase = phases[i];
+            let phaseCard = $(createPhaseCard('accordionMatches', i, phase.title));
+
+            let matchCardsContainer = $(phaseCard.find('.card-body')[0]);
+            console.log(matchCardsContainer);
+
+            phase.matches.forEach(match => {
+                let matchCard = $(createMatchCard(match));
+                matchCardsContainer.append(matchCard);
+            });
+            $('#accordionMatches').append(phaseCard);
+        }
+    }
+
+    function createPhaseCard(parentId, index, title) {
+        return '<div class="card card-phase"><div class="card-header"><button class="btn btn-link" data-toggle="collapse" data-target="#' + parentId + '_' + index + '">'
+            + title
+            + '</button></div><div id="' + parentId + '_' + index + '" class="collapse show" data-parent="#' + parentId + '"><div class="card-body card-phase-content-container"></div></div></div>';
+    }
+
+    function createMatchCard(match) {
+        return '<div class="card card-match"><div class="card-header">' +
+            match.country1 + ' vs. ' + match.country2 + '</div>' +
+            '<div class="flags"></div><div class="card-body"><div class="counter">' +
+            '<img src="img/flag/' + getCountryByName(match.country1).flagName + '.svg" class="img-flag" title="'+getCountryByName(match.country1).fullName+'" data-toggle="tooltip" data-placement="bottom">' +
+            '<div class="btn-group btngrp-counter" role="group">' +
+            '<button type="button" class="btn btn-outline-danger">-</button>' +
+            '<a class="btn btn-secondary disabled">0</a>' +
+            '<button type="button" class="btn btn-outline-success">+</button>' +
+            '</div>' +
+            '</div>' +
+            '<div class="counter second">' +
+            '<img src="img/flag/' + getCountryByName(match.country2).flagName + '.svg" class="img-flag" title="'+getCountryByName(match.country2).fullName+'" data-toggle="tooltip" data-placement="bottom">' +
+            '<div class="btn-group btngrp-counter second" role="group">' +
+            '<button type="button" class="btn btn-outline-danger">-</button>' +
+            '<a class="btn btn-secondary disabled">0</a>' +
+            '<button type="button" class="btn btn-outline-success">+</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="card-footer time">' +
+            '<span>' + match.date + ', ' + match.time + '</span>' +
+            '</div></div>';
+    }
+
+    function getCountryByName(name) {
+        for (let i = 0; i < countries.length; i++) {
+            let country = countries[i];
+            if (country.name === name) {
+                return country;
+            }
+        }
+        return null;
+    }
+</script>
+</body>
+</html>
+
+
+

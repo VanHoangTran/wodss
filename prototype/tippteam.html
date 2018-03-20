@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet"
+          href="css/bootstrap-material-design.min.css"
+          integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Hello, world!</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">LOGO</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="tippspiel3.html">Tippspiel</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="tippteam.html">Tippteam</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Admin</a>
+            </li>
+        </ul>
+    </div>
+    <!--<img id="avatar" src="https://api.adorable.io/avatars/36/Hoang.png"/>-->
+</nav>
+
+<div id="content">
+
+    <div id="accordionMatches"></div>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">Gesamtgruppe
+        </button>
+        <div id="drpTeams" class="dropdown-menu" aria-labelledby="dropdownMenuButton"></div>
+    </div>
+
+    <table id="tblMembers" class="card">
+        <tr class="card-header">
+            <th class="tdPosition">#</th>
+            <th class="tdName">Name</th>
+            <th class="tdScore">Punkte</th>
+        </tr>
+        <tr>
+            <td>1.</td>
+            <td>Hoang Tran</td>
+            <td>104</td>
+        </tr>
+    </table>
+</div>
+
+<footer>
+    Tippspiel WM 2018<br>
+    Modul WODSS (Workshop Distibuted Software Systems)<br>
+    By Hoang Tran &amp; Kevin Kirn
+</footer>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="js/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+<script src="js/popper.min.js" crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="js/bootstrap-material-design.js" crossorigin="anonymous"></script>
+
+
+<script>
+    let data = {teams: []};
+
+    $(document).ready(function () {
+        $.getJSON("data.json", function (json) {
+            onDataLoaded(json);
+        });
+    });
+
+    function onDataLoaded(json) {
+        data = json;
+        insertTeamData();
+    }
+
+    function insertTeamData() {
+        data.teams.forEach(team => {
+            $('#drpTeams').append('<a class="dropdown-item" onclick="onChangeTeam(this)" href="#">' + team.name + '</a>');
+        });
+    }
+
+    function onChangeTeam(obj) {
+        let teamName = $(obj).text();
+        $('#dropdownMenuButton').text(teamName);
+        let team = getTeamByName(teamName);
+        displayTeam(team);
+    }
+
+    function displayTeam(team) {
+        clearMemberTable();
+        let tblMember = $('#tblMembers');
+        let members = team.members;
+        for (let i = 0; i < members.length; i++) {
+            let member = members[i];
+            tblMember.append('<tr>' +
+                '<td class="tdPosition">' + (i + 1) + '</td>' +
+                '<td class="tdName">' + member.name + '</td>' +
+                '<td class="tdScore">' + member.score + '</td>' +
+                '</tr>');
+        }
+    }
+
+    function clearMemberTable() {
+        // remove every TR element except the first one
+        let rows = $('#tblMembers').find('tr');
+        for (let i = 1; i < rows.length; i++) {
+            rows[i].remove();
+        }
+    }
+
+    function getTeamByName(name) {
+        for (let i = 0; i < data.teams.length; i++) {
+            if (data.teams[i].name === name) {
+                return data.teams[i];
+            }
+        }
+    }
+</script>
+</body>
+</html>
+
+
+

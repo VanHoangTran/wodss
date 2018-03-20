@@ -1,0 +1,133 @@
+/*
+primary color: #4CAF50
+primary color dark: #388E3C
+
+*/
+:root {
+    --nav-bg-color: #424242;
+    --nav-text-color: #FFFFFF;
+
+    --default-bg-color: #EEEEEE;
+
+
+
+    --default-padding-margin: 1rem;
+}
+
+body {
+    background: #D5D5D5;
+}
+
+footer {
+    padding: 2rem;
+    color: #9E9E9E;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    background-color: var(--nav-bg-color);
+}
+
+.navbar a {
+    color: var(--nav-text-color);
+}
+
+#avatar {
+    border-radius: 25px;
+    border: 2px solid #388E3C;
+}
+
+#content {
+    padding: 4.5rem var(--default-padding-margin) var(--default-padding-margin);
+    background: #E0E0E0;
+}
+
+.card-phase > .card-header {
+    padding: 0;
+}
+
+.card-phase > .card-header .btn {
+    padding: var(--default-padding-margin);
+    margin: 0;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+}
+
+.card-phase .card-phase-content-container {
+    padding: 0.5rem;
+    background: var(--default-bg-color);
+}
+
+.card-phase .counter {
+    margin: calc(var(--default-padding-margin) / 2);
+    display: block;
+}
+
+.card-phase .btngrp-counter {
+    box-shadow: 0 2px 6px #BDBDBD;
+    margin: 0;
+}
+
+.card-phase .btngrp-counter a {
+    color: black;
+    opacity: 1 !important;
+    border: solid #9E9E9E;
+    border-width: 1px 0;
+}
+
+.card-phase .btngrp-counter .btn {
+    margin: 0;
+}
+
+.card-match {
+    margin: 0.5rem;
+    min-width: 15rem;
+    display: inline-block;
+    text-align: center;
+}
+
+/* @formatter:off */
+@media (max-width: 180rem) {.card-match {width: calc(100% / 10 - 1rem);}}
+@media (max-width: 164rem) {.card-match {width: calc(100% /  9 - 1rem);}}
+@media (max-width: 148rem) {.card-match {width: calc(100% /  8 - 1rem);}}
+@media (max-width: 132rem) {.card-match {width: calc(100% /  7 - 1rem);}}
+@media (max-width: 116rem) {.card-match {width: calc(100% /  6 - 1rem);}}
+@media (max-width: 100rem) {.card-match {width: calc(100% /  5 - 1rem);}}
+@media (max-width:  84rem) {.card-match {width: calc(100% /  4 - 1rem);}}
+@media (max-width:  68rem) {.card-match {width: calc(100% /  3 - 1rem);}}
+@media (max-width:  52rem) {.card-match {width: calc(100% /  2 - 1rem);}}
+@media (max-width:  36rem) {.card-match {width: calc(100% /  1 - 1rem);}}
+/* @formatter:on */
+
+.img-flag {
+    height: 2.5em;
+    margin-right: var(--default-padding-margin);
+}
+
+
+/* Tippteam */
+#tblMembers {
+    background: white;
+}
+#tblMembers td, #tblMembers th {
+    padding: calc(var(--default-padding-margin) / 2);
+}
+#tblMembers th {
+    padding-top: var(--default-padding-margin);
+    padding-bottom: var(--default-padding-margin);
+}
+#tblMembers .tdPosition {
+    text-align: right;
+    padding-left: var(--default-padding-margin);
+}
+#tblMembers .tdName {
+    width: 100%;
+}
+#tblMembers .tdScore {
+    text-align: right;
+    padding-right: var(--default-padding-margin);
+}

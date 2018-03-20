@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet"
+          href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+          integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Hello, world!</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg" style="background-color: #4CAF50;">
+    <a class="navbar-brand" href="#">LOGO</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Tippspiel<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Tippteam</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Admin</a>
+            </li>
+        </ul>
+    </div>
+    <img id="avatar" src="https://api.adorable.io/avatars/36/Hoang.png"/>
+</nav>
+
+<div id="content">
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            Gesamtgruppe
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Die lustige Tippgruppe</a>
+            <a class="dropdown-item" href="#">Gruppe ALPHA</a>
+            <a class="dropdown-item" href="#">FHNW Tipper</a>
+        </div>
+    </div>
+
+    <div class="card game">
+        <div class="flags">
+            <img class="img-flag right" title="Frankreich" data-toggle="tooltip" data-placement="bottom"
+                 src="https://image.flaticon.com/icons/svg/552/552029.svg">
+            <img class="img-flag left" title="Australien" data-toggle="tooltip" data-placement="bottom"
+                 src="https://image.flaticon.com/icons/svg/551/551976.svg">
+        </div>
+        <div class="card-footer">
+            <div class="btn-group btngrp-counter" role="group">
+                <button type="button" class="btn btn-outline-danger">-</button>
+                <a class="btn btn-secondary disabled">0</a>
+                <button type="button" class="btn btn-outline-success">+</button>
+            </div>
+            <div class="btn-group btngrp-counter right" role="group">
+                <button type="button" class="btn btn-outline-danger">-</button>
+                <a class="btn btn-secondary disabled">0</a>
+                <button type="button" class="btn btn-outline-success">+</button>
+            </div>
+        </div>
+        <div class="card-footer time">
+            <span>16.06.2018, 12:00</span>
+        </div>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+        integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+        crossorigin="anonymous"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+</body>
+</html>

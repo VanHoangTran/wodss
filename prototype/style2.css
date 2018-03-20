@@ -1,0 +1,91 @@
+/*
+primary color: #4CAF50
+primary color dark: #388E3C
+
+*/
+
+.nav-item .nav-link, .navbar-brand {
+    color: white;
+}
+
+#avatar {
+    border-radius: 25px;
+    border: 2px solid #388E3C;
+}
+
+#content {
+    padding: 16px;
+    background: #EEEEEE;
+}
+
+.card.game {
+    text-align: center;
+}
+
+
+.card.game .card-header, .card.game .card-footer {
+    background: #FAFAFA;
+}
+.card.game .counter.second {
+    margin-top: 16px;
+}
+
+.btngrp-counter {
+    box-shadow: 0 2px 6px #BDBDBD;
+    margin: 0;
+}
+
+.btngrp-counter > a {
+    color: black;
+    opacity: 1 !important;
+    border: solid #9E9E9E;
+    border-width: 1px 0;
+}
+
+.btngrp-counter > .btn {
+    margin: 0;
+}
+
+.card.game {
+    display: inline-block;
+}
+
+.card.game .img-flag {
+    height: 2.5em;
+    display: inline-block;
+    margin-right: 16px;
+}
+
+.card.game .img-flag.left {
+    border-radius: .125rem 0 0 0;
+}
+
+.card.game .img-flag.right {
+    border-radius: 0 .125rem 0 0;
+}
+
+.card-phase .card-phase-content-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.card-phase .card-phase-content-container:after {
+    content: "";
+    flex: auto;
+}
+
+.card-match {
+    margin: 8px;
+    display: inline-block;
+    text-align: center;
+}
+
+.card.card-match .counter.second {
+    margin-top: 8px;
+}
+
+.img-flag {
+    height: 2.5em;
+    margin-right: 16px;
+}
