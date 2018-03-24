@@ -4,22 +4,23 @@ import Login from './login/Login';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {appTheme} from "../styles/AppTheme";
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import "./Root.css";
 
 function ValidateAuth(props) {
     // TODO: do magic here...
     let loggedIn = false;
 
-    if(loggedIn) {
-        return <App />;
+    if (loggedIn) {
+        return <App/>;
     } else {
-        return <Login />;
+        return <Login/>;
     }
 }
 
 const Root = ({store}) => (
     <MuiThemeProvider muiTheme={getMuiTheme(appTheme)}>
         <div>
-            <ValidateAuth />
+            <ValidateAuth/>
         </div>
     </MuiThemeProvider>
 );

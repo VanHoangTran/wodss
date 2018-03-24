@@ -1,9 +1,9 @@
-import {primaryColor} from "./colors";
+import {colors} from "./colors";
 
 export const appTheme = {
     palette: {
-        primary1Color: primaryColor,
-        primary2Color: primaryColor,
-        primary3Color: primaryColor,
+        primary1Color: colors.primaryColor,
+        primary2Color: colors.primaryColor,
+        primary3Color: colors.primaryColor,
     }
 };
