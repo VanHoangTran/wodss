@@ -7,14 +7,22 @@ import { applyMiddleware, createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
 import Root from './components/Root'
 import allReducers from './reducers';
+import {loadState, saveState} from './util/localState';
+
+const persistedState = loadState();
 
 const store = createStore(
     allReducers,
+    persistedState,
     compose(
       applyMiddleware(thunk),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )
 );
+
+store.subscribe(() => {
+  saveState(store.getState());
+});
 
 render(
   <Provider store={store}>

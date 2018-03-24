@@ -14,7 +14,7 @@ class Root extends Component {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(appTheme)}>
                 <div>
-                    {this.props.authenticationState == true ? <App/> : <Login/>}                   
+                    {this.props.authenticationState === true ? <App/> : <Login/>}                   
                 </div>
             </MuiThemeProvider>
         );
