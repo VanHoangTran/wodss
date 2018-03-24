@@ -5,9 +5,11 @@ export const strings = new LocalizedStrings({
         login: "Login",
         userName: "Benutzername",
         password: "Passwort",
+        confirmPassword: "Passwort bestätigen",
         forgotPassword: "Passwort vergessen?",
         resetPassword: "Passwort zurücksetzen",
         noAccountYet: "Noch keinen Account?",
         signUp: "Registrieren",
+        mail: "E-Mail-Adresse",
     }
 });

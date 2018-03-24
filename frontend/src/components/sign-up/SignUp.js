@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import {strings} from "../../strings";
 import {apiAuthenticate, updateCredentials} from '../../actions/user-actions';
 import {connect} from 'react-redux';
+import Header from "../header/Header";
 
 const styles = {
     card: {
@@ -29,12 +30,12 @@ const styles = {
     },
 };
 
-class Login extends Component {
+class SignUp extends Component {
 
     render() {
         return (
             <Card style={styles.card}>
-                <CardHeader title={strings.login} style={styles.cardHeader} titleColor={styles.cardHeader}/>
+                <CardHeader title={strings.signUp} style={styles.cardHeader} titleColor={styles.cardHeader}/>
                 <CardText>
                     <TextField
                         floatingLabelText={strings.userName}
@@ -44,7 +45,22 @@ class Login extends Component {
                     />
                     <br/>
                     <TextField
+                        floatingLabelText={strings.mail}
+                        underlineFocusStyle={styles.textField}
+                        floatingLabelFocusStyle={styles.textField}
+                        onChange={this.onUpdateCredentials}
+                    />
+                    <br/>
+                    <TextField
                         floatingLabelText={strings.password}
+                        type="password"
+                        underlineFocusStyle={styles.textField}
+                        floatingLabelFocusStyle={styles.textField}
+                        onChange={this.onUpdateCredentials}
+                    />
+                    <br/>
+                    <TextField
+                        floatingLabelText={strings.confirmPassword}
                         type="password"
                         underlineFocusStyle={styles.textField}
                         floatingLabelFocusStyle={styles.textField}
@@ -63,40 +79,6 @@ class Login extends Component {
             </Card>
         );
     }
-
-    constructor(props) {
-        super(props);
-
-        this.authenticate = this.authenticate.bind(this);
-        this.onUpdateCredentials = this.onUpdateCredentials.bind(this);
-    }
-
-    // update local state by user's input
-    onUpdateCredentials(event) {
-        let username = document.getElementById('username').value;
-        let password = document.getElementById('password').value;
-        this.props.onUpdateCredentials(username, password);
-    }
-
-    // send login request to api
-    authenticate(event) {
-        let username = this.props.user.username;
-        let password = this.props.user.password;
-        this.props.authenticate(username, password);
-    }
-
 }
 
-// subscribes store to Login.props
-const mapStateToProps = state => {
-    return {
-        user: state.user
-    }
-};
-
-const mapActionsToProps = {
-    authenticate: apiAuthenticate,
-    onUpdateCredentials: updateCredentials
-};
-
-export default connect(mapStateToProps, mapActionsToProps)(Login);
+export default SignUp
