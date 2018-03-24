@@ -36,7 +36,9 @@ class Login extends Component {
             <Card style={styles.card}>
                 <CardHeader title={strings.login} style={styles.cardHeader} titleColor={styles.cardHeader}/>
                 <CardText>
+                  <div>{this.props.user.authenticationFailure ? 'auth failed' : ''}</div>
                     <TextField
+                        id="username"
                         floatingLabelText={strings.userName}
                         underlineFocusStyle={styles.textField}
                         floatingLabelFocusStyle={styles.textField}
@@ -44,6 +46,7 @@ class Login extends Component {
                     />
                     <br/>
                     <TextField
+                        id="password"
                         floatingLabelText={strings.password}
                         type="password"
                         underlineFocusStyle={styles.textField}
@@ -89,10 +92,11 @@ class Login extends Component {
 
 // subscribes store to Login.props
 const mapStateToProps = state => {
-    return {
-        user: state.user
-    }
-};
+  return {
+    user : state.user,
+    error: state.error
+  }
+}
 
 const mapActionsToProps = {
     authenticate: apiAuthenticate,
