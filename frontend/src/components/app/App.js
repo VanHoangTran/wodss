@@ -3,12 +3,12 @@ import logo from './logo.svg';
 import './App.css';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { updateUser, apiRequest } from '../../actions/user-actions'; 
+import { updateUser, apiRequest } from '../../actions/user-actions';
 
 import { createSelector } from 'reselect';
 
 class App extends Component {
-  
+
   constructor(props) {
     super(props);
 
@@ -18,7 +18,7 @@ class App extends Component {
   componentDidMount() {
     this.props.onApiRequest();
   }
-  
+
   onUpdateUser(event) {
     this.props.onUpdateUser(event.target.value);
   }
