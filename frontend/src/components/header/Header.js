@@ -25,8 +25,6 @@ const styles = {
     },
     tab: {
         height: dimensions.toolbar,
-        paddingLeft: dimensions.defaultSpacing,
-        paddingRight: dimensions.defaultSpacing,
     }
 };
 
@@ -47,7 +45,10 @@ const Header = () => (
                     style={styles.tab}
                 />
             </Tabs>
-            <FlatButton label="Save"/>
+            <FlatButton rippleColor={colors.light} hoverColor="transparent">
+                asdfasdf asd
+            </FlatButton>
+
         </div>
     </div>
 );

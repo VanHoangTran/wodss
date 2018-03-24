@@ -12,14 +12,14 @@ class Root extends Component {
     render() {
         let authenticated = false;
 
-        if(this.props.user && this.props.user.authenticationState.authenticated === true){
+        if (this.props.user && this.props.user.authenticationState.authenticated === true) {
             authenticated = true;
         }
 
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(appTheme)}>
                 <div>
-                    { authenticated === true ? <App /> : <Login />}
+                    {authenticated === true ? <App/> : <Login/>}
                 </div>
             </MuiThemeProvider>
         );

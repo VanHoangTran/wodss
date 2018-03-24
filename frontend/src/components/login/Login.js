@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import {RaisedButton, TextField} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
@@ -10,15 +10,21 @@ import animate from 'animate.css'
 
 const styles = {
     card: {
-        display: 'inline-block',
-        marginTop: 100
+        width: dimensions.formCardWidth,
+        margin: 'auto',
+        marginTop: dimensions.formCardMarginTop,
     },
     cardHeader: {
         backgroundColor: colors.primaryColor,
     },
+    cardBody: {
+        padding: dimensions.bigSpacing,
+        paddingTop: dimensions.defaultSpacing,
+    },
     textField: {
         borderColor: colors.primaryColor,
         color: colors.primaryColor,
+        width: '100%',
     },
     button: {
         marginTop: dimensions.bigSpacing,
@@ -30,18 +36,18 @@ const styles = {
     },
 };
 
-class Login extends Component {
+class Login extends React.Component {
 
     render() {
 
         return (
-            <center>
             <Card id="loginForm" style={styles.card}>
                 <CardHeader title={strings.login} style={styles.cardHeader} titleColor={colors.light}/>
-                <CardText>
+                <CardText style={styles.cardBody}>
                     <TextField
                         id="username"
-                        floatingLabelText={strings.userName}
+                        style={styles.textField}
+                        floatingLabelText={strings.username}
                         underlineFocusStyle={styles.textField}
                         floatingLabelFocusStyle={styles.textField}
                         onChange={this.onUpdateCredentials}
@@ -49,8 +55,9 @@ class Login extends Component {
                     <br/>
                     <TextField
                         id="password"
-                        floatingLabelText={strings.password}
                         type="password"
+                        style={styles.textField}
+                        floatingLabelText={strings.password}
                         underlineFocusStyle={styles.textField}
                         floatingLabelFocusStyle={styles.textField}
                         onChange={this.onUpdateCredentials}
@@ -66,7 +73,6 @@ class Login extends Component {
                     </div>
                 </CardText>
             </Card>
-            </center>
         );
     }
 
@@ -90,7 +96,7 @@ const mapStateToProps = state => {
     return {
         user: state.user
     }
-}
+};
 
 const mapActionsToProps = {
     authenticate: apiAuthenticate

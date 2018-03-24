@@ -3,7 +3,7 @@ import LocalizedStrings from 'react-localization';
 export const strings = new LocalizedStrings({
     de: {
         login: "Login",
-        userName: "Benutzername",
+        username: "Benutzername",
         password: "Passwort",
         confirmPassword: "Passwort bestätigen",
         forgotPassword: "Passwort vergessen?",
