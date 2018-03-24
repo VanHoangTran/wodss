@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import {RaisedButton, TextField} from "material-ui";
-import {colors, dimensions} from "../../constants";
+import {colors, dimensions} from "../../util/constants";
 import {NavLink} from 'react-router-dom'
 import {strings} from "../../strings";
 import {apiAuthenticate, updateCredentials} from '../../actions/user-actions';
@@ -28,17 +28,16 @@ const styles = {
     },
 };
 
-class Login extends Component {
+class Login extends React.Component {
 
     render() {
         return (
             <Card style={styles.card}>
                 <CardHeader title={strings.login} style={styles.cardHeader} titleColor={colors.light}/>
                 <CardText>
-                    <div>{this.props.user.authenticationState ? 'auth failed' : ''}</div>
                     <TextField
                         id="username"
-                        floatingLabelText={strings.userName}
+                        floatingLabelText={strings.username}
                         underlineFocusStyle={styles.textField}
                         floatingLabelFocusStyle={styles.textField}
                         onChange={this.onUpdateCredentials}

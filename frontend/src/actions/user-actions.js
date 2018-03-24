@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import base64 from 'base-64';
-import {API_ENDPOINT, API_AUTH_ACTION} from '../constants';
+import {API_ENDPOINT, API_AUTH_ACTION} from '../util/constants';
 
 export const UPDATE_CREDENTIALS = 'user:updateCredentials';
 export const SHOW_ERROR = 'user:showError'; 

@@ -1,16 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import {RaisedButton, TextField} from "material-ui";
-import {colors, dimensions} from "../../constants";
-import {NavLink} from "react-router-dom";
+import {colors, dimensions} from "../../util/constants";
 import {strings} from "../../strings";
-import Divider from 'material-ui/Divider';
 
 const styles = {
     card: {
         display: 'inline-block',
-        marginTop: '10rem',
-        marginLeft: '20rem',
     },
     cardHeader: {
         backgroundColor: colors.primaryColor,
@@ -29,7 +25,7 @@ const styles = {
     form: {
         width: '20rem',
         padding: dimensions.bigSpacing,
-        paddingTop: 0,
+        paddingTop: dimensions.defaultSpacing,
         float: 'left',
         textAlign: 'left',
     },
@@ -44,14 +40,15 @@ const styles = {
     },
 };
 
-class SignUp extends Component {
+class SignUp extends React.Component {
 
     render() {
         return (
             <Card style={styles.card}>
                 <CardHeader title={strings.signUp} style={styles.cardHeader} titleColor={colors.light}/>
                 <CardText style={styles.cardBody}>
-                    <img id="avatar" style={styles.avatar} src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN89x8AAuEB74Y0o2cAAAAASUVORK5CYII="/>
+                    <img id="avatar" style={styles.avatar}
+                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN89x8AAuEB74Y0o2cAAAAASUVORK5CYII="/>
                     <div style={styles.form}>
                         <TextField
                             style={styles.textField}
