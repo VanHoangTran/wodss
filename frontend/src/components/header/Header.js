@@ -45,7 +45,7 @@ const Header = () => (
                     style={styles.tab}
                 />
             </Tabs>
-            <FlatButton style={styles.} rippleColor={colors.light} hoverColor="transparent">
+            <FlatButton rippleColor={colors.light} hoverColor="transparent">
                 asdfasdf asd
             </FlatButton>
 

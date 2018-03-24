@@ -6,7 +6,9 @@ import {strings} from "../../strings";
 
 const styles = {
     card: {
-        display: 'inline-block',
+        width: '46rem',
+        margin: 'auto',
+        marginTop: dimensions.formCardMarginTop,
     },
     cardHeader: {
         backgroundColor: colors.primaryColor,
@@ -16,17 +18,17 @@ const styles = {
         textAlign: 'center',
     },
     avatar: {
+        display: 'inline-block',
         margin: dimensions.bigSpacing,
         marginRight: 0,
-        float: 'left',
         width: '20rem',
         borderRadius: '10rem',
     },
     form: {
+        display: 'inline-block',
         width: '20rem',
         padding: dimensions.bigSpacing,
         paddingTop: dimensions.defaultSpacing,
-        float: 'left',
         textAlign: 'left',
     },
     textField: {

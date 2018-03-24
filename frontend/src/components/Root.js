@@ -10,11 +10,16 @@ import "./Root.css";
 class Root extends Component {
 
     render() {
+        let authenticated = false;
+
+        if (this.props.user && this.props.user.authenticationState.authenticated === true) {
+            authenticated = true;
+        }
 
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(appTheme)}>
                 <div>
-                    {this.props.authenticationState === true ? <App/> : <Login/>}
+                    {authenticated === true ? <App/> : <Login/>}
                 </div>
             </MuiThemeProvider>
         );
@@ -24,7 +29,7 @@ class Root extends Component {
 // subscribe user's authentication state
 const mapStateToProps = state => {
     return {
-        authenticationState: state.user.authenticationState
+        user: state.user
     }
 }
 

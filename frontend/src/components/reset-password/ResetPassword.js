@@ -6,7 +6,9 @@ import {strings} from "../../strings";
 
 const styles = {
     card: {
-        display: 'inline-block',
+        width: dimensions.formCardWidth,
+        margin: 'auto',
+        marginTop: dimensions.formCardMarginTop,
     },
     cardHeader: {
         backgroundColor: colors.primaryColor,

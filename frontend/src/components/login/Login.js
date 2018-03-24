@@ -4,19 +4,27 @@ import {RaisedButton, TextField} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
 import {NavLink} from 'react-router-dom'
 import {strings} from "../../strings";
-import {apiAuthenticate, updateCredentials} from '../../actions/user-actions';
+import {apiAuthenticate} from '../../actions/user-actions';
 import {connect} from 'react-redux';
+import animate from 'animate.css'
 
 const styles = {
     card: {
-        display: 'inline-block',
+        width: dimensions.formCardWidth,
+        margin: 'auto',
+        marginTop: dimensions.formCardMarginTop,
     },
     cardHeader: {
         backgroundColor: colors.primaryColor,
     },
+    cardBody: {
+        padding: dimensions.bigSpacing,
+        paddingTop: dimensions.defaultSpacing,
+    },
     textField: {
         borderColor: colors.primaryColor,
         color: colors.primaryColor,
+        width: '100%',
     },
     button: {
         marginTop: dimensions.bigSpacing,
@@ -31,12 +39,14 @@ const styles = {
 class Login extends React.Component {
 
     render() {
+
         return (
-            <Card style={styles.card}>
+            <Card id="loginForm" style={styles.card}>
                 <CardHeader title={strings.login} style={styles.cardHeader} titleColor={colors.light}/>
-                <CardText>
+                <CardText style={styles.cardBody}>
                     <TextField
                         id="username"
+                        style={styles.textField}
                         floatingLabelText={strings.username}
                         underlineFocusStyle={styles.textField}
                         floatingLabelFocusStyle={styles.textField}
@@ -45,8 +55,9 @@ class Login extends React.Component {
                     <br/>
                     <TextField
                         id="password"
-                        floatingLabelText={strings.password}
                         type="password"
+                        style={styles.textField}
+                        floatingLabelText={strings.password}
                         underlineFocusStyle={styles.textField}
                         floatingLabelFocusStyle={styles.textField}
                         onChange={this.onUpdateCredentials}
@@ -69,20 +80,12 @@ class Login extends React.Component {
         super(props);
 
         this.authenticate = this.authenticate.bind(this);
-        this.onUpdateCredentials = this.onUpdateCredentials.bind(this);
-    }
-
-    // update local state by user's input
-    onUpdateCredentials(event) {
-        let username = document.getElementById('username').value;
-        let password = document.getElementById('password').value;
-        this.props.onUpdateCredentials(username, password);
     }
 
     // send login request to api
     authenticate(event) {
-        let username = this.props.user.username;
-        let password = this.props.user.password;
+        let username = document.getElementById('username').value;
+        let password = document.getElementById('password').value;
         this.props.authenticate(username, password);
     }
 
@@ -91,14 +94,12 @@ class Login extends React.Component {
 // subscribes store to Login.props
 const mapStateToProps = state => {
     return {
-        user: state.user,
-        error: state.error
+        user: state.user
     }
-}
+};
 
 const mapActionsToProps = {
-    authenticate: apiAuthenticate,
-    onUpdateCredentials: updateCredentials
+    authenticate: apiAuthenticate
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Login);
