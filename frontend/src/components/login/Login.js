@@ -35,7 +35,6 @@ class Login extends Component {
             <Card style={styles.card}>
                 <CardHeader title={strings.login} style={styles.cardHeader} titleColor={colors.light}/>
                 <CardText>
-                    <div>{this.props.user.authenticationState ? 'auth failed' : ''}</div>
                     <TextField
                         id="username"
                         floatingLabelText={strings.userName}
