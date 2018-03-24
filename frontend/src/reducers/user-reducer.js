@@ -1,8 +1,8 @@
-import { UPDATE_USER, SHOW_ERROR} from '../actions/user-actions';
+import { UPDATE_CREDENTIALS, SHOW_ERROR} from '../actions/user-actions';
 
 export default function userReducer(state = '', {type, payload}) {
     switch (type) {
-        case UPDATE_USER:
+        case UPDATE_CREDENTIALS:
             return payload.user;
         case SHOW_ERROR:
             return payload.user;

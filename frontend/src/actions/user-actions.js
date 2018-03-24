@@ -1,13 +1,18 @@
 import $ from 'jquery';
-
-export const UPDATE_USER = 'user:updateUser';
+import base64 from 'base-64'
+import {API_ENDPOINT} from '../constants';
+export const UPDATE_CREDENTIALS = 'user:updateCredentials';
 export const SHOW_ERROR = 'user:showError'; 
 
-export function updateUser(newUser) {
+// update user state (username, password) on login
+export function updateCredentials(username, password) {
     return {
-        type: UPDATE_USER,
+        type: UPDATE_CREDENTIALS,
         payload: {
-            user: newUser
+            user: {
+                username: username,
+                password: base64.encode(password)
+            }
         }
     }
 }
@@ -21,10 +26,10 @@ export function showError() {
     }
 }
 
-export function apiRequest() { 
+export function apiAuthenticate(username, password) { 
     return dispatch => {
         $.ajax({
-            url: 'http://google.com',
+            url: API_ENDPOINT,
             success() {
                 console.log('SUCCESS');
             },

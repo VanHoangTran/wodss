@@ -7,7 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 function ValidateAuth(props) {
     // TODO: do magic here...
-    let loggedIn = true;
+    let loggedIn = false;
 
     if(loggedIn) {
         return <App />;
