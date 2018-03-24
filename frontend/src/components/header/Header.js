@@ -1,11 +1,8 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import FlatButton from 'material-ui/FlatButton';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import Slider from 'material-ui/Slider';
+import {Tab, Tabs} from 'material-ui/Tabs';
 import {dimensions} from "../../styles/dimensions";
 
 const styles = {
@@ -29,7 +26,7 @@ function handleActive(tab) {
 const Header = () => (
     <div className="header">
         <NavLink exact to="/">Startseite</NavLink>
-        <NavLink exact to="/login">Login</NavLink>
+        <NavLink exact to="/logout">Logout</NavLink>
 
         <AppBar
             style={styles.toolbar}

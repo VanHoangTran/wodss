@@ -5,6 +5,8 @@ import {colors} from "../../styles/colors";
 import {dimensions} from "../../styles/dimensions";
 import {Link} from "react-router-dom";
 import {strings} from "../../strings";
+import {apiAuthenticate, updateCredentials} from '../../actions/user-actions';
+import {connect} from 'react-redux';
 
 const styles = {
     card: {
@@ -39,6 +41,7 @@ class Login extends Component {
                         floatingLabelText={strings.userName}
                         underlineFocusStyle={styles.textField}
                         floatingLabelFocusStyle={styles.textField}
+                        onChange={this.onUpdateCredentials}
                     />
                     <br/>
                     <TextField
@@ -46,9 +49,10 @@ class Login extends Component {
                         type="password"
                         underlineFocusStyle={styles.textField}
                         floatingLabelFocusStyle={styles.textField}
+                        onChange={this.onUpdateCredentials}
                     />
                     <br/>
-                    <RaisedButton label="OK" primary={true} style={styles.button}/>
+                    <RaisedButton label="OK" onClick={this.authenticate} primary={true} style={styles.button}/>
                     <div style={styles.actionLinksContainer}>
                         <span>{strings.forgotPassword} </span>
                         <Link exact to="/resetPassword">{strings.resetPassword}</Link>
@@ -60,6 +64,40 @@ class Login extends Component {
             </Card>
         );
     }
+
+    constructor(props) {
+        super(props);
+
+        this.authenticate = this.authenticate.bind(this);
+        this.onUpdateCredentials = this.onUpdateCredentials.bind(this);
+    }
+
+    // update local state by user's input
+    onUpdateCredentials(event) {
+        let username = document.getElementById('username').value;
+        let password = document.getElementById('password').value;
+        this.props.onUpdateCredentials(username, password);
+    }
+
+    // send login request to api
+    authenticate(event) {
+        let username = this.props.user.username;
+        let password = this.props.user.password;
+        this.props.authenticate(username, password);
+    }
+
 }
 
-export default Login;
+// subscribes store to Login.props
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+};
+
+const mapActionsToProps = {
+    authenticate: apiAuthenticate,
+    onUpdateCredentials: updateCredentials
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(Login);
