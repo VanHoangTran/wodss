@@ -3,7 +3,7 @@ import {Card, CardHeader, CardText} from 'material-ui/Card';
 import {RaisedButton, TextField} from "material-ui";
 import {colors} from "../../styles/colors";
 import {dimensions} from "../../styles/dimensions";
-import {Link} from "react-router-dom";
+import {NavLink} from 'react-router-dom'
 import {strings} from "../../strings";
 import {apiAuthenticate, updateCredentials} from '../../actions/user-actions';
 import {connect} from 'react-redux';
@@ -35,9 +35,9 @@ class Login extends Component {
     render() {
         return (
             <Card style={styles.card}>
-                <CardHeader title={strings.login} style={styles.cardHeader} titleColor={styles.cardHeader}/>
+                <CardHeader title={strings.login} style={styles.cardHeader} />
                 <CardText>
-                  <div>{this.props.user.authenticationFailure ? 'auth failed' : ''}</div>
+                  <div>{this.props.user.authenticationState ? 'auth failed' : ''}</div>
                     <TextField
                         id="username"
                         floatingLabelText={strings.userName}
@@ -58,10 +58,10 @@ class Login extends Component {
                     <RaisedButton label="OK" onClick={this.authenticate} primary={true} style={styles.button}/>
                     <div style={styles.actionLinksContainer}>
                         <span>{strings.forgotPassword} </span>
-                        <Link exact to="/resetPassword">{strings.resetPassword}</Link>
+                        <NavLink exact to="/resetPassword">{strings.resetPassword}</NavLink>
                         <br/>
                         <span>{strings.noAccountYet} </span>
-                        <Link exact to="/signUp">{strings.signUp}</Link>
+                        <NavLink exact to="/signUp">{strings.signUp}</NavLink>
                     </div>
                 </CardText>
             </Card>

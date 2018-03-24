@@ -1,6 +1,7 @@
 import $ from 'jquery';
-import base64 from 'base-64'
+import base64 from 'base-64';
 import {API_ENDPOINT, API_AUTH_ACTION} from '../constants';
+
 export const UPDATE_CREDENTIALS = 'user:updateCredentials';
 export const SHOW_ERROR = 'user:showError'; 
 
@@ -17,11 +18,11 @@ export function updateCredentials(username, password) {
     }
 }
 
-export function showError(msg) {
+export function setAuthenticationState(authenticated) {
     return {
         type: SHOW_ERROR,
         payload: {
-            user: { authenticationFailure : true }
+            user: { authenticationState : authenticated }
         }
     }
 }
@@ -36,10 +37,10 @@ export function apiAuthenticate(username, password) {
                 'Authorization': 'Basic ' + base64.encode(username + ':' + password)
             },
             success(data) {
-                alert(data)
+                dispatch(setAuthenticationState(true));
             },
             error(response) {
-                dispatch(showError());
+                dispatch(setAuthenticationState(false));
             }
         });
     }
