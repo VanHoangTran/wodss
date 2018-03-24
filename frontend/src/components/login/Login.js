@@ -4,12 +4,14 @@ import {RaisedButton, TextField} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
 import {NavLink} from 'react-router-dom'
 import {strings} from "../../strings";
-import {apiAuthenticate, updateCredentials} from '../../actions/user-actions';
+import {apiAuthenticate} from '../../actions/user-actions';
 import {connect} from 'react-redux';
+import animate from 'animate.css'
 
 const styles = {
     card: {
         display: 'inline-block',
+        marginTop: 100
     },
     cardHeader: {
         backgroundColor: colors.primaryColor,
@@ -31,8 +33,10 @@ const styles = {
 class Login extends Component {
 
     render() {
+
         return (
-            <Card style={styles.card}>
+            <center>
+            <Card id="loginForm" style={styles.card}>
                 <CardHeader title={strings.login} style={styles.cardHeader} titleColor={colors.light}/>
                 <CardText>
                     <TextField
@@ -62,6 +66,7 @@ class Login extends Component {
                     </div>
                 </CardText>
             </Card>
+            </center>
         );
     }
 
@@ -69,20 +74,12 @@ class Login extends Component {
         super(props);
 
         this.authenticate = this.authenticate.bind(this);
-        this.onUpdateCredentials = this.onUpdateCredentials.bind(this);
-    }
-
-    // update local state by user's input
-    onUpdateCredentials(event) {
-        let username = document.getElementById('username').value;
-        let password = document.getElementById('password').value;
-        this.props.onUpdateCredentials(username, password);
     }
 
     // send login request to api
     authenticate(event) {
-        let username = this.props.user.username;
-        let password = this.props.user.password;
+        let username = document.getElementById('username').value;
+        let password = document.getElementById('password').value;
         this.props.authenticate(username, password);
     }
 
@@ -91,14 +88,12 @@ class Login extends Component {
 // subscribes store to Login.props
 const mapStateToProps = state => {
     return {
-        user: state.user,
-        error: state.error
+        user: state.user
     }
 }
 
 const mapActionsToProps = {
-    authenticate: apiAuthenticate,
-    onUpdateCredentials: updateCredentials
+    authenticate: apiAuthenticate
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Login);

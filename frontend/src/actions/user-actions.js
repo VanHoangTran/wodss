@@ -2,27 +2,19 @@ import $ from 'jquery';
 import base64 from 'base-64';
 import {API_ENDPOINT, API_AUTH_ACTION} from '../util/constants';
 
-export const UPDATE_CREDENTIALS = 'user:updateCredentials';
-export const SHOW_ERROR = 'user:showError'; 
+export const UPDATE_USER = 'user:updateUser';
 
-// update user state (username, password) on login
-export function updateCredentials(username, password) {
+export function updateUser(username, authenticated) {
     return {
-        type: UPDATE_CREDENTIALS,
+        type: UPDATE_USER,
         payload: {
-            user: {
-                username: username,
-                password: password
+            user: { 
+                username: username, 
+                authenticationState: { 
+                    authenticated: authenticated,
+                    sessionCreated: authenticated === true ? Date.now() : null
+                 }
             }
-        }
-    }
-}
-
-export function setAuthenticationState(authenticated) {
-    return {
-        type: SHOW_ERROR,
-        payload: {
-            user: { authenticationState : authenticated }
         }
     }
 }
@@ -37,10 +29,15 @@ export function apiAuthenticate(username, password) {
                 'Authorization': 'Basic ' + base64.encode(username + ':' + password)
             },
             success(data) {
-                dispatch(setAuthenticationState(true));
+                dispatch(updateUser(username, true));
             },
             error(response) {
-                dispatch(setAuthenticationState(false));
+                dispatch(updateUser(null, false));
+                $('#username, #password').val('');
+                $('#loginForm').removeClass().addClass('shake animated')
+                .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                    $(this).removeClass();
+                });
             }
         });
     }

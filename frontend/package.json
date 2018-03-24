@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "animate.css": "^3.6.1",
     "base-64": "^0.1.0",
     "history": "^4.7.2",
     "jquery": "^3.3.1",
