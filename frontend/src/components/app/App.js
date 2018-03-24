@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
+import {Link, Route, Switch} from 'react-router-dom';
 import { updateUser, apiRequest } from '../../actions/user-actions';
-
+import Header from '../header/Header';
 import { createSelector } from 'reselect';
+import MatchList from '../match-list/MatchList';
 
 class App extends Component {
 
@@ -25,7 +26,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
+        <Header/>
+        <Switch>
+            <Route exact path="/" component={MatchList}/>
+        </Switch>
+      </div>
+
+
+      /*<div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
@@ -37,7 +46,7 @@ class App extends Component {
         {this.props.user}
 
         <Link to='/login'>dasd</Link>
-      </div>
+      </div>*/
     );
   }
 }
