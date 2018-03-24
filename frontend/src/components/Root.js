@@ -6,8 +6,6 @@ import {appTheme} from "../util/constants";
 import {connect} from 'react-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import "./Root.css";
-import SignUp from "./sign-up/SignUp";
-import ResetPassword from "./reset-password/ResetPassword";
 
 class Root extends Component {
 
@@ -16,7 +14,7 @@ class Root extends Component {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(appTheme)}>
                 <div>
-                    {this.props.authenticationState === true ? <App/> : <SignUp/>}
+                    {this.props.authenticationState === true ? <App/> : <Login/>}
                 </div>
             </MuiThemeProvider>
         );
