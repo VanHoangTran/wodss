@@ -46,6 +46,8 @@ class Login extends Component {
           <Card style={styles.card}>
               <CardHeader title="Login" style={styles.cardHeader} titleColor="white"/>
               <CardText>
+                  <div>{this.props.user.authenticationFailure ? 'auth failed' : ''}</div>
+                  <br/>
                   <TextField
                       id="username"
                       floatingLabelText="Benutzername"
@@ -75,7 +77,8 @@ class Login extends Component {
 // subscribes store to Login.props
 const mapStateToProps = state => {
   return {
-    user : state.user
+    user : state.user,
+    error: state.error
   }
 }
 
