@@ -13,7 +13,6 @@ const styles = {
     },
     cardHeader: {
         backgroundColor: colors.primaryColor,
-        color: colors.light,
     },
     textField: {
         borderColor: colors.primaryColor,
@@ -34,9 +33,9 @@ class Login extends Component {
     render() {
         return (
             <Card style={styles.card}>
-                <CardHeader title={strings.login} style={styles.cardHeader} titleColor={styles.cardHeader}/>
+                <CardHeader title={strings.login} style={styles.cardHeader} titleColor={colors.light}/>
                 <CardText>
-                  <div>{this.props.user.authenticationFailure ? 'auth failed' : ''}</div>
+                    <div>{this.props.user.authenticationFailure ? 'auth failed' : ''}</div>
                     <TextField
                         id="username"
                         floatingLabelText={strings.userName}
@@ -92,10 +91,10 @@ class Login extends Component {
 
 // subscribes store to Login.props
 const mapStateToProps = state => {
-  return {
-    user : state.user,
-    error: state.error
-  }
+    return {
+        user: state.user,
+        error: state.error
+    }
 }
 
 const mapActionsToProps = {

@@ -14,7 +14,6 @@ const styles = {
     },
     cardHeader: {
         backgroundColor: colors.primaryColor,
-        color: colors.light,
     },
     textField: {
         borderColor: colors.primaryColor,
@@ -35,9 +34,9 @@ class SignUp extends Component {
     render() {
         return (
             <Card style={styles.card}>
-                <CardHeader title={strings.signUp} style={styles.cardHeader} titleColor={styles.cardHeader}/>
-                <CardText>
-                    <TextField
+                <CardHeader title={strings.signUp} style={styles.cardHeader} titleColor={colors.light}/>
+                < CardText>
+                    < TextField
                         floatingLabelText={strings.userName}
                         underlineFocusStyle={styles.textField}
                         floatingLabelFocusStyle={styles.textField}
