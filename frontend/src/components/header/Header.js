@@ -2,7 +2,7 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 import FlatButton from 'material-ui/FlatButton';
 import {Tab, Tabs} from 'material-ui/Tabs';
-import {colors, dimensions} from "../../constants";
+import {colors, dimensions} from "../../util/constants";
 
 const styles = {
     toolbar: {

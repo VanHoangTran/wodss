@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import {RaisedButton, TextField} from "material-ui";
-import {colors, dimensions} from "../../constants";
+import {colors, dimensions} from "../../util/constants";
 import {Link} from "react-router-dom";
 import {strings} from "../../strings";
 import {apiAuthenticate, updateCredentials} from '../../actions/user-actions';
