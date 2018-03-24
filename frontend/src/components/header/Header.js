@@ -1,7 +1,10 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 const Header = () => (
-  <p>Im de ganzi häder</p>
+    <div className="header">
+        <NavLink to="/">Startseite</NavLink>
+    </div>
 )
 
 export default Header
