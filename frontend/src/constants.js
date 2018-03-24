@@ -17,6 +17,7 @@ export const dimensions = {
     bigSpacing: '2rem',
 
     toolbar: '4rem',
+    formCardWidth: '30rem',
 };
 
 // app theme
