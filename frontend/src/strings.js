@@ -8,6 +8,7 @@ export const strings = new LocalizedStrings({
         confirmPassword: "Passwort bestätigen",
         forgotPassword: "Passwort vergessen?",
         resetPassword: "Passwort zurücksetzen",
+        setPassword: "Passwort setzen",
         noAccountYet: "Noch keinen Account?",
         signUp: "Registrieren",
         mail: "E-Mail-Adresse",
