@@ -30,6 +30,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-devtools')
 	compile('de.mkammerer:argon2-jvm:2.4')
+	compile('org.zalando:problem-spring-web:0.22.3')
+	compile('io.jsonwebtoken:jjwt:0.6.0')
 	runtime('mysql:mysql-connector-java')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.security:spring-security-test')

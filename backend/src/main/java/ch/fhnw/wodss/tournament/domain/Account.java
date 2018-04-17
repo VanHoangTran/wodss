@@ -1,4 +1,4 @@
-package ch.fhnw.wodss.tournament.model;
+package ch.fhnw.wodss.tournament.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
