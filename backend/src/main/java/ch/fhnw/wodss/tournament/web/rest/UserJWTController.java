@@ -1,5 +1,7 @@
 package ch.fhnw.wodss.tournament.web.rest;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -8,7 +10,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import ch.fhnw.wodss.tournament.security.jwt.JWTConfigurer;
 import ch.fhnw.wodss.tournament.security.jwt.TokenProvider;
+import ch.fhnw.wodss.tournament.web.rest.viewmodel.LoginViewModel;
 
 @RestController
 @RequestMapping("/api")
@@ -27,11 +31,10 @@ public class UserJWTController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	@GetMapping("/authenticate")
-	public ResponseEntity<JWTToken> authorize() {
-
-		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken("username",
-				"password");
+	@PostMapping("/authenticate")
+	public ResponseEntity<JWTToken> authorize(@Valid @RequestBody LoginViewModel payload) {
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+				payload.getUsername(), payload.getPassword());
 
 		Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
 		SecurityContextHolder.getContext().setAuthentication(authentication);

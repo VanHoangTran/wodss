@@ -37,19 +37,6 @@ store.subscribe(() => {
   saveState(store.getState());
 });
 
-/*
-const PrivateRoute = (props) => (
-  <Route {...props.routeProps} render={() => (
-  true ? (
-      <div>{props.children}</div>
-      ) : (
-      <Redirect to={{
-          pathname: '/login',
-          state: { from: props.location }
-      }} /> )
-  )} />
-);*/
-
 render(
   <MuiThemeProvider muiTheme={getMuiTheme(appTheme)}>
     <Provider store={store}>

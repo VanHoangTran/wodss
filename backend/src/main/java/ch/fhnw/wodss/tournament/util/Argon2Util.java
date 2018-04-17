@@ -1,10 +1,11 @@
 package ch.fhnw.wodss.tournament.util;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Constants;
 import de.mkammerer.argon2.Argon2Factory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 /**
  * @author Hoang Tran <hoang.tran@students.fhnw.ch>

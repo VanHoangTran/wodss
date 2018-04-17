@@ -4,7 +4,7 @@ import {API_ENDPOINT, API_AUTH_ACTION} from '../util/constants';
 
 export const UPDATE_USER = 'user:updateUser';
 
-export function updateUser(username, authenticated) {
+export function updateUser(username, authenticated, token) {
     return {
         type: UPDATE_USER,
         payload: {
@@ -12,8 +12,8 @@ export function updateUser(username, authenticated) {
                 username: username, 
                 authenticationState: { 
                     authenticated: authenticated,
-                    sessionCreated: authenticated === true ? Date.now() : null
-                 }
+                    token: token
+                }
             }
         }
     }
@@ -25,14 +25,13 @@ export function apiAuthenticate(username, password) {
         $.ajax({
             type: 'POST',
             url: API_ENDPOINT + API_AUTH_ACTION,
-            headers: {
-                'Authorization': 'Basic ' + base64.encode(username + ':' + password)
-            },
+            data: JSON.stringify({username : username, password : password }),
+            contentType:"application/json; charset=utf-8",
             success(data) {
-                dispatch(updateUser(username, true));
+                dispatch(updateUser(username, true, data.id_token));
             },
             error(response) {
-                dispatch(updateUser(null, false));
+                dispatch(updateUser(null, false, null));
                 $('#username, #password').val('');
                 $('#loginForm').removeClass().addClass('shake animated')
                 .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
