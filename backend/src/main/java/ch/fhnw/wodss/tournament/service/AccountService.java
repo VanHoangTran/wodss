@@ -106,4 +106,23 @@ public class AccountService {
 		log.info("invalidated {} account recovery entries", active.size());
 	}
 
+	/**
+	 * Updates the password for a account
+	 * 
+	 * @param newPassword to set
+	 */
+	public void changePassword(String newPassword, Account account) {
+		log.info("Setting a new password for {}", account);
+
+		log.info("salting and hashing user's password with argon2");
+		String salt = RandomStringUtils.randomAlphanumeric(20);
+		String hash = passwordEncoder.hash(salt + account.getPassword());
+		account.setPassword(hash);
+		account.setSalt(salt);
+
+		accountRepository.save(account);
+
+		log.info("Password changed sucessfully");
+	}
+
 }

@@ -9,11 +9,13 @@ import ch.fhnw.wodss.tournament.util.ValidationUtil;
  * 
  * @author Kevin Kirn <kevin.kirn@students.fhnw.ch>
  */
-public class RecoveryViewModel {
+public class StartRecoveryViewModel {
 
 	private String username;
 
 	private String mail;
+
+	private String token;
 
 	public String getUsername() {
 		return username;
@@ -31,6 +33,14 @@ public class RecoveryViewModel {
 		this.mail = mail;
 	}
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	public boolean isValid() {
 		return !StringUtils.isEmpty(mail) && !StringUtils.isEmpty(username) && ValidationUtil.isValidMail(mail);
 	}
@@ -39,4 +49,5 @@ public class RecoveryViewModel {
 	public String toString() {
 		return String.format("username:%s mail:%s", username, mail);
 	}
+
 }
