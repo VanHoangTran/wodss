@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import ch.fhnw.wodss.tournament.domain.Account;
+import ch.fhnw.wodss.tournament.repository.AccountRepository;
 import ch.fhnw.wodss.tournament.security.jwt.JWTConfigurer;
 import ch.fhnw.wodss.tournament.security.jwt.TokenProvider;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.LoginViewModel;
@@ -30,14 +32,25 @@ public class UserJWTController {
 	private TokenProvider tokenProvider;
 
 	@Autowired
+	private AccountRepository accountRepository;
+
+	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	@PostMapping("/authenticate")
 	public ResponseEntity<JWTToken> authorize(@Valid @RequestBody LoginViewModel payload) {
-		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-				payload.getUsername(), payload.getPassword());
-
 		try {
+			// try to load salt from database first
+			// if we can't find a user, just proceed - no leakage here!
+			Account candidate = accountRepository.findByUsername(payload.getUsername());
+			if (candidate != null) {
+				// enrich password with user's salt
+				payload.setPassword(candidate.getSalt() + payload.getPassword());
+			}
+
+			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+					payload.getUsername(), payload.getPassword());
+
 			Authentication authentication = this.authenticationManager.authenticate(authenticationToken);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			String jwt = tokenProvider.createToken(authentication, false);

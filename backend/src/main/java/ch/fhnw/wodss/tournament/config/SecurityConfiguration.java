@@ -17,11 +17,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
+import ch.fhnw.wodss.tournament.security.Argon2PasswordEncoder;
 import ch.fhnw.wodss.tournament.security.jwt.JWTConfigurer;
 import ch.fhnw.wodss.tournament.security.jwt.TokenProvider;
 
@@ -52,9 +52,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		}
 	}
 	
-	@Bean // FIXME: Use argon password encoder here!
-	public NoOpPasswordEncoder passwordEncoder() {
-		return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+	@Bean
+	public Argon2PasswordEncoder passwordEncoder() {
+		return new Argon2PasswordEncoder();
 	}
 	
 	@Override
@@ -90,6 +90,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	        .authorizeRequests()
 	        .antMatchers("/api/registration").permitAll()
 	        .antMatchers("/api/recovery").permitAll()
+	        .antMatchers("/api/authenticate").permitAll()
 	        .antMatchers("/api/**").authenticated()
 	    .and()
 	        .apply(securityConfigurerAdapter());
