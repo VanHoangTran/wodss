@@ -28,7 +28,7 @@ public class DomainUserDetailsService implements UserDetailsService {
 		log.debug("Authenticating {}", username);
 
 		Account account = accountRepository.findByUsername(username);
-		if (account != null) {
+		if (account != null && account.isActive() && account.isVerified()) {
 			return new User(account.getUsername(), account.getPassword(), true, true, true, true,
 					AuthorityUtils.createAuthorityList("USER"));
 		} else {

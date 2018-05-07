@@ -13,16 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.fhnw.wodss.tournament.domain.Account;
-import ch.fhnw.wodss.tournament.domain.AccountRecovery;
-import ch.fhnw.wodss.tournament.repository.AccountRecoveryRepository;
-import ch.fhnw.wodss.tournament.repository.AccountRepository;
 import ch.fhnw.wodss.tournament.service.AccountService;
-import ch.fhnw.wodss.tournament.service.MailService;
-import ch.fhnw.wodss.tournament.util.ValidationUtil;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.FinalizeRecoveryViewModel;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.RegisterViewModel;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.StartRecoveryViewModel;
+import ch.fhnw.wodss.tournament.web.rest.viewmodel.VerificationVM;
 
 /**
  * REST controller to manage the user accounts
@@ -34,18 +29,9 @@ import ch.fhnw.wodss.tournament.web.rest.viewmodel.StartRecoveryViewModel;
 public class AccountResource {
 
 	private final Logger log = LoggerFactory.getLogger(AccountResource.class);
-	
-	@Autowired
-	private AccountRepository accountRepository;
-
-	@Autowired
-	private AccountRecoveryRepository accountRecoveryRepository;
 
 	@Autowired
 	private AccountService accountService;
-
-	@Autowired
-	private MailService mailService;
 
 	/**
 	 * POST /account : create (register) a new user
@@ -54,42 +40,50 @@ public class AccountResource {
 	 */
 	@PostMapping("/registration")
 	public ResponseEntity<String> registerAccount(@Valid @RequestBody RegisterViewModel registerViewModel) {
-		if (!ValidationUtil.isValidPassword(registerViewModel.getPassword())) {
-			return new ResponseEntity<String>("Password does not consider requirements.", HttpStatus.BAD_REQUEST);
-		}
+		log.info("new call to POST registration");
 
 		// check if view model is valid
 		if (!registerViewModel.isValid()) {
+			log.info("provided view model was invalid, sending bad request");
 			return new ResponseEntity<String>("Illegal state of view model", HttpStatus.BAD_REQUEST);
 		}
 
-		// check if there is already a user
-		Account foundByUsername = accountRepository.findByUsername(registerViewModel.getUsername().toLowerCase());
-		if (foundByUsername != null) {
-			return new ResponseEntity<String>("Username already in use.", HttpStatus.BAD_REQUEST);
+		try {
+			accountService.register(registerViewModel);
+			log.info("registration was successful, sending response to client");
+		} catch (IllegalArgumentException iae) {
+			log.info("registration failed, sending response to client");
+			return new ResponseEntity<String>(iae.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-
-		// check if there is a user with same mail
-		Account foundByMail = accountRepository.findByMail(registerViewModel.getMail().toLowerCase());
-		if (foundByMail != null) {
-			return new ResponseEntity<String>("E-Mail address already in use.", HttpStatus.BAD_REQUEST);
-		}
-
-		// create the new user
-		Account newAccount = accountService.register(registerViewModel);
-
-		// send verification mail to user
-		mailService.sendRegistrationMail(newAccount);
 
 		return new ResponseEntity<String>("Account registered", HttpStatus.CREATED);
 	}
-	
+
+	/**
+	 * PUT /registration : verify a mail address
+	 * 
+	 * @param verificationViewModel the vm to verify
+	 */
 	@PutMapping("/registration")
-	public ResponseEntity<String> activateAccount(@Valid @RequestBody RegisterViewModel registerViewModel) {
-		// TODO: implement me
-		return new ResponseEntity<String>("not yet implemented", HttpStatus.CREATED);
+	public ResponseEntity<String> activateAccount(@Valid @RequestBody VerificationVM verificationViewModel) {
+		log.info("new call to PUT registration");
+
+		if (!verificationViewModel.isValid()) {
+			log.info("provided view model was invalid, sending bad request");
+			return new ResponseEntity<String>("Illegal state of view model", HttpStatus.BAD_REQUEST);
+		}
+
+		try {
+			accountService.activateAccount(verificationViewModel.getToken());
+			log.info("account activated, sending response to client");
+		} catch (IllegalArgumentException iae) {
+			log.info("account activation failed, sending response to client");
+			return new ResponseEntity<String>(iae.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return new ResponseEntity<String>("Account activated", HttpStatus.OK);
 	}
-	
+
 	/**
 	 * POST /recovery : send a new password to the user
 	 * 
@@ -97,26 +91,20 @@ public class AccountResource {
 	 */
 	@PostMapping("/recovery")
 	public ResponseEntity<String> resetPassword(@Valid @RequestBody StartRecoveryViewModel recoveryViewModel) {
+		log.info("new call to POST recovery");
+
 		if (!recoveryViewModel.isValid()) {
+			log.info("provided view model was invalid, sending bad request");
 			return new ResponseEntity<String>("Illegal state of view model", HttpStatus.BAD_REQUEST);
 		}
 
-		// check if there is already a user
-		Account foundByUsername = accountRepository.findByUsername(recoveryViewModel.getUsername().toLowerCase());
-		Account foundByMail = accountRepository.findByMail(recoveryViewModel.getMail().toLowerCase());
-		if (foundByUsername == null || foundByMail == null || foundByMail != foundByUsername) {
-			// prevent leakage - just say we were unable to send recovery mail
-			return new ResponseEntity<String>("Failed to send recovery mail", HttpStatus.BAD_REQUEST);
+		try {
+			accountService.startPasswordReset(recoveryViewModel);
+			log.info("start of password reset successful, sending response to client");
+		} catch (IllegalArgumentException iae) {
+			log.info("start of password reset process failed, sending response to client");
+			return new ResponseEntity<String>(iae.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-
-		// invalidate all existing AccountRecoveries for this account!
-		accountService.invalidateRecovieries(foundByMail);
-
-		// create a new recovery entry
-		AccountRecovery recovery = accountService.createRecovery(foundByMail);
-
-		// send recovery mail
-		mailService.sendRecoveryMail(recovery);
 
 		return new ResponseEntity<String>("Recovery mail send", HttpStatus.CREATED);
 	}
@@ -128,38 +116,21 @@ public class AccountResource {
 	 */
 	@PutMapping("/recovery")
 	public ResponseEntity<String> updatePassword(@Valid @RequestBody FinalizeRecoveryViewModel recoveryViewModel) {
+		log.info("new call to POST recovery");
+
 		if (!recoveryViewModel.isValid()) {
+			log.info("provided view model was invalid, sending bad request");
 			return new ResponseEntity<String>("Illegal state of view model", HttpStatus.BAD_REQUEST);
 		}
 
-		// find recovery by token
-		AccountRecovery recovery = accountRecoveryRepository.findByRecoveryKey(recoveryViewModel.getToken());
-		if (recovery == null) {
-			return new ResponseEntity<String>("Unable to perform recovery", HttpStatus.BAD_REQUEST);
+		try {
+			accountService.resetPassword(recoveryViewModel);
+			log.info("password reset successful, sending response to client");
+		} catch (IllegalArgumentException iae) {
+			log.info("password reset failed, sending response to client");
+			return new ResponseEntity<String>(iae.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
-		// check uf passwords are equal
-		if (!recoveryViewModel.getPassword().equals(recoveryViewModel.getPassword2())) {
-			return new ResponseEntity<String>("Passwords are not equal", HttpStatus.BAD_REQUEST);
-		}
-
-		// check password strength
-		if (!ValidationUtil.isValidPassword(recoveryViewModel.getPassword())) {
-			return new ResponseEntity<String>("Password does not meet requirements", HttpStatus.BAD_REQUEST);
-		}
-
-		// check if assigned account is valid and active
-		Account account = recovery.getAccount();
-		if (account == null || !account.isActive() || !account.isVerified()) {
-			return new ResponseEntity<String>("Account is inactive or was not verified yet", HttpStatus.BAD_REQUEST);
-		}
-
-		// update password
-		accountService.changePassword(recoveryViewModel.getPassword(), account);
-
-		// invalidate all recovery entries
-		accountService.invalidateRecovieries(account);
-		
 		return new ResponseEntity<String>("Sucessfully updated password", HttpStatus.OK);
 	}
 }
