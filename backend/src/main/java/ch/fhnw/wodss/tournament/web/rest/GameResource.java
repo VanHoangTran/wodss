@@ -8,12 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.fhnw.wodss.tournament.domain.Game;
 import ch.fhnw.wodss.tournament.service.GameService;
+import ch.fhnw.wodss.tournament.service.PhaseService;
+import ch.fhnw.wodss.tournament.service.dto.GameDTO;
 
 @RestController
 @RequestMapping("/api")
@@ -24,16 +25,30 @@ public class GameResource {
 	@Autowired
 	private GameService gameService;
 
-	@GetMapping("/games/{id}")
-	public ResponseEntity<List<Game>> getGamesInPhase(@PathVariable String id) {
+	@Autowired
+	private PhaseService phaseService;
+
+	/**
+	 * GET /games : returns all games
+	 * 
+	 * @param phaseId to filter games for
+	 * @return list of all games
+	 */
+	@GetMapping("/games")
+	public ResponseEntity<List<GameDTO>> getGames(@RequestParam(required = false) Long phaseId) {
 		log.info("new call to GET games");
 
 		try {
+			// accept filtering by parameter phaseId
+			if (phaseId != null) {
+				log.info("phaseId parameter provided - returing a filtered list of games by phaseId");
+				return new ResponseEntity<>(gameService.getGamesByPhase(phaseId), HttpStatus.OK);
+			}
+
 			return new ResponseEntity<>(gameService.getAllGames(), HttpStatus.OK);
 		} catch (RuntimeException re) {
-			log.info("failed to GET all phases");
+			log.info("failed to GET all games");
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-
 }

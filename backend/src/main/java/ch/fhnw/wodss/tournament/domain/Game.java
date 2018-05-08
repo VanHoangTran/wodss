@@ -89,4 +89,12 @@ public class Game {
 		this.awayGoals = awayGoals;
 	}
 
+	public Stadium getStadium() {
+		return stadium;
+	}
+
+	public void setStadium(Stadium stadium) {
+		this.stadium = stadium;
+	}
+
 }

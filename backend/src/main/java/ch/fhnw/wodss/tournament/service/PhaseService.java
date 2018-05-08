@@ -34,4 +34,14 @@ public class PhaseService {
 		log.info("loading all phases from database");
 		return phaseRepository.findAll();
 	}
+
+	/**
+	 * Determines if a phase exists
+	 * 
+	 * @param phaseId
+	 * @return true if exists, false otherwise
+	 */
+	public boolean existsPhase(long phaseId) {
+		return phaseRepository.findById(phaseId).isPresent();
+	}
 }
