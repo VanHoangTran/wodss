@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ch.fhnw.wodss.tournament.domain.Account;
 import ch.fhnw.wodss.tournament.domain.Bet;
 import ch.fhnw.wodss.tournament.domain.Game;
-import ch.fhnw.wodss.tournament.repository.AccountRepository;
 import ch.fhnw.wodss.tournament.repository.BetRepository;
 import ch.fhnw.wodss.tournament.repository.GameRepository;
 import ch.fhnw.wodss.tournament.service.dto.BetDTO;
@@ -96,4 +95,25 @@ public class BetService {
 		return BetDTO.fromList(userBets);
 	}
 
+	/**
+	 * Returns a bets by id for a given user
+	 */
+	public BetDTO getBetsForUserById(Long betId) {
+		Account account = accountService.getAccountByName(SecurityUtil.getUsername());
+		if (account == null) {
+			log.warn("sombody obviously manipulated the token / authority");
+			throw new IllegalArgumentException("invalid arguments provided");
+		}
+
+		Optional<Bet> userBets = betRepository.findById(betId);
+
+		if (!userBets.isPresent()) {
+			throw new IllegalArgumentException("invalid arguments provided");
+		} else if (!userBets.get().getAccount().getId().equals(account.getId())) {
+			log.warn("sombody obviously manipulated the token / authority");
+			throw new IllegalArgumentException("invalid arguments provided");
+		}
+
+		return new BetDTO(userBets.get());
+	}
 }

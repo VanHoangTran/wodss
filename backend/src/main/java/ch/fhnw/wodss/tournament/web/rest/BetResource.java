@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,10 +51,10 @@ public class BetResource {
 
 		try {
 			betService.createOrUpdate(vm);
-			return new ResponseEntity<>("Bet accepted", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Bet accepted", HttpStatus.CREATED);
 		} catch (IllegalArgumentException re) {
 			log.warn("failed to create bet");
-			return new ResponseEntity<>(re.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(re.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -66,10 +67,27 @@ public class BetResource {
 
 		try {
 			List<BetDTO> result = betService.getBetsForUser();
-			return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		} catch (IllegalArgumentException re) {
-			log.warn("failed to create bet");
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			log.warn("failed to get bets");
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+
+	}
+
+	/**
+	 * GET /bet/{id} : gets bet by id beloning to the user
+	 */
+	@GetMapping("/{id}")
+	public ResponseEntity<BetDTO> getBetsById(@PathVariable Long id) {
+		log.info("call to GET bets by id. username:{}", SecurityUtil.getUsername());
+
+		try {
+			BetDTO result = betService.getBetsForUserById(id);
+			return new ResponseEntity<>(result, HttpStatus.OK);
+		} catch (IllegalArgumentException re) {
+			log.warn("failed to get bet");
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 
 	}
