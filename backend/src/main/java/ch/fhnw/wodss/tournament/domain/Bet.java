@@ -3,6 +3,7 @@ package ch.fhnw.wodss.tournament.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  * Representation of a user's bet
@@ -16,8 +17,10 @@ public class Bet {
 	@GeneratedValue
 	private Long id;
 
+	@OneToOne
 	private Account account;
 
+	@OneToOne
 	private Game game;
 
 	private int homeGoals;

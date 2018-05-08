@@ -1,4 +1,7 @@
 
+-- sample account (admin)
+INSERT INTO `account` (`id`, `activation_key`, `active`, `admin`, `mail`, `password`, `salt`, `username`, `verified`) VALUES
+(1, '92549257615158256383', b'1', b'1', 'kevin.kirn@students.fhwn.ch', '$argon2i$v=19$m=65536,t=20,p=4$mfYfUobRiPYPkYeQ5V3rtw$qHeBhHdtABi079RWeg9nzLRNw+lCgW4YBDgA30zfCqs', 'PhuSu1sPJQyjGvdSC02V', 'kevin.kirn', b'1');
 
 -- official game phases
 delete from phase; commit;

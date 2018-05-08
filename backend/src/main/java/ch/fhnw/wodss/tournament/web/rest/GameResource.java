@@ -47,7 +47,7 @@ public class GameResource {
 			}
 
 			return new ResponseEntity<>(gameService.getAllGames(), HttpStatus.OK);
-		} catch (RuntimeException re) {
+		} catch (IllegalArgumentException re) {
 			log.info("failed to GET all games");
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
