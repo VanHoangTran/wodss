@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ch.fhnw.wodss.tournament.service.GameService;
-import ch.fhnw.wodss.tournament.service.PhaseService;
 import ch.fhnw.wodss.tournament.service.dto.GameDTO;
 
+/**
+ * REST controller to manage the game requests
+ * 
+ * @author Kevin Kirn <kevin.kirn@students.fhnw.ch>
+ */
 @RestController
 @RequestMapping("/api")
 public class GameResource {
@@ -24,9 +28,6 @@ public class GameResource {
 
 	@Autowired
 	private GameService gameService;
-
-	@Autowired
-	private PhaseService phaseService;
 
 	/**
 	 * GET /games : returns all games

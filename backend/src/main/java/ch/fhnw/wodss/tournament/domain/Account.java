@@ -9,7 +9,6 @@ import javax.persistence.Id;
  * 
  * @author Kevin Kirn <kevin.kirn@students.fhnw.ch>
  */
-
 @Entity
 public class Account {
 
