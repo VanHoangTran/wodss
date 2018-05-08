@@ -24,6 +24,8 @@ public class GameDTO {
 
 	private int awayGoals;
 
+	private boolean open;
+
 	public GameDTO(Game g) {
 		this.id = g.getId();
 		this.phase_id = g.getPhase().getId();
@@ -33,6 +35,7 @@ public class GameDTO {
 		this.stadium = new StadiumDTO(g.getStadium());
 		this.homeGoals = g.getHomeGoals();
 		this.awayGoals = g.getAwayGoals();
+		this.open = new Date().before(g.getDate());
 	}
 
 	public Long getId() {
@@ -97,6 +100,14 @@ public class GameDTO {
 
 	public void setAwayGoals(int awayGoals) {
 		this.awayGoals = awayGoals;
+	}
+
+	public boolean isOpen() {
+		return open;
+	}
+
+	public void setOpen(boolean open) {
+		this.open = open;
 	}
 
 	/**

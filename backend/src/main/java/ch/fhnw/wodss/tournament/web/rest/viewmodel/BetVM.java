@@ -4,8 +4,6 @@ public class BetVM {
 
 	private long gameId;
 
-	private long accountId;
-
 	private int homeGoals;
 
 	private int awayGoals;
@@ -16,14 +14,6 @@ public class BetVM {
 
 	public void setGameId(long gameId) {
 		this.gameId = gameId;
-	}
-
-	public long getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(long accountId) {
-		this.accountId = accountId;
 	}
 
 	public int getHomeGoals() {
@@ -43,8 +33,7 @@ public class BetVM {
 	}
 
 	public boolean isValid() {
-		return this.gameId != 0 && this.accountId != 0 && homeGoals > 0 && homeGoals < 20 && awayGoals > 0
-				&& awayGoals < 20;
+		return this.gameId != 0 && homeGoals >= 0 && homeGoals < 20 && awayGoals >= 0 && awayGoals < 20;
 	}
 
 }

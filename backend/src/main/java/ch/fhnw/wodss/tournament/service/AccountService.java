@@ -230,4 +230,18 @@ public class AccountService {
 		// invalidate all recovery entries
 		accountService.invalidateRecovieries(account);
 	}
+
+	/**
+	 * Finds a account by it's username and returns it's id
+	 * 
+	 * @param username
+	 */
+	public Account getAccountByName(String username) {
+		Account account = accountRepository.findByUsername(username);
+		if (account != null) {
+			return account;
+		} else {
+			throw new IllegalArgumentException("illegal argument supplied");
+		}
+	}
 }

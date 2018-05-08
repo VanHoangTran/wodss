@@ -1,5 +1,6 @@
 package ch.fhnw.wodss.tournament.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -16,6 +17,8 @@ import ch.fhnw.wodss.tournament.domain.Game;
 import ch.fhnw.wodss.tournament.repository.AccountRepository;
 import ch.fhnw.wodss.tournament.repository.BetRepository;
 import ch.fhnw.wodss.tournament.repository.GameRepository;
+import ch.fhnw.wodss.tournament.service.dto.BetDTO;
+import ch.fhnw.wodss.tournament.util.SecurityUtil;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.BetVM;
 
 /**
@@ -30,7 +33,7 @@ public class BetService {
 	private final Logger log = LoggerFactory.getLogger(BetService.class);
 
 	@Autowired
-	private AccountRepository accountRepository;
+	private AccountService accountService;
 
 	@Autowired
 	private GameRepository gameRepository;
@@ -49,9 +52,9 @@ public class BetService {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		final String username = authentication.getName();
 
-		Account foundAccount = accountRepository.findByUsername(username);
-		if (foundAccount == null || !foundAccount.getId().equals(vm.getAccountId())) {
-			log.warn("sombody tried to PUT a bet for another user");
+		Account foundAccount = accountService.getAccountByName(username);
+		if (foundAccount == null) {
+			log.warn("sombody obviously manipulated the token / authority");
 			throw new IllegalArgumentException("invalid arguments provided");
 		}
 
@@ -76,6 +79,21 @@ public class BetService {
 		bet.setAwayGoals(vm.getAwayGoals());
 
 		betRepository.save(bet);
+	}
+
+	/**
+	 * Returns all bets for a given user
+	 */
+	public List<BetDTO> getBetsForUser() {
+		Account account = accountService.getAccountByName(SecurityUtil.getUsername());
+		if (account == null) {
+			log.warn("sombody obviously manipulated the token / authority");
+			throw new IllegalArgumentException("invalid arguments provided");
+		}
+
+		List<Bet> userBets = betRepository.findAllByAccount(account);
+
+		return BetDTO.fromList(userBets);
 	}
 
 }
