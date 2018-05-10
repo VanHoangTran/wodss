@@ -87,6 +87,11 @@ public class GameService {
 		return true;
 	}
 
+	/**
+	 * TODO
+	 * @param groupId
+	 * @return
+	 */
 	public List<TeamDTO> getGroupRanking(Long groupId) {
 		List<Game> allGames = gameRepository.findAll();
 
@@ -154,6 +159,12 @@ public class GameService {
 		return weightedTeams;
 	}
 
+	/**
+	 * TODO
+	 * @param gameId
+	 * @param homeDTO
+	 * @param awayDTO
+	 */
 	public void updateOpponents(Long gameId, TeamDTO homeDTO, TeamDTO awayDTO) {
 		Game game = findGameById(gameId);
 
@@ -195,19 +206,11 @@ public class GameService {
 	}
 
 	/**
-	 * Calculates goal difference of given game and updates the DTO difference
-	 * 
-	 * @param game to calculate and update difference for
+	 * TODO
+	 * @param gameId
+	 * @param leftGameId
+	 * @param rightGameId
 	 */
-	private void updateGoalDifferences(GameDTO game) {
-		// home goal difference
-		int homeDifference = game.getHomeGoals() - game.getAwayGoals();
-		game.getHome().updateGoalDifference(homeDifference);
-		// away goal difference
-		int awayDifference = game.getAwayGoals() - game.getHomeGoals();
-		game.getAway().updateGoalDifference(awayDifference);
-	}
-
 	public void gameFromKO(Long gameId, Long leftGameId, Long rightGameId) {
 		Game nextGame = findGameById(gameId);
 		Game leftGame = findGameById(leftGameId);
@@ -222,6 +225,12 @@ public class GameService {
 		gameRepository.save(nextGame);
 	}
 
+	/**
+	 * TODO
+	 * @param gameId
+	 * @param leftGameId
+	 * @param rightGameId
+	 */
 	public void luckyLooserGameFromKO(Long gameId, Long leftGameId, Long rightGameId) {
 		Game nextGame = findGameById(gameId);
 		Game leftGame = findGameById(leftGameId);

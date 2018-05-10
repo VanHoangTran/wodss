@@ -7,9 +7,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ch.fhnw.wodss.tournament.domain.Game;
 import ch.fhnw.wodss.tournament.domain.Phase;
-import ch.fhnw.wodss.tournament.domain.TournamentGroup;
 import ch.fhnw.wodss.tournament.service.GameService;
 import ch.fhnw.wodss.tournament.service.GroupService;
 import ch.fhnw.wodss.tournament.service.dto.GameDTO;
@@ -67,10 +65,6 @@ public class TournamentManager implements Runnable {
 				// phase of last sixteen
 				if (Phase.LAST_SIXTEEN == currentPhaseId) {
 					for (GameDTO game : currentPhaseGames) {
-						if (!game.getHome().getGroup().equals(TournamentGroup.DUMMY_NAME)) {
-							continue; // game has already been set!
-						}
-
 						// extract group names from dummy groups
 						String home = game.getHome().getName().substring(1);
 						String away = game.getAway().getName().substring(1);
