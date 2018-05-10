@@ -9,7 +9,8 @@ insert into phase (id, name) values (1, 'Gruppenspiele');
 insert into phase (id, name) values (2, 'Achtelfinale');
 insert into phase (id, name) values (3, 'Viertelfinale');
 insert into phase (id, name) values (4, 'Halbfinale');
-insert into phase (id, name) values (5, 'Spiel um Platz drei und Finale');
+insert into phase (id, name) values (5, 'Spiel um Platz drei');
+insert into phase (id, name) values (6, 'Finale');
 
 -- groups
 delete from tournament_group; commit;
@@ -21,6 +22,7 @@ insert into tournament_group (id, name) values (5, 'E');
 insert into tournament_group (id, name) values (6, 'F');
 insert into tournament_group (id, name) values (7, 'G');
 insert into tournament_group (id, name) values (8, 'H');
+insert into tournament_group (id, name) values (100, 'dummy group');
 
 -- teams
 delete from team; commit;
@@ -57,6 +59,48 @@ insert into team (id, name, country_fifa_code, group_id) values (30, 'Senegal', 
 insert into team (id, name, country_fifa_code, group_id) values (31, 'Kolumbien', 'COL', 8);
 insert into team (id, name, country_fifa_code, group_id) values (32, 'Japan', 'JPN', 8);
 
+-- dummy teams achtelfinale
+insert into team (id, name, country_fifa_code, group_id) values (101, '1A', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (102, '1B', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (103, '1C', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (104, '1D', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (105, '1E', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (106, '1F', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (107, '1G', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (108, '1H', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (109, '2A', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (110, '2B', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (111, '2C', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (112, '2D', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (113, '2E', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (114, '2F', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (115, '2G', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (116, '2H', '', 100);
+
+-- dummy teams viertelfinale
+insert into team (id, name, country_fifa_code, group_id) values (201, 'W49', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (202, 'W50', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (203, 'W51', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (204, 'W52', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (205, 'W53', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (206, 'W54', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (207, 'W55', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (208, 'W56', '', 100);
+
+-- dummy teams halbfinale
+insert into team (id, name, country_fifa_code, group_id) values (301, 'W57', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (302, 'W58', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (303, 'W59', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (304, 'W60', '', 100);
+
+-- dummy teams 3. platz
+insert into team (id, name, country_fifa_code, group_id) values (401, 'L61', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (402, 'L62', '', 100);
+
+-- dummy teams finale
+insert into team (id, name, country_fifa_code, group_id) values (501, 'W61', '', 100);
+insert into team (id, name, country_fifa_code, group_id) values (502, 'W62', '', 100);
+
 -- locations
 insert into stadium (id, city, name) values (1, 'Jekaterinburg', 'Jekaterinburg-Arena');
 insert into stadium (id, city, name) values (2, 'Kaliningrad', 'Kaliningrad-Stadion');
@@ -71,7 +115,7 @@ insert into stadium (id, city, name) values (10, 'Saransk', 'Mordwinien-Arena');
 insert into stadium (id, city, name) values (11, 'Sotschi', 'Fischt-Stadion');
 insert into stadium (id, city, name) values (12, 'Wolgograd', 'Wolgograd-Arena');
 
--- games
+-- gruppenspiele
 insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (1, '2018-06-14 18:00:00', 0, 0, 1, 2, 1, 4);
 insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (2, '2018-06-15 17:00:00', 0, 0, 3, 4, 1, 1);
 insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (3, '2018-06-15 18:00:00', 0, 0, 7, 8, 1, 8);
@@ -120,3 +164,29 @@ insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, 
 insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (46, '2018-06-28 18:00:00', 0, 0, 30, 31, 1, 9);
 insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (47, '2018-06-28 21:00:00', 0, 0, 26, 27, 1, 10);
 insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (48, '2018-06-28 17:00:00', 0, 0, 32, 29, 1, 12);
+
+-- achtelfinale
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (49, '2018-06-30 17:00:00', 0, 0, 103, 112, 2, 3);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (50, '2018-06-30 21:00:00', 0, 0, 101, 110, 2, 11); 
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (51, '2018-07-01 17:00:00', 0, 0, 102, 109, 2, 4); 
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (52, '2018-07-01 21:00:00', 0, 0, 104, 111, 2, 6);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (53, '2018-07-02 18:00:00', 0, 0, 105, 114, 2, 9); 
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (54, '2018-07-02 21:00:00', 0, 0, 107, 116, 2, 7);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (55, '2018-07-03 17:00:00', 0, 0, 106, 113, 2, 8);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (56, '2018-07-03 21:00:00', 0, 0, 108, 115, 2, 5);
+
+-- viertelfinale
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (57, '2018-07-06 17:00:00', 0, 0, 201, 202, 3, 6);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (58, '2018-07-06 21:00:00', 0, 0, 205, 206, 3, 3);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (59, '2018-07-07 18:00:00', 0, 0, 207, 208, 3, 9);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (60, '2018-07-07 21:00:00', 0, 0, 203, 204, 3, 11);
+
+-- halbfinale
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (61, '2018-07-10 21:00:00', 0, 0, 301, 302, 4, 8);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (62, '2018-07-11 21:00:00', 0, 0, 303, 304, 4, 4);
+
+-- platz 3
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (63, '2018-07-14 17:00:00', 0, 0, 401, 402, 5, 8);
+
+-- finale
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id) values (64, '2018-07-15 18:00:00', 0, 0, 501, 502, 6, 4);
