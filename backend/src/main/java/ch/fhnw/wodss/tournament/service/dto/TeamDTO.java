@@ -12,6 +12,10 @@ public class TeamDTO {
 
 	private String countryFifaCode;
 
+	private int goalDifferenceInGroup;
+
+	private int pointsInGroup;
+
 	public TeamDTO(Team team) {
 		this.id = team.getId();
 		this.group = team.getGroup().getName();
@@ -49,6 +53,36 @@ public class TeamDTO {
 
 	public void setCountryFifaCode(String countryFifaCode) {
 		this.countryFifaCode = countryFifaCode;
+	}
+
+	public int getGoalDifferenceInGroup() {
+		return goalDifferenceInGroup;
+	}
+
+	public void updateGoalDifference(int difference) {
+		this.goalDifferenceInGroup += difference;
+	}
+
+	public int getPointsInGroup() {
+		return pointsInGroup;
+	}
+
+	public void addPointsInGroup(int pointsInGroup) {
+		this.pointsInGroup += pointsInGroup;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof TeamDTO) {
+			return ((TeamDTO) obj).countryFifaCode.equals(countryFifaCode);
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 
 }

@@ -7,6 +7,14 @@ import javax.persistence.Id;
 @Entity
 public class Phase {
 
+	// phase id's
+	public static final long GROUP_PHASE = 1;
+	public static final long LAST_SIXTEEN = 2;
+	public static final long QUATER_FINAL = 3;
+	public static final long SEMI_FINAL = 4;
+	public static final long THIRD_PLACE = 5;
+	public static final long FINAL = 6;
+
 	@Id
 	@GeneratedValue
 	private Long id;

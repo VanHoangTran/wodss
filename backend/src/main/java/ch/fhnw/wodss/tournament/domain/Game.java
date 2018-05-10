@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 @Entity
 public class Game {
 
+	public static final int MAX_GOALS = 20;
+	
 	@Id
 	@GeneratedValue
 	private Long id;

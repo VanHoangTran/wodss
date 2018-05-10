@@ -2,20 +2,20 @@ package ch.fhnw.wodss.tournament.web.rest.viewmodel;
 
 import ch.fhnw.wodss.tournament.domain.Game;
 
-public class BetVM {
+public class GameVM {
 
-	private long gameId;
+	private Long id;
 
 	private int homeGoals;
 
 	private int awayGoals;
 
-	public long getGameId() {
-		return gameId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setGameId(long gameId) {
-		this.gameId = gameId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public int getHomeGoals() {
@@ -35,7 +35,8 @@ public class BetVM {
 	}
 
 	public boolean isValid() {
-		return this.gameId != 0 && homeGoals >= 0 && homeGoals <= Game.MAX_GOALS && awayGoals >= 0 && awayGoals <= Game.MAX_GOALS;
+		return id != null && id != 0 && homeGoals >= 0 && homeGoals <= Game.MAX_GOALS && awayGoals >= 0
+				&& awayGoals <= Game.MAX_GOALS;
 	}
 
 }

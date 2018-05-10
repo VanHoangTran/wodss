@@ -46,7 +46,7 @@ public class GameDTO {
 		this.id = id;
 	}
 
-	public Long getPhase_id() {
+	public Long getPhaseId() {
 		return phase_id;
 	}
 

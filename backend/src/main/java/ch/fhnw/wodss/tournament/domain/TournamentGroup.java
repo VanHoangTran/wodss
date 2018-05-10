@@ -7,6 +7,8 @@ import javax.persistence.Id;
 @Entity
 public class TournamentGroup {
 
+	public static final String DUMMY_NAME = "dummy group";
+
 	@Id
 	@GeneratedValue
 	private Long id;
