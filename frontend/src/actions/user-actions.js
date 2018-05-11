@@ -8,9 +8,9 @@ export function updateUser(username, authenticated, token) {
     return {
         type: UPDATE_USER,
         payload: {
-            user: { 
-                username: username, 
-                authenticationState: { 
+            user: {
+                username: username,
+                authenticationState: {
                     authenticated: authenticated,
                     token: token
                 }
@@ -20,7 +20,7 @@ export function updateUser(username, authenticated, token) {
 }
 
 // performs authorization against api
-export function apiAuthenticate(username, password) { 
+export function apiAuthenticate(username, password) {
     return dispatch => {
         $.ajax({
             type: 'POST',
@@ -34,9 +34,9 @@ export function apiAuthenticate(username, password) {
                 dispatch(updateUser(null, false, null));
                 $('#username, #password').val('');
                 $('#loginForm').removeClass().addClass('shake animated')
-                .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-                    $(this).removeClass();
-                });
+                    .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                        $(this).removeClass();
+                    });
             }
         });
     }

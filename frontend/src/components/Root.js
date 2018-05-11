@@ -23,7 +23,7 @@ class Root extends Component {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(appTheme)}>
                 <div>
-                    {authenticated === true ? <Match/> : <MatchList/>}
+                    {authenticated === true ? <MatchList/> : <Login/>}
                 </div>
             </MuiThemeProvider>
         );

@@ -4,7 +4,6 @@ import {RaisedButton, TextField} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
 import {strings} from "../../strings";
 import {connect} from 'react-redux';
-import Counter from "../counter/Counter";
 import {Col} from "react-grid-system";
 import ReactTooltip from 'react-tooltip'
 
