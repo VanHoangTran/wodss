@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import {RaisedButton, TextField} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
@@ -42,7 +42,7 @@ const styles = {
     },
 };
 
-class SignUp extends React.Component {
+class SignUp extends Component {
 
     render() {
         return (
@@ -50,6 +50,7 @@ class SignUp extends React.Component {
                 <CardHeader title={strings.signUp} style={styles.cardHeader} titleColor={colors.light}/>
                 <CardText style={styles.cardBody}>
                     <img id="avatar" style={styles.avatar}
+                         alt=""
                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN89x8AAuEB74Y0o2cAAAAASUVORK5CYII="/>
                     <div style={styles.form}>
                         <TextField
