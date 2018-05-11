@@ -1,4 +1,4 @@
-package ch.fhnw.wodss.tournament.model;
+package ch.fhnw.wodss.tournament.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +9,6 @@ import javax.persistence.Id;
  * 
  * @author Kevin Kirn <kevin.kirn@students.fhnw.ch>
  */
-
 @Entity
 public class Account {
 
@@ -21,13 +20,25 @@ public class Account {
 
 	private String password;
 
+	private String salt;
+
 	private String mail;
 
 	private boolean verified;
 
 	private boolean active;
 
-	public Account() {
+	private String activationKey;
+
+	// keep it simple - there are only USERS and ADMINS
+	private boolean admin;
+
+	public String getActivationKey() {
+		return activationKey;
+	}
+
+	public void setActivationKey(String activationKey) {
+		this.activationKey = activationKey;
 	}
 
 	public Account(String username, String password) {
@@ -37,6 +48,9 @@ public class Account {
 		// new users are inactive until mail verification
 		this.verified = false;
 		this.active = false;
+	}
+
+	public Account() {
 	}
 
 	public Long getId() {
@@ -85,6 +99,27 @@ public class Account {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s <%s>", username, mail);
 	}
 
 }
