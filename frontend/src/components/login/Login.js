@@ -49,7 +49,7 @@ class Login extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let loginSuccessful = nextProps.user.authenticationState.authenticated;
+        let loginSuccessful = nextProps.user.token !== null;
         if (loginSuccessful) {
             this.onLoginSuccessful();
         } else {

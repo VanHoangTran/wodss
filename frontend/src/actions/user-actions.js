@@ -3,16 +3,13 @@ import {API_AUTH_ACTION, API_ENDPOINT} from '../util/constants';
 
 export const UPDATE_USER = 'user:updateUser';
 
-export function updateUser(username, authenticated, token) {
+export function updateUser(username, token) {
     return {
         type: UPDATE_USER,
         payload: {
             user: {
                 username: username,
-                authenticationState: {
-                    authenticated: authenticated,
-                    token: token
-                }
+                token: token,
             }
         }
     }
@@ -27,10 +24,10 @@ export function apiAuthenticate(username, password) {
             data: JSON.stringify({username: username, password: password}),
             contentType: "application/json; charset=utf-8",
             success(data) {
-                dispatch(updateUser(username, true, data.id_token));
+                dispatch(updateUser(username, data.id_token));
             },
             error(response) {
-                dispatch(updateUser(null, false, null));
+                dispatch(updateUser(null, null));
             }
         });
     }
