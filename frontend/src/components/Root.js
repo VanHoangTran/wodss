@@ -6,7 +6,6 @@ import {appTheme} from "../util/constants";
 import {connect} from 'react-redux';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import "./Root.css";
-import Counter from "./counter/Counter";
 import Match from "./match/Match";
 import LoggedOutApp from "./logged-out-app/LoggedOutApp";
 import MatchList from "./match-list/MatchList";

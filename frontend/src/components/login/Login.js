@@ -1,11 +1,10 @@
-import React from "react";
-import {Card, CardHeader, CardText} from "material-ui/Card";
-import {RaisedButton, TextField} from "material-ui";
-import {colors, dimensions, pages} from "../../util/constants";
-import {NavLink} from "react-router-dom"
-import {strings} from "../../strings";
-import {apiAuthenticate} from "../../actions/user-actions";
+import React, {Component} from "react";
 import {connect} from "react-redux";
+import {NavLink} from "react-router-dom"
+import {Card, CardHeader, CardText, RaisedButton, TextField} from "material-ui";
+import {apiAuthenticate} from "../../actions/user-actions";
+import {colors, dimensions, pages} from "../../util/constants";
+import {strings} from "../../strings";
 import "animate.css";
 
 const styles = {
@@ -36,8 +35,18 @@ const styles = {
     },
 };
 
-class Login extends React.Component {
-    message = null;
+class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.authenticate = this.authenticate.bind(this);
+
+        this.state = {
+            username: "",
+            password: "",
+            failAnimationActive: false,
+            loginOngoing: false,
+        };
+    }
 
     componentWillReceiveProps(nextProps) {
         let loginSuccessful = nextProps.user.authenticationState.authenticated;
@@ -48,8 +57,51 @@ class Login extends React.Component {
         }
     }
 
-    render() {
+    // send login request to api
+    authenticate() {
+        this.props.authenticate(this.state.username, this.state.password);
+        this.setState({
+            loginOngoing: true,
+        });
+    }
 
+    onLoginSuccessful() {
+        this.props.history.push(pages.matchList);
+    }
+
+    onLoginFailed() {
+        this.setState({
+            password: "",
+            failAnimationActive: true,
+            loginOngoing: false,
+        });
+    }
+
+    onUsernameChanged = (event) => {
+        this.setState({
+            username: event.target.value,
+        });
+    };
+
+    onPasswordChanged = (event) => {
+        this.setState({
+            password: event.target.value,
+        });
+    };
+
+    onKeyPress = (event) => {
+        if (event.key === "Enter") {
+            this.authenticate();
+        }
+    };
+
+    onAnimationEnd = () => {
+        this.setState({
+            failAnimationActive: false,
+        });
+    };
+
+    render() {
         return (
             <Card style={styles.card}
                   onAnimationEnd={this.onAnimationEnd}
@@ -91,62 +143,6 @@ class Login extends React.Component {
                 </CardText>
             </Card>
         );
-    }
-
-    constructor(props) {
-        super(props);
-        this.authenticate = this.authenticate.bind(this);
-
-        this.state = {
-            username: "",
-            password: "",
-            failAnimationActive: false,
-            loginOngoing: false,
-        };
-    }
-
-    onUsernameChanged = (event) => {
-        this.setState({
-            username: event.target.value,
-        });
-    };
-
-    onPasswordChanged = (event) => {
-        this.setState({
-            password: event.target.value,
-        });
-    };
-
-    // send login request to api
-    authenticate() {
-        this.props.authenticate(this.state.username, this.state.password);
-        this.setState({
-            loginOngoing: true,
-        });
-    }
-
-    onLoginSuccessful() {
-        this.props.history.push(pages.matchList);
-    }
-
-    onLoginFailed() {
-        this.setState({
-            password: "",
-            failAnimationActive: true,
-            loginOngoing: false,
-        });
-    }
-
-    onKeyPress = (event) => {
-        if (event.key === "Enter") {
-            this.authenticate();
-        }
-    };
-
-    onAnimationEnd = () => {
-        this.setState({
-            failAnimationActive: false,
-        });
     }
 }
 
