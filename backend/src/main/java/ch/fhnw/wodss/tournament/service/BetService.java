@@ -81,7 +81,7 @@ public class BetService {
 	}
 
 	/**
-	 * Returns all bets for a given user
+	 * Returns all bets for current user
 	 */
 	public List<BetDTO> getBetsForUser() {
 		Account account = accountService.getAccountByName(SecurityUtil.getUsername());
@@ -96,7 +96,7 @@ public class BetService {
 	}
 
 	/**
-	 * Returns a bets by id for a given user
+	 * Returns a bets by id for current user
 	 */
 	public BetDTO getBetsForUserById(Long betId) {
 		Account account = accountService.getAccountByName(SecurityUtil.getUsername());
@@ -115,5 +115,20 @@ public class BetService {
 		}
 
 		return new BetDTO(userBets.get());
+	}
+
+	/**
+	 * Returns all bets for a given userID
+	 */
+	public List<BetDTO> getBetsByUserId(Long userId) {
+		Account account = accountService.getAccountById(userId);
+		if (account == null) {
+			log.warn("account with id {} could not be found", userId);
+			throw new IllegalArgumentException("invalid arguments provided");
+		}
+
+		List<Bet> userBets = betRepository.findAllByAccount(account);
+
+		return BetDTO.fromList(userBets);
 	}
 }

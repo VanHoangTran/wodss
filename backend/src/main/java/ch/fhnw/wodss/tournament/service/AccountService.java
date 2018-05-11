@@ -1,6 +1,7 @@
 package ch.fhnw.wodss.tournament.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
@@ -240,6 +241,20 @@ public class AccountService {
 		Account account = accountRepository.findByUsername(username);
 		if (account != null) {
 			return account;
+		} else {
+			throw new IllegalArgumentException("illegal argument supplied");
+		}
+	}
+
+	/**
+	 * Finds a account by it's username and returns it's id
+	 * 
+	 * @param username
+	 */
+	public Account getAccountById(Long userId) {
+		Optional<Account> account = accountRepository.findById(userId);
+		if (account.isPresent()) {
+			return account.get();
 		} else {
 			throw new IllegalArgumentException("illegal argument supplied");
 		}

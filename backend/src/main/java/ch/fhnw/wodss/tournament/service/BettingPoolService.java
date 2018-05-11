@@ -2,6 +2,7 @@ package ch.fhnw.wodss.tournament.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -189,6 +190,20 @@ public class BettingPoolService {
 		bettingPoolRepository.save(foundByName);
 
 		return new BettingPoolDTO(foundByName);
+	}
+
+	/**
+	 * Finds a betting pool by it's id and returns it's id
+	 * 
+	 * @param poolId to search for
+	 */
+	public BettingPoolDTO getPoolById(Long poolId) {
+		Optional<BettingPool> pool = bettingPoolRepository.findById(poolId);
+		if (pool.isPresent()) {
+			return new BettingPoolDTO(pool.get());
+		} else {
+			throw new IllegalArgumentException("betting pool does not exist");
+		}
 	}
 
 }

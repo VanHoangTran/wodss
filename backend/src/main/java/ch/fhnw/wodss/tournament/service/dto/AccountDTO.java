@@ -3,6 +3,8 @@ package ch.fhnw.wodss.tournament.service.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import ch.fhnw.wodss.tournament.domain.Account;
 
 public class AccountDTO {
@@ -10,6 +12,9 @@ public class AccountDTO {
 	private Long id;
 
 	private String username;
+
+	@JsonIgnore
+	private int points;
 
 	public AccountDTO(Account owner) {
 		this.id = owner.getId();
@@ -31,7 +36,15 @@ public class AccountDTO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
 	/**
 	 * Converts a list of @Entity account to accountDTO
 	 * 
@@ -45,5 +58,5 @@ public class AccountDTO {
 		}
 		return dtoList;
 	}
-	
+
 }
