@@ -39,6 +39,9 @@ public class BetService {
 
 	@Autowired
 	private BetRepository betRepository;
+	
+	@Autowired
+	private SecurityUtil securityUtil;
 
 	/**
 	 * Creates or updates a bet using provided BetVM
@@ -84,7 +87,7 @@ public class BetService {
 	 * Returns all bets for current user
 	 */
 	public List<BetDTO> getBetsForUser() {
-		Account account = accountService.getAccountByName(SecurityUtil.getUsername());
+		Account account = accountService.getAccountByName(securityUtil.getUsername());
 		if (account == null) {
 			log.warn("sombody obviously manipulated the token / authority");
 			throw new IllegalArgumentException("invalid arguments provided");
@@ -99,7 +102,7 @@ public class BetService {
 	 * Returns a bets by id for current user
 	 */
 	public BetDTO getBetsForUserById(Long betId) {
-		Account account = accountService.getAccountByName(SecurityUtil.getUsername());
+		Account account = accountService.getAccountByName(securityUtil.getUsername());
 		if (account == null) {
 			log.warn("sombody obviously manipulated the token / authority");
 			throw new IllegalArgumentException("invalid arguments provided");

@@ -37,6 +37,9 @@ public class BettingPoolResource {
 	@Autowired
 	private BettingPoolService bettingPoolService;
 
+	@Autowired
+	private SecurityUtil securityUtil;
+	
 	@GetMapping
 	public ResponseEntity<List<BettingPoolDTO>> getAllPools() {
 		log.info("new call to GET betting pools");
@@ -51,7 +54,7 @@ public class BettingPoolResource {
 
 	@PostMapping
 	public ResponseEntity<String> createNewPool(@Valid @RequestBody BettingPoolVM vm) {
-		log.info("call to POST betting pool. username:{}", SecurityUtil.getUsername());
+		log.info("call to POST betting pool. username:{}", securityUtil.getUsername());
 
 		if (!vm.isValid()) {
 			log.info("provided view model was invalid, sending bad request");
@@ -69,7 +72,7 @@ public class BettingPoolResource {
 
 	@DeleteMapping
 	public ResponseEntity<String> deleteGroup(@Valid @RequestBody BettingPoolVM vm) {
-		log.info("call to DELETE betting pool. username:{}", SecurityUtil.getUsername());
+		log.info("call to DELETE betting pool. username:{}", securityUtil.getUsername());
 
 		if (!vm.isValid()) {
 			log.info("provided view model was invalid, sending bad request");
@@ -88,7 +91,7 @@ public class BettingPoolResource {
 
 	@PutMapping
 	public ResponseEntity<BettingPoolDTO> updatePool(@Valid @RequestBody BettingPoolVM vm) {
-		log.info("call to PUT betting pool (leave pool). username:{}", SecurityUtil.getUsername());
+		log.info("call to PUT betting pool (leave pool). username:{}", securityUtil.getUsername());
 
 		try {
 			BettingPoolDTO updated = null;

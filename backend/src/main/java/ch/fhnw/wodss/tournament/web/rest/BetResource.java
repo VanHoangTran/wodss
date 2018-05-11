@@ -34,13 +34,16 @@ public class BetResource {
 
 	@Autowired
 	private BetService betService;
-
+	
+	@Autowired
+	private SecurityUtil securityUtil;
+	
 	/**
 	 * PUT /bet : creates or updates a new bet
 	 */
 	@PutMapping
 	public ResponseEntity<String> createOrUpdateBet(@Valid @RequestBody BetVM vm) {
-		log.info("call to PUT bets. username:{}", SecurityUtil.getUsername());
+		log.info("call to PUT bets. username:{}", securityUtil.getUsername());
 
 		if (!vm.isValid()) {
 			log.info("provided view model was invalid, sending bad request");
@@ -63,7 +66,7 @@ public class BetResource {
 	 */
 	@GetMapping
 	public ResponseEntity<List<BetDTO>> getBets() {
-		log.info("call to GET bets. username:{}", SecurityUtil.getUsername());
+		log.info("call to GET bets. username:{}", securityUtil.getUsername());
 
 		try {
 			List<BetDTO> result = betService.getBetsForUser();
@@ -80,7 +83,7 @@ public class BetResource {
 	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<BetDTO> getBetsById(@PathVariable Long id) {
-		log.info("call to GET bets by id. username:{}", SecurityUtil.getUsername());
+		log.info("call to GET bets by id. username:{}", securityUtil.getUsername());
 
 		try {
 			BetDTO result = betService.getBetsForUserById(id);

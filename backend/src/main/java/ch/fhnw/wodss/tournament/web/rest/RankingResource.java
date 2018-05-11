@@ -30,9 +30,12 @@ public class RankingResource {
 	@Autowired
 	private RankingService rankingService;
 
+	@Autowired
+	private SecurityUtil securityUtil;
+	
 	@GetMapping
 	public ResponseEntity<List<RankingDTO>> createOrUpdateBet(@RequestParam Long poolId) {
-		log.info("call to GET ranking. username:{}", SecurityUtil.getUsername());
+		log.info("call to GET ranking. username:{}", securityUtil.getUsername());
 
 		try {
 			List<RankingDTO> rankingOfPool = rankingService.getRankingOfPool(poolId);

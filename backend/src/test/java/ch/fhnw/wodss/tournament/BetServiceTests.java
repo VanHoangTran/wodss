@@ -2,8 +2,8 @@ package ch.fhnw.wodss.tournament;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import org.assertj.core.util.Arrays;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +23,7 @@ import ch.fhnw.wodss.tournament.repository.GameRepository;
 import ch.fhnw.wodss.tournament.service.AccountService;
 import ch.fhnw.wodss.tournament.service.BetService;
 import ch.fhnw.wodss.tournament.service.dto.BetDTO;
+import ch.fhnw.wodss.tournament.util.SecurityUtil;
 
 @RunWith(SpringRunner.class)
 public class BetServiceTests {
@@ -53,13 +54,59 @@ public class BetServiceTests {
 	@MockBean
 	private BetRepository betRepository;
 
+	@MockBean
+	private SecurityUtil securityUtil;
+
 	private List<Bet> someBets = new ArrayList<>();
 
 	@Before
 	public void setUp() {
-		Bet b1 = new Bet(); b1.setGame(new Game()); someBets.add(b1);
-		Bet b2 = new Bet(); b2.setGame(new Game()); someBets.add(b2);
-		Bet b3 = new Bet(); b3.setGame(new Game()); someBets.add(b3);
+		Mockito.when(securityUtil.getUsername()).thenReturn("username");
+
+		Account acc = new Account();
+		acc.setId(100L);
+
+		Bet b1 = new Bet();
+		b1.setGame(new Game());
+		b1.setAccount(acc);
+
+		Bet b2 = new Bet();
+		b2.setGame(new Game());
+		b2.setAccount(acc);
+
+		Bet b3 = new Bet();
+		b3.setGame(new Game());
+		b3.setAccount(acc);
+
+		someBets.add(b1);
+		someBets.add(b2);
+		someBets.add(b3);
+	}
+
+	@Test
+	public void testGetBetsForUserById() {
+		// searching for invalid user id
+		Mockito.when(accountService.getAccountByName(Mockito.anyString())).thenReturn(null);
+		try {
+			betService.getBetsForUserById(100l);
+			Assert.fail("should never reach here...");
+		} catch (Exception e) {
+		}
+
+		// valid account
+		Mockito.when(accountService.getAccountByName(Mockito.anyString())).thenReturn(someBets.get(0).getAccount());
+		Mockito.when(betRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+
+		try {
+			betService.getBetsForUserById(100l);
+			Assert.fail("should never reach here...");
+		} catch (Exception e) {
+		}
+
+		Mockito.when(betRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(someBets.get(0)));
+		BetDTO dto = betService.getBetsForUserById(100l);
+
+		Assert.assertTrue(dto != null);
 	}
 
 	@Test

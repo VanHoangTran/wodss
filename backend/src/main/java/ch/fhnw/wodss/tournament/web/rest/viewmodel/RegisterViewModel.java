@@ -6,7 +6,7 @@ package ch.fhnw.wodss.tournament.web.rest.viewmodel;
  * @author Kevin Kirn <kevin.kirn@students.fhnw.ch>
  */
 public class RegisterViewModel {
-	
+
 	private String username;
 
 	private String password;
@@ -38,6 +38,6 @@ public class RegisterViewModel {
 	}
 
 	public boolean isValid() {
-		return username != null && mail != null;
+		return username != null && username != "" && mail != null && mail != "" && username.length() <= 50;
 	}
 }

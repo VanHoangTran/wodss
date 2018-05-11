@@ -33,7 +33,10 @@ public class BettingPoolService {
 
 	@Autowired
 	private AccountService accountService;
-
+	
+	@Autowired
+	private SecurityUtil securityUtil;
+	
 	/**
 	 * Gets all bettingPools and marks if current user is member of it
 	 * 
@@ -44,7 +47,7 @@ public class BettingPoolService {
 		List<BettingPool> allPools = bettingPoolRepository.findAll();
 		List<BettingPoolDTO> dtoList = BettingPoolDTO.fromList(allPools);
 
-		final String username = SecurityUtil.getUsername();
+		final String username = securityUtil.getUsername();
 
 		for (BettingPoolDTO pool : dtoList) {
 			boolean isMember = false;
@@ -75,7 +78,7 @@ public class BettingPoolService {
 			throw new IllegalArgumentException("pool with same name already exists");
 		}
 
-		final String username = SecurityUtil.getUsername();
+		final String username = securityUtil.getUsername();
 		Account owner = accountService.getAccountByName(username);
 
 		BettingPool newPool = new BettingPool();
@@ -107,7 +110,7 @@ public class BettingPoolService {
 		}
 
 		// is current user owner of pool?
-		final String username = SecurityUtil.getUsername();
+		final String username = securityUtil.getUsername();
 		Account currentUser = accountService.getAccountByName(username);
 
 		if (foundByName.getOwner().getId() != currentUser.getId()) {
@@ -134,7 +137,7 @@ public class BettingPoolService {
 		}
 
 		// is current user owner of pool?
-		final String username = SecurityUtil.getUsername();
+		final String username = securityUtil.getUsername();
 		Account currentUser = accountService.getAccountByName(username);
 
 		boolean found = false;
@@ -174,7 +177,7 @@ public class BettingPoolService {
 		}
 
 		// is current user owner of pool?
-		final String username = SecurityUtil.getUsername();
+		final String username = securityUtil.getUsername();
 		Account currentUser = accountService.getAccountByName(username);
 
 		List<Account> currentMembers = foundByName.getMembers();
