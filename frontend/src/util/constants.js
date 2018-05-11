@@ -8,6 +8,9 @@ export const colors = {
     // text colors
     hint: '#9E9E9E',
     light: '#FFFFFF',
+
+    // card
+    cardHeaderBackground: '#FAFAFA',
 };
 
 // dimensions

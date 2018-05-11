@@ -10,10 +10,6 @@ import Counter from "./counter/Counter";
 import Match from "./match/Match";
 import LoggedOutApp from "./logged-out-app/LoggedOutApp";
 import MatchList from "./match-list/MatchList";
-import SignUp from "./sign-up/SignUp";
-import ResetPassword from "./reset-password/ResetPassword";
-import SetPassword from "./set-password/SetPassword";
-import EditProfile from "./edit-profile/EditProfile";
 
 class Root extends Component {
 
@@ -27,7 +23,7 @@ class Root extends Component {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(appTheme)}>
                 <div>
-                    {authenticated === true ? <EditProfile/> : <EditProfile/>}
+                    {authenticated === true ? <Match/> : <MatchList/>}
                 </div>
             </MuiThemeProvider>
         );

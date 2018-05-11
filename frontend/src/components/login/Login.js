@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
-import {Dialog, FlatButton, RaisedButton, TextField} from "material-ui";
+import {RaisedButton, TextField} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
 import {NavLink} from 'react-router-dom'
 import {strings} from "../../strings";
@@ -37,66 +37,42 @@ const styles = {
 };
 
 class Login extends React.Component {
-    state = {
-        open: true,
-    };
-
-    handleClose = () => {
-        this.setState({open: false});
-    };
 
     render() {
-        const actions = [
-            <FlatButton
-                label={strings.ok}
-                primary={true}
-                onClick={this.handleClose}
-            />,
-        ];
 
         return (
-            <div>
-                <Card id="loginForm" style={styles.card}>
-                    <CardHeader title={strings.login} style={styles.cardHeader} titleColor={colors.light}/>
-                    <CardText style={styles.cardBody}>
-                        <TextField
-                            id="username"
-                            style={styles.textField}
-                            floatingLabelText={strings.username}
-                            underlineFocusStyle={styles.textField}
-                            floatingLabelFocusStyle={styles.textField}
-                            onChange={this.onUpdateCredentials}
-                        />
+            <Card id="loginForm" style={styles.card}>
+                <CardHeader title={strings.login} style={styles.cardHeader} titleColor={colors.light}/>
+                <CardText style={styles.cardBody}>
+                    <TextField
+                        id="username"
+                        style={styles.textField}
+                        floatingLabelText={strings.username}
+                        underlineFocusStyle={styles.textField}
+                        floatingLabelFocusStyle={styles.textField}
+                        onChange={this.onUpdateCredentials}
+                    />
+                    <br/>
+                    <TextField
+                        id="password"
+                        type="password"
+                        style={styles.textField}
+                        floatingLabelText={strings.password}
+                        underlineFocusStyle={styles.textField}
+                        floatingLabelFocusStyle={styles.textField}
+                        onChange={this.onUpdateCredentials}
+                    />
+                    <br/>
+                    <RaisedButton label="OK" onClick={this.authenticate} primary={true} style={styles.button}/>
+                    <div style={styles.actionLinksContainer}>
+                        <span>{strings.forgotPassword} </span>
+                        <NavLink exact to="/resetPassword">{strings.resetPassword}</NavLink>
                         <br/>
-                        <TextField
-                            id="password"
-                            type="password"
-                            style={styles.textField}
-                            floatingLabelText={strings.password}
-                            underlineFocusStyle={styles.textField}
-                            floatingLabelFocusStyle={styles.textField}
-                            onChange={this.onUpdateCredentials}
-                        />
-                        <br/>
-                        <RaisedButton label="OK" onClick={this.authenticate} primary={true} style={styles.button}/>
-                        <div style={styles.actionLinksContainer}>
-                            <span>{strings.forgotPassword} </span>
-                            <NavLink exact to="/resetPassword">{strings.resetPassword}</NavLink>
-                            <br/>
-                            <span>{strings.noAccountYet} </span>
-                            <NavLink exact to="/signUp">{strings.signUp}</NavLink>
-                        </div>
-                    </CardText>
-                </Card>
-                <Dialog
-                    title={strings.accountVerified}
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}>
-                    {strings.accountVerifiedSuccessfully}
-                </Dialog>
-            </div>
+                        <span>{strings.noAccountYet} </span>
+                        <NavLink exact to="/signUp">{strings.signUp}</NavLink>
+                    </div>
+                </CardText>
+            </Card>
         );
     }
 
