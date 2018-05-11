@@ -1,17 +1,17 @@
-import React from 'react';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
+import React from "react";
+import {Card, CardHeader, CardText} from "material-ui/Card";
 import {RaisedButton, TextField} from "material-ui";
-import {colors, dimensions} from "../../util/constants";
-import {NavLink} from 'react-router-dom'
+import {colors, dimensions, pages} from "../../util/constants";
+import {NavLink} from "react-router-dom"
 import {strings} from "../../strings";
-import {apiAuthenticate} from '../../actions/user-actions';
-import {connect} from 'react-redux';
-import animate from 'animate.css'
+import {apiAuthenticate} from "../../actions/user-actions";
+import {connect} from "react-redux";
+import "animate.css";
 
 const styles = {
     card: {
         width: dimensions.formCardWidth,
-        margin: 'auto',
+        margin: "auto",
         marginTop: dimensions.formCardMarginTop,
     },
     cardHeader: {
@@ -24,11 +24,11 @@ const styles = {
     textField: {
         borderColor: colors.primaryColor,
         color: colors.primaryColor,
-        width: '100%',
+        width: "100%",
     },
     button: {
         marginTop: dimensions.bigSpacing,
-        width: '100%',
+        width: "100%",
     },
     actionLinksContainer: {
         marginTop: dimensions.defaultSpacing,
@@ -37,39 +37,56 @@ const styles = {
 };
 
 class Login extends React.Component {
+    message = null;
+
+    componentWillReceiveProps(nextProps) {
+        let loginSuccessful = nextProps.user.authenticationState.authenticated;
+        if (loginSuccessful) {
+            this.onLoginSuccessful();
+        } else {
+            this.onLoginFailed();
+        }
+    }
 
     render() {
 
         return (
-            <Card id="loginForm" style={styles.card}>
+            <Card style={styles.card}
+                  onAnimationEnd={this.onAnimationEnd}
+                  className={this.state.failAnimationActive ? "shake animated" : ""}>
                 <CardHeader title={strings.login} style={styles.cardHeader} titleColor={colors.light}/>
                 <CardText style={styles.cardBody}>
-                    <TextField
-                        id="username"
-                        style={styles.textField}
-                        floatingLabelText={strings.username}
-                        underlineFocusStyle={styles.textField}
-                        floatingLabelFocusStyle={styles.textField}
-                        onChange={this.onUpdateCredentials}
+                    <TextField style={styles.textField}
+                               value={this.state.username}
+                               onChange={this.onUsernameChanged}
+                               onKeyPress={this.onKeyPress}
+                               floatingLabelText={strings.username}
+                               underlineFocusStyle={styles.textField}
+                               floatingLabelFocusStyle={styles.textField}
                     />
                     <br/>
-                    <TextField
-                        id="password"
-                        type="password"
-                        style={styles.textField}
-                        floatingLabelText={strings.password}
-                        underlineFocusStyle={styles.textField}
-                        floatingLabelFocusStyle={styles.textField}
-                        onChange={this.onUpdateCredentials}
+                    <TextField style={styles.textField}
+                               value={this.state.password}
+                               onChange={this.onPasswordChanged}
+                               type="password"
+                               floatingLabelText={strings.password}
+                               onKeyPress={this.onKeyPress}
+                               underlineFocusStyle={styles.textField}
+                               floatingLabelFocusStyle={styles.textField}
                     />
                     <br/>
-                    <RaisedButton label="OK" onClick={this.authenticate} primary={true} style={styles.button}/>
+                    <RaisedButton style={styles.button}
+                                  label={strings.ok}
+                                  primary={true}
+                                  onClick={this.authenticate}
+                                  disabled={this.state.loginOngoing}
+                    />
                     <div style={styles.actionLinksContainer}>
                         <span>{strings.forgotPassword} </span>
-                        <NavLink exact to="/resetPassword">{strings.resetPassword}</NavLink>
+                        <NavLink exact to={pages.resetPassword}>{strings.resetPassword}</NavLink>
                         <br/>
                         <span>{strings.noAccountYet} </span>
-                        <NavLink exact to="/signUp">{strings.signUp}</NavLink>
+                        <NavLink exact to={pages.signUp}>{strings.signUp}</NavLink>
                     </div>
                 </CardText>
             </Card>
@@ -78,17 +95,59 @@ class Login extends React.Component {
 
     constructor(props) {
         super(props);
-
         this.authenticate = this.authenticate.bind(this);
+
+        this.state = {
+            username: "",
+            password: "",
+            failAnimationActive: false,
+            loginOngoing: false,
+        };
     }
+
+    onUsernameChanged = (event) => {
+        this.setState({
+            username: event.target.value,
+        });
+    };
+
+    onPasswordChanged = (event) => {
+        this.setState({
+            password: event.target.value,
+        });
+    };
 
     // send login request to api
-    authenticate(event) {
-        let username = document.getElementById('username').value;
-        let password = document.getElementById('password').value;
-        this.props.authenticate(username, password);
+    authenticate() {
+        this.props.authenticate(this.state.username, this.state.password);
+        this.setState({
+            loginOngoing: true,
+        });
     }
 
+    onLoginSuccessful() {
+        this.props.history.push(pages.matchList);
+    }
+
+    onLoginFailed() {
+        this.setState({
+            password: "",
+            failAnimationActive: true,
+            loginOngoing: false,
+        });
+    }
+
+    onKeyPress = (event) => {
+        if (event.key === "Enter") {
+            this.authenticate();
+        }
+    };
+
+    onAnimationEnd = () => {
+        this.setState({
+            failAnimationActive: false,
+        });
+    }
 }
 
 // subscribes store to Login.props
