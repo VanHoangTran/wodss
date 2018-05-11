@@ -1,8 +1,19 @@
 import React, {Component} from 'react';
 import App from './app/App';
 import Login from './login/Login';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {appTheme} from "../util/constants";
 import {connect} from 'react-redux';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import "./Root.css";
+import Counter from "./counter/Counter";
+import Match from "./match/Match";
+import LoggedOutApp from "./logged-out-app/LoggedOutApp";
+import MatchList from "./match-list/MatchList";
+import SignUp from "./sign-up/SignUp";
+import ResetPassword from "./reset-password/ResetPassword";
+import SetPassword from "./set-password/SetPassword";
+import EditProfile from "./edit-profile/EditProfile";
 
 class Root extends Component {
 
@@ -14,9 +25,11 @@ class Root extends Component {
         }
 
         return (
-            <div>
-                Hallo Welt, hier wäre die APP (geschützter Bereich)
-            </div>
+            <MuiThemeProvider muiTheme={getMuiTheme(appTheme)}>
+                <div>
+                    {authenticated === true ? <EditProfile/> : <EditProfile/>}
+                </div>
+            </MuiThemeProvider>
         );
     }
 }

@@ -1,8 +1,13 @@
 body {
     margin: 0;
     background: #EEEEEE;
+    min-width: 20rem;
 }
 
 a {
     color: #2196F3;
+}
+
+.material-icons {
+    vertical-align: bottom;
 }

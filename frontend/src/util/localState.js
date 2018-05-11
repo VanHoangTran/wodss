@@ -17,4 +17,4 @@ export const saveState = (state) => {
     } catch(err) {
         console.error('failed to access local storage');
     }
-} 
+}
