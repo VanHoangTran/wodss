@@ -1,6 +1,15 @@
 export const API_ENDPOINT = 'http://localhost:8080/api/';
 export const API_AUTH_ACTION = 'authenticate';
 
+// pages
+export const pages = {
+    root: "/",
+    login: "/login",
+    signUp: "/sign-up",
+    matchList: "/match-list",
+    resetPassword: "/reset-password",
+};
+
 // colors
 export const colors = {
     primaryColor: '#4CAF50',
