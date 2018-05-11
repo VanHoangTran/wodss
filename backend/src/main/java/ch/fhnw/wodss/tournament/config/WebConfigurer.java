@@ -1,8 +1,5 @@
 package ch.fhnw.wodss.tournament.config;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletContext;
@@ -39,12 +36,8 @@ public class WebConfigurer implements ServletContextInitializer {
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-		Calendar endOfPhaseOne = new GregorianCalendar(2018, Calendar.JUNE, 28);
-
 		// schedule tournament manager - not request based due to DDOS prevention
-		if (new Date().after(endOfPhaseOne.getTime())) {
-			executor.scheduleAtFixedRate(new TournamentManager(gameService, groupService), TimeUnit.DAYS.toMillis(1));
-		}
+		executor.scheduleAtFixedRate(new TournamentManager(gameService, groupService), TimeUnit.DAYS.toMillis(1));
 	}
 
 	@Bean
