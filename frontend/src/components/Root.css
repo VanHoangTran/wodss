@@ -1,7 +1,6 @@
 body {
     margin: 0;
     background: #EEEEEE;
-    min-width: 20rem;
 }
 
 a {
@@ -10,4 +9,6 @@ a {
 
 .material-icons {
     vertical-align: bottom;
+    line-height: 1rem;
+    color: black;
 }
