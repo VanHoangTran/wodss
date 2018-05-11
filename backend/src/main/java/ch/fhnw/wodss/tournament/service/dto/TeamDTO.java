@@ -1,5 +1,7 @@
 package ch.fhnw.wodss.tournament.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import ch.fhnw.wodss.tournament.domain.Team;
 
 public class TeamDTO {
@@ -12,8 +14,10 @@ public class TeamDTO {
 
 	private String countryFifaCode;
 
+	@JsonIgnore
 	private int goalDifferenceInGroup;
 
+	@JsonIgnore
 	private int pointsInGroup;
 
 	public TeamDTO(Team team) {

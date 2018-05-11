@@ -1,13 +1,20 @@
 package ch.fhnw.wodss.tournament.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
 public class BettingPool {
 
+	public static final String leaveAction = "leave";
+	public static final String joinAction = "join";
+	
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -16,6 +23,9 @@ public class BettingPool {
 
 	@OneToOne
 	private Account owner;
+
+	@OneToMany
+	private List<Account> members;
 
 	public Long getId() {
 		return id;
@@ -39,6 +49,14 @@ public class BettingPool {
 
 	public void setOwner(Account owner) {
 		this.owner = owner;
+	}
+
+	public List<Account> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<Account> members) {
+		this.members = members;
 	}
 
 }
