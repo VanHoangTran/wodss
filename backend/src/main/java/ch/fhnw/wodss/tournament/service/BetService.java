@@ -39,7 +39,7 @@ public class BetService {
 
 	@Autowired
 	private BetRepository betRepository;
-	
+
 	@Autowired
 	private SecurityUtil securityUtil;
 
@@ -50,9 +50,7 @@ public class BetService {
 	 */
 	public void createOrUpdate(BetVM vm) {
 
-		// first of all, check if JWT token authentication is requested account
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		final String username = authentication.getName();
+		final String username = securityUtil.getUsername();
 
 		Account foundAccount = accountService.getAccountByName(username);
 		if (foundAccount == null) {

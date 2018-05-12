@@ -24,7 +24,13 @@ import ch.fhnw.wodss.tournament.service.AccountService;
 import ch.fhnw.wodss.tournament.service.BetService;
 import ch.fhnw.wodss.tournament.service.dto.BetDTO;
 import ch.fhnw.wodss.tournament.util.SecurityUtil;
+import ch.fhnw.wodss.tournament.web.rest.viewmodel.BetVM;
 
+/**
+ * Performs test of bet service
+ * 
+ * @author Kevin Kirn <kevin.kirn@students.fhnw.ch>
+ */
 @RunWith(SpringRunner.class)
 public class BetServiceTests {
 
@@ -81,6 +87,57 @@ public class BetServiceTests {
 		someBets.add(b1);
 		someBets.add(b2);
 		someBets.add(b3);
+	}
+
+	@Test
+	public void testCreateOrUpdate() {
+		// searching for invalid user id
+		Mockito.when(accountService.getAccountByName(Mockito.anyString())).thenReturn(null);
+		try {
+			betService.createOrUpdate(null);
+			Assert.fail("should never reach here...");
+		} catch (Exception e) {
+		}
+
+		// simple bet for test
+		BetVM mock = new BetVM();
+		mock.setGameId(100);
+		mock.setHomeGoals(10);
+		mock.setAwayGoals(10);
+
+		// game not found - exception should be thrown
+		Mockito.when(gameRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+		try {
+			betService.createOrUpdate(mock);
+			Assert.fail("should never reach here...");
+		} catch (Exception e) {
+		}
+
+		Mockito.when(accountService.getAccountByName(Mockito.anyString())).thenReturn(someBets.get(0).getAccount());
+		Mockito.when(gameRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(someBets.get(0).getGame()));
+		Mockito.when(betRepository.findByGameId(Mockito.anyLong())).thenReturn(someBets.get(0));
+
+		betService.createOrUpdate(mock);
+
+		Assert.assertTrue(someBets.get(0).getHomeGoals() == mock.getHomeGoals()
+				&& someBets.get(0).getAwayGoals() == mock.getAwayGoals());
+	}
+
+	@Test
+	public void testGetBetsForUser() {
+		// searching for invalid user id
+		Mockito.when(accountService.getAccountByName(Mockito.anyString())).thenReturn(null);
+		try {
+			betService.getBetsForUser();
+			Assert.fail("should never reach here...");
+		} catch (Exception e) {
+		}
+
+		Mockito.when(accountService.getAccountByName(Mockito.anyString())).thenReturn(someBets.get(0).getAccount());
+		Mockito.when(betRepository.findAllByAccount(Mockito.any(Account.class))).thenReturn(someBets);
+
+		List<BetDTO> betsForUserById = betService.getBetsForUser();
+		Assert.assertEquals(betsForUserById.size(), someBets.size());
 	}
 
 	@Test
