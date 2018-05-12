@@ -6,4 +6,6 @@ import ch.fhnw.wodss.tournament.domain.BettingPool;
 
 public interface BettingPoolRepository extends JpaRepository<BettingPool, Long> {
 
+	BettingPool findByName(String name);
+
 }

@@ -6,8 +6,6 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +38,9 @@ public class BetService {
 	@Autowired
 	private BetRepository betRepository;
 
+	@Autowired
+	private SecurityUtil securityUtil;
+
 	/**
 	 * Creates or updates a bet using provided BetVM
 	 * 
@@ -47,9 +48,7 @@ public class BetService {
 	 */
 	public void createOrUpdate(BetVM vm) {
 
-		// first of all, check if JWT token authentication is requested account
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		final String username = authentication.getName();
+		final String username = securityUtil.getUsername();
 
 		Account foundAccount = accountService.getAccountByName(username);
 		if (foundAccount == null) {
@@ -81,10 +80,10 @@ public class BetService {
 	}
 
 	/**
-	 * Returns all bets for a given user
+	 * Returns all bets for current user
 	 */
 	public List<BetDTO> getBetsForUser() {
-		Account account = accountService.getAccountByName(SecurityUtil.getUsername());
+		Account account = accountService.getAccountByName(securityUtil.getUsername());
 		if (account == null) {
 			log.warn("sombody obviously manipulated the token / authority");
 			throw new IllegalArgumentException("invalid arguments provided");
@@ -96,10 +95,10 @@ public class BetService {
 	}
 
 	/**
-	 * Returns a bets by id for a given user
+	 * Returns a bets by id for current user
 	 */
 	public BetDTO getBetsForUserById(Long betId) {
-		Account account = accountService.getAccountByName(SecurityUtil.getUsername());
+		Account account = accountService.getAccountByName(securityUtil.getUsername());
 		if (account == null) {
 			log.warn("sombody obviously manipulated the token / authority");
 			throw new IllegalArgumentException("invalid arguments provided");
@@ -115,5 +114,20 @@ public class BetService {
 		}
 
 		return new BetDTO(userBets.get());
+	}
+
+	/**
+	 * Returns all bets for a given userID
+	 */
+	public List<BetDTO> getBetsByUserId(Long userId) {
+		Account account = accountService.getAccountById(userId);
+		if (account == null) {
+			log.warn("account with id {} could not be found", userId);
+			throw new IllegalArgumentException("invalid arguments provided");
+		}
+
+		List<Bet> userBets = betRepository.findAllByAccount(account);
+
+		return BetDTO.fromList(userBets);
 	}
 }
