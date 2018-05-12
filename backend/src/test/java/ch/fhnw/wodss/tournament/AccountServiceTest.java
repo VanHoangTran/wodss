@@ -17,6 +17,7 @@ import ch.fhnw.wodss.tournament.service.AccountService;
 import ch.fhnw.wodss.tournament.service.MailService;
 import ch.fhnw.wodss.tournament.util.Argon2Util;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.RegisterViewModel;
+import ch.fhnw.wodss.tournament.web.rest.viewmodel.StartRecoveryViewModel;
 
 /**
  * Performs test of account service
@@ -142,6 +143,28 @@ public class AccountServiceTest {
 		// verified account can be activated (idempotent)
 		mock.setVerified(true);
 		accountService.activateAccount("my-very-secret-token");
+	}
+
+	@Test
+	public void testPasswordReset() {
+		StartRecoveryViewModel vm = new StartRecoveryViewModel();
+		vm.setUsername("username");
+		vm.setMail("mail");
+
+		// no user can be found!
+		try {
+			accountService.startPasswordReset(vm);
+			Assert.fail("should never reach here...");
+		} catch (Exception e) {
+		}
+		
+		// inactive or not verified user
+		try {
+			accountService.startPasswordReset(vm);
+			Assert.fail("should never reach here...");
+		} catch (Exception e) {
+		}
+		
 	}
 
 }

@@ -83,7 +83,7 @@ public class MailService {
 		Authenticator auth = new Authenticator() {
 			public PasswordAuthentication getPasswordAuthentication() {
 				// TODO: use a dedicated mail
-				return new PasswordAuthentication("ihkawiss90@gmail.com", "NickL1990");
+				return new PasswordAuthentication("wodds.tippspiel@gmail.com", "wodds$2018");
 			}
 		};
 
