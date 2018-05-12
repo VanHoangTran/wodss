@@ -59,6 +59,10 @@ public class AccountService {
 			throw new IllegalArgumentException("password invalid");
 		}
 
+		if (!ValidationUtil.isValidMail(registerViewModel.getMail())) {
+			throw new IllegalArgumentException("mail invalid");
+		}
+		
 		// check if there is already a user
 		Account foundByUsername = accountRepository.findByUsername(registerViewModel.getUsername().toLowerCase());
 		if (foundByUsername != null) {
