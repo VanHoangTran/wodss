@@ -113,7 +113,7 @@ public class AccountServiceTest {
 		// check returned account
 		Account created = accountService.register(vm);
 		Assert.assertTrue("should never be admin", !created.isAdmin());
-		Assert.assertTrue("should never be active", !created.isActive());
+		Assert.assertTrue("should be active", created.isActive());
 		Assert.assertTrue("should never be verified", !created.isVerified());
 		Assert.assertTrue("mail as defined in vm", created.getMail().equals(vm.getMail()));
 		Assert.assertTrue("username as defined in vm", created.getUsername().equals(vm.getUsername()));
@@ -121,4 +121,27 @@ public class AccountServiceTest {
 		Assert.assertTrue("has activation key", created.getActivationKey().length() >= 20);
 		Assert.assertTrue("password not clear text", created.getPassword() != vm.getPassword());
 	}
+
+	@Test
+	public void testActivateAccount() {
+		Mockito.when(accountRepository.findByActivationKey(Mockito.anyString())).thenReturn(null);
+
+		// if no account was found by key - no activation possible!
+		try {
+			accountService.activateAccount("my-very-secret-token");
+			Assert.fail("should never reach here...");
+		} catch (Exception e) {
+		}
+
+		// account can be activated
+		Account mock = new Account();
+		mock.setVerified(false);
+		Mockito.when(accountRepository.findByActivationKey(Mockito.anyString())).thenReturn(mock);
+		accountService.activateAccount("my-very-secret-token");
+
+		// verified account can be activated (idempotent)
+		mock.setVerified(true);
+		accountService.activateAccount("my-very-secret-token");
+	}
+
 }

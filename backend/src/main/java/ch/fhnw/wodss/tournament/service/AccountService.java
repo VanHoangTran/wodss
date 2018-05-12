@@ -62,7 +62,7 @@ public class AccountService {
 		if (!ValidationUtil.isValidMail(registerViewModel.getMail())) {
 			throw new IllegalArgumentException("mail invalid");
 		}
-		
+
 		// check if there is already a user
 		Account foundByUsername = accountRepository.findByUsername(registerViewModel.getUsername().toLowerCase());
 		if (foundByUsername != null) {
@@ -77,7 +77,7 @@ public class AccountService {
 
 		Account newAccount = new Account();
 		newAccount.setAdmin(false);
-		newAccount.setActive(false);
+		newAccount.setActive(true);
 		newAccount.setVerified(false);
 		newAccount.setMail(registerViewModel.getMail());
 		newAccount.setUsername(registerViewModel.getUsername());
@@ -104,61 +104,6 @@ public class AccountService {
 	}
 
 	/**
-	 * Creates a account recovery entry for given account.
-	 * 
-	 * @param account to create recovery for
-	 * @return the created account recovery
-	 */
-	public AccountRecovery createRecovery(Account account) {
-		log.info("creating a new account recovery for {}", account);
-
-		AccountRecovery recovery = new AccountRecovery();
-		recovery.setAccount(account);
-
-		String key = RandomStringUtils.randomAlphanumeric(50);
-		recovery.setRecoveryKey(key);
-
-		accountRecoveryRepository.save(recovery);
-
-		log.info("account recovery created");
-
-		return recovery;
-	}
-
-	/**
-	 * Removes all existing recoveries for given account-
-	 * 
-	 * @param account to invalidate recoveries for
-	 */
-	public void invalidateRecovieries(Account account) {
-		log.info("invalidating all recovery entries for {}", account);
-
-		List<AccountRecovery> active = accountRecoveryRepository.findAllByAccount(account);
-		accountRecoveryRepository.deleteAll(active);
-
-		log.info("invalidated {} account recovery entries", active.size());
-	}
-
-	/**
-	 * Updates the password for a account
-	 * 
-	 * @param newPassword to set
-	 */
-	public void changePassword(String newPassword, Account account) {
-		log.info("Setting a new password for {}", account);
-
-		log.info("salting and hashing user's password with argon2");
-		String salt = RandomStringUtils.randomAlphanumeric(20);
-		String hash = passwordEncoder.hash(salt + account.getPassword());
-		account.setPassword(hash);
-		account.setSalt(salt);
-
-		accountRepository.save(account);
-
-		log.info("Password changed sucessfully");
-	}
-
-	/**
 	 * Activates a account for given activation token
 	 * 
 	 * @param activationToken received in mail
@@ -167,10 +112,9 @@ public class AccountService {
 	public void activateAccount(String activationToken) {
 		Account account = accountRepository.findByActivationKey(activationToken);
 
-		if (account == null || account.isActive()) {
+		if (account == null) {
 			throw new IllegalArgumentException("unable to activate account");
 		} else {
-			account.setActive(true);
 			account.setVerified(true);
 			accountRepository.save(account);
 		}
@@ -234,6 +178,61 @@ public class AccountService {
 
 		// invalidate all recovery entries
 		accountService.invalidateRecovieries(account);
+	}
+
+	/**
+	 * Creates a account recovery entry for given account.
+	 * 
+	 * @param account to create recovery for
+	 * @return the created account recovery
+	 */
+	private AccountRecovery createRecovery(Account account) {
+		log.info("creating a new account recovery for {}", account);
+
+		AccountRecovery recovery = new AccountRecovery();
+		recovery.setAccount(account);
+
+		String key = RandomStringUtils.randomAlphanumeric(50);
+		recovery.setRecoveryKey(key);
+
+		accountRecoveryRepository.save(recovery);
+
+		log.info("account recovery created");
+
+		return recovery;
+	}
+
+	/**
+	 * Removes all existing recoveries for given account-
+	 * 
+	 * @param account to invalidate recoveries for
+	 */
+	private void invalidateRecovieries(Account account) {
+		log.info("invalidating all recovery entries for {}", account);
+
+		List<AccountRecovery> active = accountRecoveryRepository.findAllByAccount(account);
+		accountRecoveryRepository.deleteAll(active);
+
+		log.info("invalidated {} account recovery entries", active.size());
+	}
+
+	/**
+	 * Updates the password for a account
+	 * 
+	 * @param newPassword to set
+	 */
+	private void changePassword(String newPassword, Account account) {
+		log.info("Setting a new password for {}", account);
+
+		log.info("salting and hashing user's password with argon2");
+		String salt = RandomStringUtils.randomAlphanumeric(20);
+		String hash = passwordEncoder.hash(salt + account.getPassword());
+		account.setPassword(hash);
+		account.setSalt(salt);
+
+		accountRepository.save(account);
+
+		log.info("Password changed sucessfully");
 	}
 
 	/**
