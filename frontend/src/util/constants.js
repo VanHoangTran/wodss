@@ -1,11 +1,12 @@
 export const API_ENDPOINT = 'http://localhost:8080/api/';
-export const API_AUTH_ACTION = 'authenticate';
+export const API_ACTION_AUTH = 'authenticate';
+export const API_ACTION_REGISTER = 'registration';
 
 // pages
 export const pages = {
     root: "/",
     login: "/login",
-    signUp: "/sign-up",
+    registration: "/registration",
     matchList: "/match-list",
     resetPassword: "/reset-password",
 };

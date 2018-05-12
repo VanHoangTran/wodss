@@ -103,42 +103,39 @@ class Login extends Component {
 
     render() {
         return (
-            <Card style={styles.card}
+            <Card className={this.state.failAnimationActive ? "shake animated" : ""}
                   onAnimationEnd={this.onAnimationEnd}
-                  className={this.state.failAnimationActive ? "shake animated" : ""}>
+                  style={styles.card}>
                 <CardHeader title={strings.login} style={styles.cardHeader} titleColor={colors.light}/>
                 <CardText style={styles.cardBody}>
-                    <TextField style={styles.textField}
-                               value={this.state.username}
+                    <TextField value={this.state.username}
                                onChange={this.onUsernameChanged}
                                onKeyPress={this.onKeyPress}
+                               style={styles.textField}
                                floatingLabelText={strings.username}
                                underlineFocusStyle={styles.textField}
-                               floatingLabelFocusStyle={styles.textField}
-                    />
+                               floatingLabelFocusStyle={styles.textField}/>
                     <br/>
-                    <TextField style={styles.textField}
-                               value={this.state.password}
+                    <TextField value={this.state.password}
                                onChange={this.onPasswordChanged}
-                               type="password"
-                               floatingLabelText={strings.password}
                                onKeyPress={this.onKeyPress}
+                               type="password"
+                               style={styles.textField}
+                               floatingLabelText={strings.password}
                                underlineFocusStyle={styles.textField}
-                               floatingLabelFocusStyle={styles.textField}
-                    />
+                               floatingLabelFocusStyle={styles.textField}/>
                     <br/>
-                    <RaisedButton style={styles.button}
-                                  label={strings.ok}
+                    <RaisedButton label={strings.ok}
                                   primary={true}
                                   onClick={this.authenticate}
                                   disabled={this.state.loginOngoing}
-                    />
+                                  style={styles.button}/>
                     <div style={styles.actionLinksContainer}>
                         <span>{strings.forgotPassword} </span>
                         <NavLink exact to={pages.resetPassword}>{strings.resetPassword}</NavLink>
                         <br/>
                         <span>{strings.noAccountYet} </span>
-                        <NavLink exact to={pages.signUp}>{strings.signUp}</NavLink>
+                        <NavLink exact to={pages.registration}>{strings.registration}</NavLink>
                     </div>
                 </CardText>
             </Card>

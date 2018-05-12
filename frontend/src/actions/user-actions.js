@@ -1,5 +1,7 @@
 import $ from 'jquery';
-import {API_AUTH_ACTION, API_ENDPOINT} from '../util/constants';
+import {API_ACTION_AUTH, API_ENDPOINT} from '../util/constants';
+
+const CONTENT_TYPE = "application/json; charset=utf-8";
 
 export const UPDATE_USER = 'user:updateUser';
 
@@ -20,11 +22,11 @@ export function apiAuthenticate(username, password) {
     return dispatch => {
         $.ajax({
             type: 'POST',
-            url: API_ENDPOINT + API_AUTH_ACTION,
+            url: API_ENDPOINT + API_ACTION_AUTH,
             data: JSON.stringify({username: username, password: password}),
-            contentType: "application/json; charset=utf-8",
-            success(data) {
-                dispatch(updateUser(username, data.id_token));
+            contentType: CONTENT_TYPE,
+            success(response) {
+                dispatch(updateUser(username, response.id_token));
             },
             error(response) {
                 dispatch(updateUser(null, null));

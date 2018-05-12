@@ -14,7 +14,7 @@ import {appTheme, pages} from "./util/constants";
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Login from './components/login/Login';
 import {Switch} from 'react-router-dom';
-import SignUp from './components/sign-up/SignUp'
+import Registration from './components/registration/Registration'
 import MatchList from './components/match-list/MatchList';
 import PrivateRoute from './components/private-route/PrivateRoute';
 import ResetPassword from "./components/reset-password/ResetPassword";
@@ -45,7 +45,7 @@ render(
                 <Switch>
                     <PrivateRoute exact path={pages.root} component={MatchList}/>
                     <Route path={pages.login} component={Login}/>
-                    <Route path={pages.signUp} component={SignUp}/>
+                    <Route path={pages.registration} component={Registration}/>
                     <Route path={pages.resetPassword} component={ResetPassword}/>
 
                     <PrivateRoute path={pages.matchList} component={MatchList}/>

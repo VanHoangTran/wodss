@@ -4,7 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {Tab, Tabs} from 'material-ui/Tabs';
 import {colors, dimensions} from "../../util/constants";
 import MatchList from "../match-list/MatchList";
-import SignUp from "../sign-up/SignUp";
+import Registration from "../registration/Registration";
 import {Route, Switch} from 'react-router-dom';
 
 const styles = {
@@ -46,7 +46,7 @@ const Header = () => {
         <div className="header">
             <Switch>
                 <Route exact path="/" component={MatchList}/>
-                <Route exact path="/signUp" component={SignUp}/>
+                <Route exact path="/signUp" component={Registration}/>
             </Switch>
             <NavLink exact to="/">Startseite</NavLink>
             <NavLink exact to="/logout">Logout</NavLink>
