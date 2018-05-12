@@ -6,9 +6,10 @@ export const API_ACTION_REGISTER = 'registration';
 export const pages = {
     root: "/",
     login: "/login",
+    logout: "/logout",
     registration: "/registration",
-    matchList: "/match-list",
     resetPassword: "/reset-password",
+    matchList: "/match-list",
 };
 
 // colors

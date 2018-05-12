@@ -25,14 +25,10 @@ export function apiRegister(username, password, mail) {
             data: JSON.stringify({username: username, password: password, mail: mail}),
             contentType: CONTENT_TYPE,
             success(response) {
-                if (response.status === 200) {
-                    dispatch(updateRegistration(true, null));
-                }
+                dispatch(updateRegistration(true, null));
             },
             error(response) {
-                if (response.status !== 200) {
-                    dispatch(updateRegistration(false, response.responseText));
-                }
+                dispatch(updateRegistration(false, response.responseText));
             }
         });
     }

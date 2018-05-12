@@ -64,6 +64,7 @@ class Registration extends Component {
             mailInvalid: false,
             passwordInvalid: false,
             passwordConfirmationInvalid: false,
+            formInvalid: true,
 
             loginOngoing: false,
             failAnimationActive: false,
@@ -85,7 +86,7 @@ class Registration extends Component {
     register() {
         this.props.register(this.state.username, this.state.password, this.state.mail);
         this.setState({
-            loginOngoing: false, // TODO Set to true
+            loginOngoing: true,
         });
     };
 
@@ -106,7 +107,7 @@ class Registration extends Component {
 
             dialogOpen: true,
             errorMessage: this.props.registration.responseText,
-        });
+        }, this.handleSubmitButton);
     }
 
     onUsernameChanged = (event) => {
@@ -115,7 +116,7 @@ class Registration extends Component {
             username: username,
             usernameInvalid: username.length === 0 || username.length > 50,
             avatarUrl: getAvatarUrl(username),
-        });
+        }, this.handleSubmitButton);
     };
 
     onMailChanged = (event) => {
@@ -123,7 +124,7 @@ class Registration extends Component {
         this.setState({
             mail: mail,
             mailInvalid: !MAIL_REGEX.test(mail.toUpperCase()),
-        });
+        }, this.handleSubmitButton);
     };
 
     onPasswordChanged = (event) => {
@@ -131,14 +132,29 @@ class Registration extends Component {
         this.setState({
             password: password,
             passwordInvalid: !PASSWORD_REGEX.test(password),
-        });
+            passwordConfirmationInvalid: password !== this.state.passwordConfirmation,
+        }, this.handleSubmitButton);
     };
 
     onPasswordConfirmationChanged = (event) => {
         let passwordConfirmation = event.target.value;
+        let passwordConfirmationInvalid = passwordConfirmation !== this.state.password;
         this.setState({
             passwordConfirmation: passwordConfirmation,
-            passwordConfirmationInvalid: passwordConfirmation !== this.state.password
+            passwordConfirmationInvalid: passwordConfirmationInvalid
+        }, this.handleSubmitButton);
+    };
+
+    handleSubmitButton() {
+        let formInvalid = this.state.loginOngoing
+            || (
+                this.state.usernameInvalid
+                || this.state.mailInvalid
+                || this.state.passwordInvalid
+                || this.state.passwordConfirmationInvalid
+            );
+        this.setState({
+            formInvalid: formInvalid,
         });
     };
 
@@ -158,7 +174,7 @@ class Registration extends Component {
         this.setState({
             dialogOpen: false,
         });
-    }
+    };
 
     render() {
         const actions = [
@@ -219,7 +235,7 @@ class Registration extends Component {
                             <br/>
                             <RaisedButton label={strings.ok}
                                           onClick={this.register}
-                                          disabled={this.state.loginOngoing}
+                                          disabled={this.state.formInvalid}
                                           primary={true}
                                           style={styles.button}/>
                         </div>

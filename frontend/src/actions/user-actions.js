@@ -31,6 +31,12 @@ export function apiAuthenticate(username, password) {
             error(response) {
                 dispatch(updateUser(null, null));
             }
-        });
+        })
+    }
+}
+
+export function apiLogout() {
+    return dispatch => {
+        dispatch(updateUser(null, null));
     }
 }

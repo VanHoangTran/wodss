@@ -6,6 +6,7 @@ export const strings = new LocalizedStrings({
         errorOccurred: "Ein Fehler ist aufgetreten",
 
         login: "Login",
+        logout: "Logout",
         username: "Benutzername",
         usernameInvalid: "Benutzername ungültig",
         password: "Passwort",

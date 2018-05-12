@@ -6,9 +6,7 @@ import {pages} from "../../util/constants";
 
 class PrivateRoute extends Route {
     render() {
-        let authenticated = this.props.token !== null;
-
-        if (authenticated) {
+        if (this.props.user.username && this.props.user.token) {
             let Component = this.props.component;
             return <Component/>;
         } else {

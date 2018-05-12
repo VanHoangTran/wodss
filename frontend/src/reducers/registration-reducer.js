@@ -8,4 +8,3 @@ export default function registrationReducer(state = '', {type, payload}) {
             return state;
     }
 }
-
