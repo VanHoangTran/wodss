@@ -1,6 +1,7 @@
 export const API_ENDPOINT = 'http://localhost:8080/api/';
 export const API_ACTION_AUTH = 'authenticate';
 export const API_ACTION_REGISTER = 'registration';
+export const API_ACTION_RECOVERY = 'recovery';
 
 // pages
 export const pages = {
@@ -8,6 +9,7 @@ export const pages = {
     login: "/login",
     logout: "/logout",
     registration: "/registration",
+    activate: "/activate",
     resetPassword: "/reset-password",
     matchList: "/match-list",
 };

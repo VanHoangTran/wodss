@@ -45,7 +45,7 @@ class Logout extends Component {
             <Card style={styles.card}>
                 <CardHeader title={strings.logout} style={styles.cardHeader} titleColor={colors.light}/>
                 <CardText style={styles.cardBody}>
-                    <span>Logout!!</span>
+                    <span>{strings.logoutSuccessfully}</span>
                     <br/>
                     <RaisedButton label={strings.ok}
                                   primary={true}

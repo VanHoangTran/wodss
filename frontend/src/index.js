@@ -16,6 +16,8 @@ import MatchList from './components/match-list/MatchList';
 import PrivateRoute from './components/private-route/PrivateRoute';
 import ResetPassword from "./components/reset-password/ResetPassword";
 import Logout from "./components/logout/Logout";
+import Activate from "./components/activate/Activate";
+import "./Root.css";
 
 const persistedState = loadState();
 
@@ -41,6 +43,7 @@ render(
                     <Route path={pages.login} component={Login}/>
                     <Route path={pages.logout} component={Logout}/>
                     <Route path={pages.registration} component={Registration}/>
+                    <Route path={pages.activate} component={Activate}/>
                     <Route path={pages.resetPassword} component={ResetPassword}/>
 
                     <PrivateRoute path={pages.matchList} component={MatchList}/>

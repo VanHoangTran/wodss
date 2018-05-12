@@ -87,7 +87,7 @@ class Registration extends Component {
         this.props.register(this.state.username, this.state.password, this.state.mail);
         this.setState({
             loginOngoing: true,
-        });
+        }, this.handleSubmitButton);
     };
 
     onRegistrationSuccessful() {
@@ -101,6 +101,8 @@ class Registration extends Component {
             password: "",
             passwordConfirmation: "",
             avatarUrl: getAvatarUrl(),
+
+            formInvalid: true,
 
             loginOngoing: false,
             failAnimationActive: true,
@@ -132,8 +134,13 @@ class Registration extends Component {
         this.setState({
             password: password,
             passwordInvalid: !PASSWORD_REGEX.test(password),
-            passwordConfirmationInvalid: password !== this.state.passwordConfirmation,
         }, this.handleSubmitButton);
+
+        if (this.state.passwordConfirmation.length > 0) {
+            this.setState({
+                passwordConfirmationInvalid: password !== this.state.passwordConfirmation,
+            }, this.handleSubmitButton);
+        }
     };
 
     onPasswordConfirmationChanged = (event) => {
@@ -146,20 +153,19 @@ class Registration extends Component {
     };
 
     handleSubmitButton() {
-        let formInvalid = this.state.loginOngoing
+        this.setState({
+            formInvalid: this.state.loginOngoing
             || (
                 this.state.usernameInvalid
                 || this.state.mailInvalid
                 || this.state.passwordInvalid
                 || this.state.passwordConfirmationInvalid
-            );
-        this.setState({
-            formInvalid: formInvalid,
+            ),
         });
     };
 
     onKeyPress = (event) => {
-        if (event.key === "Enter") {
+        if (event.key === "Enter" && !this.state.formInvalid) {
             this.register();
         }
     };
@@ -181,6 +187,7 @@ class Registration extends Component {
             <FlatButton
                 label={strings.ok}
                 primary={true}
+                keyboardFocused={true}
                 onClick={this.handleCloseDialog}
             />,
         ];

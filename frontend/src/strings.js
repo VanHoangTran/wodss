@@ -6,7 +6,6 @@ export const strings = new LocalizedStrings({
         errorOccurred: "Ein Fehler ist aufgetreten",
 
         login: "Login",
-        logout: "Logout",
         username: "Benutzername",
         usernameInvalid: "Benutzername ungültig",
         password: "Passwort",
@@ -20,9 +19,10 @@ export const strings = new LocalizedStrings({
         registration: "Registrieren",
         mail: "E-Mail-Adresse",
         mailInvalid: "E-Mail-Adresse ungültig",
-        accountVerified: "Account verifiziert",
-        accountVerifiedSuccessfully: "Dein Account wurde erfolgreich verifiziert.",
-
+        accountActivated: "Account aktiviert",
+        accountActivatedSuccessfully: "Dein Account wurde erfolgreich aktiviert.",
+        logout: "Logout",
+        logoutSuccessfully: "Du wurdest erfolgreich abgemeldet.",
         profile: "Profil",
         userInformation: "Benutzerinformationen",
         changePassword: "Passwort ändern",
