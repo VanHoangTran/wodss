@@ -30,7 +30,7 @@ import ch.fhnw.wodss.tournament.web.rest.viewmodel.StartRecoveryViewModel;
 public class AccountServiceTest {
 
 	@TestConfiguration
-	static class EmployeeServiceImplTestContextConfiguration {
+	static class TestInitalizer {
 
 		@Bean
 		public AccountService accountService() {

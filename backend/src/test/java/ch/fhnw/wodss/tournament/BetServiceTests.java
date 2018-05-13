@@ -35,7 +35,7 @@ import ch.fhnw.wodss.tournament.web.rest.viewmodel.BetVM;
 public class BetServiceTests {
 
 	@TestConfiguration
-	static class EmployeeServiceImplTestContextConfiguration {
+	static class TestInitalizer {
 
 		@Bean
 		public BetService employeeService() {
