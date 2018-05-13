@@ -2,6 +2,8 @@ export const API_ENDPOINT = 'http://localhost:8080/api/';
 export const API_ACTION_AUTH = 'authenticate';
 export const API_ACTION_REGISTER = 'registration';
 export const API_ACTION_RECOVERY = 'recovery';
+export const API_ACTION_PHASES = 'phases';
+export const API_ACTION_GAMES = 'games';
 
 // pages
 export const pages = {

@@ -21,7 +21,7 @@ import "./Root.css";
 
 const persistedState = loadState();
 
-const store = createStore(
+export const store = createStore(
     allReducers,
     persistedState,
     compose(
