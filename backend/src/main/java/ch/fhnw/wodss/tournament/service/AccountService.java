@@ -157,7 +157,7 @@ public class AccountService {
 			throw new IllegalArgumentException("Unable to perform recovery");
 		}
 
-		// check uf passwords are equal
+		// check if passwords are equal
 		if (!recoveryViewModel.getPassword().equals(recoveryViewModel.getPassword2())) {
 			throw new IllegalArgumentException("Passwords are not equal");
 		}
