@@ -11,11 +11,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ch.fhnw.wodss.tournament.domain.Account;
+import ch.fhnw.wodss.tournament.domain.AccountRecovery;
 import ch.fhnw.wodss.tournament.repository.AccountRecoveryRepository;
 import ch.fhnw.wodss.tournament.repository.AccountRepository;
 import ch.fhnw.wodss.tournament.service.AccountService;
 import ch.fhnw.wodss.tournament.service.MailService;
 import ch.fhnw.wodss.tournament.util.Argon2Util;
+import ch.fhnw.wodss.tournament.web.rest.viewmodel.FinalizeRecoveryViewModel;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.RegisterViewModel;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.StartRecoveryViewModel;
 
@@ -69,7 +71,7 @@ public class AccountServiceTest {
 			vm.setPassword("Asdf19283");
 			accountService.register(vm);
 			Assert.fail("should never reach here...");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			vm.setPassword("Str0ng$P422w0rd!");
 		}
 
@@ -82,7 +84,7 @@ public class AccountServiceTest {
 			vm.setMail("asdf@sadfk@dcom.com");
 			accountService.register(vm);
 			Assert.fail("should never reach here...");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			vm.setMail("hans.muster@mail.com");
 		}
 
@@ -94,7 +96,7 @@ public class AccountServiceTest {
 		try {
 			accountService.register(vm);
 			Assert.fail("should never reach here...");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			usernameExistsMessage = e.getMessage();
 			Mockito.when(accountRepository.findByUsername(Mockito.anyString())).thenReturn(null);
 		}
@@ -104,7 +106,7 @@ public class AccountServiceTest {
 		try {
 			accountService.register(vm);
 			Assert.fail("should never reach here...");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			mailExistsMessage = e.getMessage();
 			Mockito.when(accountRepository.findByMail(Mockito.anyString())).thenReturn(null);
 		}
@@ -131,7 +133,7 @@ public class AccountServiceTest {
 		try {
 			accountService.activateAccount("my-very-secret-token");
 			Assert.fail("should never reach here...");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 		}
 
 		// account can be activated
@@ -146,7 +148,7 @@ public class AccountServiceTest {
 	}
 
 	@Test
-	public void testPasswordReset() {
+	public void testInitPasswordReset() {
 		StartRecoveryViewModel vm = new StartRecoveryViewModel();
 		vm.setUsername("username");
 		vm.setMail("mail");
@@ -155,16 +157,68 @@ public class AccountServiceTest {
 		try {
 			accountService.startPasswordReset(vm);
 			Assert.fail("should never reach here...");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 		}
-		
+
 		// inactive or not verified user
 		try {
 			accountService.startPasswordReset(vm);
 			Assert.fail("should never reach here...");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 		}
-		
+
+	}
+
+	@Test
+	public void testResetPassword() {
+		FinalizeRecoveryViewModel vm = new FinalizeRecoveryViewModel();
+		vm.setToken("abcd");
+
+		// no recovery token found
+		Mockito.when(accountRecoveryRepository.findByRecoveryKey(Mockito.anyString())).thenReturn(null);
+		try {
+			accountService.resetPassword(vm);
+			Assert.fail("should never reach here...");
+		} catch (IllegalArgumentException e) {
+		}
+
+		AccountRecovery mock = new AccountRecovery();
+		Mockito.when(accountRecoveryRepository.findByRecoveryKey(Mockito.anyString())).thenReturn(mock);
+
+		// invalid password combination
+		vm.setPassword("password_one");
+		vm.setPassword2("very-different-password");
+		try {
+			accountService.resetPassword(vm);
+			Assert.fail("should never reach here...");
+		} catch (IllegalArgumentException e) {
+		}
+
+		// validity of password
+		vm.setPassword("password_one");
+		vm.setPassword2("password_one");
+		try {
+			accountService.resetPassword(vm);
+			Assert.fail("should never reach here...");
+		} catch (IllegalArgumentException e) {
+		}
+
+		// invalid account
+		Account invalid = new Account();
+		invalid.setActive(false);
+		invalid.setVerified(true);
+		mock.setAccount(invalid);
+		try {
+			accountService.resetPassword(vm);
+			Assert.fail("should never reach here...");
+		} catch (IllegalArgumentException e) {
+		}
+
+		// exception free using valid data
+		invalid.setActive(true);
+		vm.setPassword("Secure!$2018");
+		vm.setPassword2("Secure!$2018");
+		accountService.resetPassword(vm);
 	}
 
 }
