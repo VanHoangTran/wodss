@@ -82,7 +82,6 @@ public class MailService {
 		// create user session
 		Authenticator auth = new Authenticator() {
 			public PasswordAuthentication getPasswordAuthentication() {
-				// TODO: use a dedicated mail
 				return new PasswordAuthentication("wodds.tippspiel@gmail.com", "wodds$2018");
 			}
 		};
