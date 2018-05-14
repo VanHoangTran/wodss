@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
-import {RaisedButton, TextField} from "material-ui";
+import {RaisedButton, TextField, TableRow, TableRowColumn} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
 import {strings} from "../../strings";
 import {connect} from 'react-redux';
@@ -55,49 +55,11 @@ class Match extends Component {
         match.away.flagImageUrl = match.away.countryFifaCode != '' ? require('../../images/flags/' + match.away.countryFifaCode + '.svg') : undefined;
 
         return (
-            <Col xs={12} sm={6} md={4} lg={3} xl={2}>
-                <ReactTooltip effect={"solid"}/>
-                <Card style={styles.card}>
-                    <CardText style={styles.cardHeader}>
-                        {match.home.countryFifaCode + ' vs ' + match.away.countryFifaCode}
-                    </CardText>
-                    <CardText style={styles.cardBody}>
-                        <img
-                            src={match.home.flagImageUrl}
-                            data-tip={match.home.name}
-                            style={styles.flag}/>
-                        <TextField
-                            style={styles.textField}
-                            floatingLabelText={strings.goals + ' ' + match.home.countryFifaCode}
-                            type="number"
-                            min="0"
-                            disabled={!match.open}
-                            value={match.homeGoals}
-                        />
-                        <br/>
-                        <img
-                            src={match.away.flagImageUrl}
-                            data-tip={match.away.name}
-                            style={styles.flag}/>
-                        <TextField
-                            style={styles.textField}
-                            floatingLabelText={strings.goals + ' ' + match.away.countryFifaCode}
-                            type="number"
-                            min="0"
-                            disabled={!match.open}
-                            value={match.awayGoals}
-                        />
-                    </CardText>
-                    <CardText style={styles.cardFooter}>
-                        <i className="material-icons" style={styles.icon}>date_range</i>
-                        {formatDate(matchDate)}
-                    </CardText>
-                    <CardText style={styles.cardFooter}>
-                        <i className="material-icons" style={styles.icon}>location_on</i>
-                        {match.stadium.name}
-                    </CardText>
-                </Card>
-            </Col>
+            <TableRow>
+                <TableRowColumn width="30"><img height="30" src={match.home.flagImageUrl} /></TableRowColumn>
+                <TableRowColumn>{match.home.name}</TableRowColumn>
+                <TableRowColumn>{match.homeGoals}</TableRowColumn>
+            </TableRow>
         );
     }
 }

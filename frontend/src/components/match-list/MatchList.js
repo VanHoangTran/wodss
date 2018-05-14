@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import Match from "../match/Match";
 import {Col, Container, Row} from "react-grid-system";
-import {Card, CardActions, CardHeader, CardText, FlatButton} from "material-ui";
+import {Card, CardActions, CardHeader, CardText, FlatButton, Table, TableRow, TableBody, TableRowColumn} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
 import {connect} from "react-redux";
 import {apiLoadMatchList} from "../../actions/match-list-actions";
+import Header from '../header/Header';
 
 function team(name, fifaCode, code) {
     return {
@@ -30,35 +31,35 @@ class MatchList extends Component {
 
     constructor(props) {
         super(props);
-        this.buildMatchList = this.buildMatchList.bind(this);
-    }
-
-    buildMatchList() {
         this.props.buildMatchList();
     }
 
     render() {
-        return (
+        return (            
             <div>
             
             {this.props.matchList.map((phase, i) => {     
                 
-                return (<Card style={styles.card}>
-                    <CardHeader
-                        title={phase.name}
-                        actAsExpander={true}
-                        showExpandableButton={true}
-                        style={styles.cardHeader}
-                    />
+                return (
+                    <Card style={styles.card}>
+                        <CardHeader
+                            title={phase.name}
+                            actAsExpander={true}
+                            showExpandableButton={true}
+                            style={styles.cardHeader}
+                        />
 
-                    <CardText expandable={true} style={styles.cardBody}>
-                        <Row>
-                            {phase.games.map((game) => {
-                                return <Match match={game}/>
-                            })}
-                        </Row>
-                    </CardText>
-                </Card>);
+                        <CardText expandable={true} style={styles.cardBody}>
+                            <Table>
+                                <TableBody displayRowCheckbox={false}>
+                                {phase.games.map((game) => {
+                                    return <Match match={game}/>
+                                })}
+                                </TableBody>
+                            </Table>
+                        </CardText>
+                    </Card>
+                );
 
             })}
 

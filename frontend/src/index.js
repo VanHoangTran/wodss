@@ -22,7 +22,7 @@ import Header from "./components/header/Header";
 
 const persistedState = loadState();
 
-const store = createStore(
+export const store = createStore(
     allReducers,
     persistedState,
     compose(
@@ -34,10 +34,6 @@ const store = createStore(
 store.subscribe(() => {
     saveState(store.getState());
 });
-
-export const jwt = () => {
-    return store.getState().user.token;
-}
 
 render(
     <MuiThemeProvider muiTheme={getMuiTheme(appTheme)}>
