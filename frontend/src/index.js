@@ -21,7 +21,7 @@ import "./Root.css";
 
 const persistedState = loadState();
 
-export const store = createStore(
+const store = createStore(
     allReducers,
     persistedState,
     compose(
@@ -33,6 +33,10 @@ export const store = createStore(
 store.subscribe(() => {
     saveState(store.getState());
 });
+
+export const jwt = () => {
+    return store.getState().user.token;
+}
 
 render(
     <MuiThemeProvider muiTheme={getMuiTheme(appTheme)}>
