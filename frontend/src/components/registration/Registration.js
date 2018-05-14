@@ -88,7 +88,7 @@ class Registration extends Component {
     };
 
     onRegistrationSuccessful() {
-        this.props.history.push(pages.root);
+        this.props.history.push(pages.login + pages.paramRegistered);
     }
 
     onRegistrationFailed() {

@@ -19,6 +19,9 @@ export const strings = new LocalizedStrings({
         mailInvalid: "E-Mail-Adresse ungültig",
         confirmPasswordInvalid: "Passwörter stimmen nicht überein",
 
+        registered: "Account erstellt",
+        registeredSuccessfully: "Dein Account wurde erfolgreich erstellt. Eine Mail mit dem Link zum Aktivieren deines Accounts wurde an deine Mail-Adresse verschickt.",
+
         resetPassword: "Passwort zurücksetzen",
         recoveryInitiated: "Passwort-Zurücksetzung initiiert",
         recoveryInitiatedSuccessfully: "Passwort-Zurücksetzung wurde erfolgreich initiiert. Eine Mail mit dem Link zum Zurücksetzen deines Passwortes wurde an deine Mail-Adresse verschickt.",

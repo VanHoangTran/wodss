@@ -21,6 +21,7 @@ export const pages = {
     bettingPools: "/betting-pools",
     admin: "/admin",
 
+    paramRegistered: "?registered",
     paramRecoveryInitiated: "?recoveryInitiated",
 };
 

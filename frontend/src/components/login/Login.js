@@ -43,9 +43,16 @@ class Login extends Component {
         let dialogTitle = "";
         let dialogMessage = "";
         let param = this.props.history.location.search;
-        if (param === pages.paramRecoveryInitiated) {
-            dialogTitle = strings.recoveryInitiated;
-            dialogMessage = strings.recoveryInitiatedSuccessfully;
+        switch (param) {
+            case pages.paramRegistered:
+                dialogTitle = strings.registered;
+                dialogMessage = strings.registeredSuccessfully;
+                break;
+
+            case pages.paramRecoveryInitiated:
+                dialogTitle = strings.recoveryInitiated;
+                dialogMessage = strings.recoveryInitiatedSuccessfully;
+                break;
         }
 
         this.state = {
@@ -169,7 +176,7 @@ class Login extends Component {
                     title={this.state.dialogTitle}
                     actions={actions}
                     modal={false}
-                    open={this.state.param}
+                    open={!!this.state.param}
                     onRequestClose={this.handleCloseDialog}>
                     {this.state.dialogMessage}
                 </Dialog>
