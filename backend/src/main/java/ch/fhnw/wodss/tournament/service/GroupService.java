@@ -23,8 +23,8 @@ public class GroupService {
 	/**
 	 * Returns the group with provided name
 	 * 
-	 * @param name
-	 * @return
+	 * @param name of the desired group
+	 * @return dto of ground group
 	 */
 	public GroupDTO getGroupByName(String name) {
 		TournamentGroup foundGroup = groupRepository.findByName(name);

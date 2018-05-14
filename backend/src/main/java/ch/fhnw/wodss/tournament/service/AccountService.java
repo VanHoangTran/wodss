@@ -157,7 +157,7 @@ public class AccountService {
 			throw new IllegalArgumentException("Unable to perform recovery");
 		}
 
-		// check uf passwords are equal
+		// check if passwords are equal
 		if (!recoveryViewModel.getPassword().equals(recoveryViewModel.getPassword2())) {
 			throw new IllegalArgumentException("Passwords are not equal");
 		}
@@ -188,6 +188,11 @@ public class AccountService {
 	 */
 	private AccountRecovery createRecovery(Account account) {
 		log.info("creating a new account recovery for {}", account);
+
+		// validate account object
+		if (account == null) {
+			throw new IllegalArgumentException("Account is inactive or was not verified yet");
+		}
 
 		AccountRecovery recovery = new AccountRecovery();
 		recovery.setAccount(account);
