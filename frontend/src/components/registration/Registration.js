@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Card, CardHeader, CardText, Dialog, FlatButton, RaisedButton, TextField} from "material-ui";
-import {colors, dimensions, pages} from "../../util/constants";
+import {colors, dimensions, MAIL_REGEX, pages, PASSWORD_REGEX} from "../../util/constants";
 import {strings} from "../../strings";
 import {getAvatarUrl} from "../../util/avatarUtil";
 import "animate.css";
@@ -44,9 +44,6 @@ const styles = {
         width: '100%',
     },
 };
-
-const MAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/;
-const PASSWORD_REGEX = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}/;
 
 class Registration extends Component {
     constructor(props) {

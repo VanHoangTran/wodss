@@ -1,12 +1,6 @@
 import React, {Component} from 'react'
-import {NavLink} from 'react-router-dom'
-import {Tab, Tabs, FlatButton} from 'material-ui';
+import {FlatButton, Tab, Tabs} from 'material-ui';
 import {colors, dimensions, pages} from "../../util/constants";
-import MatchList from "../match-list/MatchList";
-import Registration from "../registration/Registration";
-import {Route, Switch} from 'react-router-dom';
-import {jwt} from "../../index";
-import {apiAuthenticate} from "../../actions/user-actions";
 import {connect} from "react-redux";
 import {getAvatarUrl} from "../../util/avatarUtil";
 import {strings} from "../../strings";
@@ -48,13 +42,7 @@ const styles = {
 class Header extends Component {
     constructor(props) {
         super(props);
-
         this.handleNavItemClick = this.handleNavItemClick.bind(this);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        console.log("nextProps: ");
-        console.log(nextProps);
     }
 
     handleNavItemClick(tab) {
@@ -86,7 +74,7 @@ class Header extends Component {
                          style={styles.tab}/>
                 </Tabs>
                 <FlatButton rippleColor={colors.light} hoverColor="transparent" style={styles.avatarButton}>
-                    <img id="avatar" style={styles.avatar} alt="" src={getAvatarUrl(this.props.user.username)}/>
+                    <img style={styles.avatar} alt="" src={getAvatarUrl(this.props.user.username)}/>
                 </FlatButton>
             </div>
         </div>;
@@ -101,9 +89,4 @@ const mapStateToProps = state => {
     }
 };
 
-
-const mapActionsToProps = {
-    //authenticate: apiAuthenticate TODO remove?
-};
-
-export default connect(mapStateToProps, mapActionsToProps)(withRouter(Header));
+export default withRouter(connect(mapStateToProps, {})(Header));
