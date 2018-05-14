@@ -27,6 +27,11 @@ export const strings = new LocalizedStrings({
         userInformation: "Benutzerinformationen",
         changePassword: "Passwort ändern",
 
+        bettingGame: "Tippspiel",
         goals: "Tore",
+
+        bettingPools: "Tippgruppen",
+
+        admin: "Admin"
     }
 });

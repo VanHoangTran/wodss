@@ -14,6 +14,8 @@ export const pages = {
     activate: "/activate",
     resetPassword: "/reset-password",
     matchList: "/match-list",
+    bettingPools: "/betting-pools",
+    admin: "/admin",
 };
 
 // colors

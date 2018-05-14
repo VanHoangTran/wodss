@@ -35,12 +35,13 @@ store.subscribe(() => {
     saveState(store.getState());
 });
 
+
 render(
     <MuiThemeProvider muiTheme={getMuiTheme(appTheme)}>
         <Provider store={store}>
-            <div>
-                <Header/>
-                <Router>
+            <Router>
+                <div>
+                    <Header/>
                     <Switch>
                         <PrivateRoute exact path={pages.root} component={MatchList}/>
                         <Route path={pages.login} component={Login}/>
@@ -51,8 +52,8 @@ render(
 
                         <PrivateRoute path={pages.matchList} component={MatchList}/>
                     </Switch>
-                </Router>
-            </div>
+                </div>
+            </Router>
         </Provider>
     </MuiThemeProvider>
     ,
