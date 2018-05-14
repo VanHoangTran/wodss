@@ -1,6 +1,5 @@
 import React, {Component} from "react";
-import {Card, CardHeader, CardText} from 'material-ui/Card';
-import {RaisedButton, TextField} from "material-ui";
+import {Card, CardHeader, CardText, RaisedButton, TextField} from 'material-ui';
 import {colors, dimensions, MAIL_REGEX, pages} from "../../util/constants";
 import {strings} from "../../strings";
 import {getAvatarUrl} from "../../util/avatarUtil";

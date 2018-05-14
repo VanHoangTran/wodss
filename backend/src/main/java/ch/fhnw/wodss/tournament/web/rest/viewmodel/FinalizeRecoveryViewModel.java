@@ -13,8 +13,6 @@ public class FinalizeRecoveryViewModel {
 
 	private String password;
 
-	private String password2;
-
 	public String getToken() {
 		return token;
 	}
@@ -31,16 +29,8 @@ public class FinalizeRecoveryViewModel {
 		this.password = password;
 	}
 
-	public String getPassword2() {
-		return password2;
-	}
-
-	public void setPassword2(String password2) {
-		this.password2 = password2;
-	}
-
 	public boolean isValid() {
-		return !StringUtils.isEmpty(token) && !StringUtils.isEmpty(password) && !StringUtils.isEmpty(password2);
+		return !StringUtils.isEmpty(token) && !StringUtils.isEmpty(password);
 	}
 
 	@Override

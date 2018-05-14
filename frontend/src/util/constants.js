@@ -17,12 +17,14 @@ export const pages = {
     registration: "/registration",
     activate: "/activate",
     resetPassword: "/reset-password",
+    recover: "/recover",
     matchList: "/match-list",
     bettingPools: "/betting-pools",
     admin: "/admin",
 
     paramRegistered: "?registered",
     paramRecoveryInitiated: "?recoveryInitiated",
+    paramRecovered: "?recovered",
 };
 
 // colors

@@ -25,6 +25,8 @@ export const strings = new LocalizedStrings({
         resetPassword: "Passwort zurücksetzen",
         recoveryInitiated: "Passwort-Zurücksetzung initiiert",
         recoveryInitiatedSuccessfully: "Passwort-Zurücksetzung wurde erfolgreich initiiert. Eine Mail mit dem Link zum Zurücksetzen deines Passwortes wurde an deine Mail-Adresse verschickt.",
+        recoverCompleted: "Passwort-Zurücksetzung abgeschlossen",
+        recoverCompletedSuccessfully: "Passwort-Zurücksetzung erfolgreich abgeschlossen. Du kannst dich jetzt mit deinem neuen Passwort einloggen.",
 
         accountActivated: "Account aktiviert",
         accountActivatedSuccessfully: "Dein Account wurde erfolgreich aktiviert.",

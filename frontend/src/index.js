@@ -19,6 +19,7 @@ import Logout from "./components/logout/Logout";
 import Activate from "./components/activate/Activate";
 import "./Root.css";
 import Header from "./components/header/Header";
+import Recover from "./components/recover/Recover";
 
 const persistedState = loadState();
 
@@ -49,6 +50,7 @@ render(
                         <Route path={pages.registration} component={Registration}/>
                         <Route path={pages.activate} component={Activate}/>
                         <Route path={pages.resetPassword} component={ResetPassword}/>
+                        <Route path={pages.recover} component={Recover}/>
 
                         <PrivateRoute path={pages.matchList} component={MatchList}/>
                     </Switch>

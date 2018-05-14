@@ -53,6 +53,11 @@ class Login extends Component {
                 dialogTitle = strings.recoveryInitiated;
                 dialogMessage = strings.recoveryInitiatedSuccessfully;
                 break;
+
+            case pages.paramRecovered:
+                dialogTitle = strings.recoverCompleted;
+                dialogMessage = strings.recoverCompletedSuccessfully;
+                break;
         }
 
         this.state = {

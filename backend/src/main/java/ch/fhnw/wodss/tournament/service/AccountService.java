@@ -154,11 +154,6 @@ public class AccountService {
 			throw new IllegalArgumentException("Unable to perform recovery");
 		}
 
-		// check if passwords are equal
-		if (!recoveryViewModel.getPassword().equals(recoveryViewModel.getPassword2())) {
-			throw new IllegalArgumentException("Passwords are not equal");
-		}
-
 		// check password strength
 		if (!ValidationUtil.isValidPassword(recoveryViewModel.getPassword())) {
 			throw new IllegalArgumentException("Password does not meet requirements");
@@ -226,7 +221,7 @@ public class AccountService {
 
 		log.info("salting and hashing user's password with argon2");
 		String salt = RandomStringUtils.randomAlphanumeric(20);
-		String hash = passwordEncoder.hash(salt + account.getPassword());
+		String hash = passwordEncoder.hash(salt + newPassword);
 		account.setPassword(hash);
 		account.setSalt(salt);
 

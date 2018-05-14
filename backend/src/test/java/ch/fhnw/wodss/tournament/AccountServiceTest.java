@@ -185,18 +185,8 @@ public class AccountServiceTest {
 		AccountRecovery mock = new AccountRecovery();
 		Mockito.when(accountRecoveryRepository.findByRecoveryKey(Mockito.anyString())).thenReturn(mock);
 
-		// invalid password combination
-		vm.setPassword("password_one");
-		vm.setPassword2("very-different-password");
-		try {
-			accountService.resetPassword(vm);
-			Assert.fail("should never reach here...");
-		} catch (IllegalArgumentException e) {
-		}
-
 		// validity of password
 		vm.setPassword("password_one");
-		vm.setPassword2("password_one");
 		try {
 			accountService.resetPassword(vm);
 			Assert.fail("should never reach here...");
@@ -217,7 +207,6 @@ public class AccountServiceTest {
 		// exception free using valid data
 		invalid.setActive(true);
 		vm.setPassword("Secure!$2018");
-		vm.setPassword2("Secure!$2018");
 		accountService.resetPassword(vm);
 	}
 
