@@ -21,6 +21,7 @@ export const pages = {
     matchList: "/match-list",
     bettingPools: "/betting-pools",
     admin: "/admin",
+    profile: "/profile",
 
     paramRegistered: "?registered",
     paramRecoveryInitiated: "?recoveryInitiated",

@@ -35,6 +35,7 @@ export const strings = new LocalizedStrings({
         logoutSuccessfully: "Du wurdest erfolgreich abgemeldet.",
 
         setPassword: "Passwort setzen",
+
         profile: "Profil",
         userInformation: "Benutzerinformationen",
         changePassword: "Passwort ändern",
