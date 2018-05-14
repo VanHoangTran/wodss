@@ -41,40 +41,51 @@ const styles = {
 };
 
 class Match extends Component {
+    
+    constructor(props){
+        super(props);
+    }
+    
     render() {
-        let {
-            match
-        } = this.props;
+        let match = this.props.match;
+        let matchDate = new Date(match.date);
 
-        let matchDate = new Date(match.timestamp);
+        // set appropriate country icon for home and away team
+        match.home.flagImageUrl = match.home.countryFifaCode != '' ? require('../../images/flags/' + match.home.countryFifaCode + '.svg') : undefined;
+        match.away.flagImageUrl = match.away.countryFifaCode != '' ? require('../../images/flags/' + match.away.countryFifaCode + '.svg') : undefined;
+
         return (
             <Col xs={12} sm={6} md={4} lg={3} xl={2}>
                 <ReactTooltip effect={"solid"}/>
                 <Card style={styles.card}>
                     <CardText style={styles.cardHeader}>
-                        {match.team1.fifaCode + ' vs ' + match.team2.fifaCode}
+                        {match.home.countryFifaCode + ' vs ' + match.away.countryFifaCode}
                     </CardText>
                     <CardText style={styles.cardBody}>
                         <img
-                            src={match.team1.flagImageUrl}
-                            data-tip={match.team1.name}
+                            src={match.home.flagImageUrl}
+                            data-tip={match.home.name}
                             style={styles.flag}/>
                         <TextField
                             style={styles.textField}
-                            floatingLabelText={strings.goals + ' ' + match.team1.fifaCode}
+                            floatingLabelText={strings.goals + ' ' + match.home.countryFifaCode}
                             type="number"
                             min="0"
+                            disabled={!match.open}
+                            value={match.homeGoals}
                         />
                         <br/>
                         <img
-                            src={match.team2.flagImageUrl}
-                            data-tip={match.team2.name}
+                            src={match.away.flagImageUrl}
+                            data-tip={match.away.name}
                             style={styles.flag}/>
                         <TextField
                             style={styles.textField}
-                            floatingLabelText={strings.goals + ' ' + match.team2.fifaCode}
+                            floatingLabelText={strings.goals + ' ' + match.away.countryFifaCode}
                             type="number"
                             min="0"
+                            disabled={!match.open}
+                            value={match.awayGoals}
                         />
                     </CardText>
                     <CardText style={styles.cardFooter}>
@@ -83,7 +94,7 @@ class Match extends Component {
                     </CardText>
                     <CardText style={styles.cardFooter}>
                         <i className="material-icons" style={styles.icon}>location_on</i>
-                        {match.stadium}
+                        {match.stadium.name}
                     </CardText>
                 </Card>
             </Col>
@@ -100,7 +111,11 @@ function formatDate(matchDate) {
     if (month < 10) {
         month = '0' + month;
     }
-    return date + '.' + month + '.' + matchDate.getFullYear()
+    let minutes = (matchDate.getMinutes());
+    if(minutes < 10){
+        minutes = '0' + minutes;
+    }
+    return date + '.' + month + '.' + matchDate.getFullYear() + ' ' + matchDate.getHours() + ':' + minutes;
 }
 
 export default connect(s => s)(Match);

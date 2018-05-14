@@ -54,15 +54,7 @@ class MatchList extends Component {
                     <CardText expandable={true} style={styles.cardBody}>
                         <Row>
                             {phase.games.map((game) => {
-                                let match = {
-                                    team1: team(game.home.name, game.home.countryFifaCode),
-                                    team2: team(game.away.name, game.away.countryFifaCode),
-                                    timestamp: Date.parse(game.date),
-                                    stadium: game.stadium.name,
-                                };
-
-                                return <Match match={match}/>
-
+                                return <Match match={game}/>
                             })}
                         </Row>
                     </CardText>
