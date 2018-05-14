@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import Match from "../match/Match";
 import {Col, Container, Row} from "react-grid-system";
 import {Card, CardActions, CardHeader, CardText, FlatButton, Table, TableRow, TableBody, TableRowColumn} from "material-ui";
-import {colors, dimensions} from "../../util/constants";
+import {colors, dimensions, pages} from "../../util/constants";
 import {connect} from "react-redux";
 import {apiLoadMatchList} from "../../actions/match-list-actions";
 import Header from '../header/Header';
+import {NavLink} from "react-router-dom"
+import { withRouter } from 'react-router'
 
 function team(name, fifaCode, code) {
     return {
@@ -35,11 +37,12 @@ class MatchList extends Component {
     }
 
     render() {
+        if(this.props.matchList == "")
+            return "";
+
         return (            
             <div>
-            
             {this.props.matchList.map((phase, i) => {     
-                
                 return (
                     <Card style={styles.card}>
                         <CardHeader
@@ -60,11 +63,8 @@ class MatchList extends Component {
                         </CardText>
                     </Card>
                 );
-
             })}
-
         </div>
-
         );
     }
 }
@@ -79,4 +79,4 @@ const mapActionsToProps = {
     buildMatchList: apiLoadMatchList
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(MatchList);
+export default withRouter(connect(mapStateToProps, mapActionsToProps)(MatchList));
