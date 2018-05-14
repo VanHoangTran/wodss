@@ -36,12 +36,12 @@ export function apiInitiateRecovery(username, mail) {
     }
 }
 
-export function apiCompleteRecovery(token, password, password2) {
+export function apiCompleteRecovery(token, password) {
     return dispatch => {
         $.ajax({
             type: 'PUT',
-            url: API_ENDPOINT + API_ACTION_REGISTER,
-            data: JSON.stringify({token: token, password: password, password2: password2}),
+            url: API_ENDPOINT + API_ACTION_RECOVERY,
+            data: JSON.stringify({token: token, password: password}),
             contentType: CONTENT_TYPE,
             success(response) {
                 dispatch(updateRecovery(true, true, null));

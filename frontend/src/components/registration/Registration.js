@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Card, CardHeader, CardText, Dialog, FlatButton, RaisedButton, TextField} from "material-ui";
-import {colors, dimensions, pages} from "../../util/constants";
+import {colors, dimensions, MAIL_REGEX, pages, PASSWORD_REGEX} from "../../util/constants";
 import {strings} from "../../strings";
 import {getAvatarUrl} from "../../util/avatarUtil";
 import "animate.css";
@@ -45,9 +45,6 @@ const styles = {
     },
 };
 
-const MAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/;
-const PASSWORD_REGEX = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}/;
-
 class Registration extends Component {
     constructor(props) {
         super(props);
@@ -91,7 +88,7 @@ class Registration extends Component {
     };
 
     onRegistrationSuccessful() {
-        this.props.history.push(pages.root);
+        this.props.history.push(pages.login + pages.paramRegistered);
     }
 
     onRegistrationFailed() {
@@ -160,6 +157,12 @@ class Registration extends Component {
                 || this.state.mailInvalid
                 || this.state.passwordInvalid
                 || this.state.passwordConfirmationInvalid
+            )
+            || (
+                this.state.username.length === 0
+                || this.state.mail.length === 0
+                || this.state.password.length === 0
+                || this.state.passwordConfirmation.length === 0
             ),
         });
     };

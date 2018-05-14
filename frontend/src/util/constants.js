@@ -6,6 +6,10 @@ export const API_ACTION_PHASES = 'phases';
 export const API_ACTION_GAMES = 'games';
 export const API_ACTION_BET = 'bet';
 
+export const MAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/;
+export const PASSWORD_REGEX = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}/;
+
+
 // pages
 export const pages = {
     root: "/",
@@ -14,7 +18,15 @@ export const pages = {
     registration: "/registration",
     activate: "/activate",
     resetPassword: "/reset-password",
+    recover: "/recover",
     matchList: "/match-list",
+    bettingPools: "/betting-pools",
+    admin: "/admin",
+    profile: "/profile",
+
+    paramRegistered: "?registered",
+    paramRecoveryInitiated: "?recoveryInitiated",
+    paramRecovered: "?recovered",
 };
 
 // colors
