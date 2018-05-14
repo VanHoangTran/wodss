@@ -157,6 +157,12 @@ class Registration extends Component {
                 || this.state.mailInvalid
                 || this.state.passwordInvalid
                 || this.state.passwordConfirmationInvalid
+            )
+            || (
+                this.state.username.length === 0
+                || this.state.mail.length === 0
+                || this.state.password.length === 0
+                || this.state.passwordConfirmation.length === 0
             ),
         });
     };
