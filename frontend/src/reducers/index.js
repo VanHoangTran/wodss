@@ -5,7 +5,6 @@ import userReducer from './user-reducer';
 import registrationReducer from "./registration-reducer";
 import matchListReducer from './match-reducer'
 import betReducer from './bet-reducer'
-import matchListReducer from './match-reducer';
 import recoveryReducer from "./recovery-reducer";
 
 // combine all reducers into a single object
