@@ -1,43 +1,42 @@
 import $ from 'jquery';
-import base64 from 'base-64';
-import {API_ENDPOINT, API_AUTH_ACTION} from '../util/constants';
+import {API_ACTION_AUTH, API_ENDPOINT} from '../util/constants';
+
+const CONTENT_TYPE = "application/json; charset=utf-8";
 
 export const UPDATE_USER = 'user:updateUser';
 
-export function updateUser(username, authenticated, token) {
+export function updateUser(username, token) {
     return {
         type: UPDATE_USER,
         payload: {
-            user: { 
-                username: username, 
-                authenticationState: { 
-                    authenticated: authenticated,
-                    token: token
-                }
+            user: {
+                username: username,
+                token: token,
             }
         }
     }
 }
 
 // performs authorization against api
-export function apiAuthenticate(username, password) { 
+export function apiAuthenticate(username, password) {
     return dispatch => {
         $.ajax({
             type: 'POST',
-            url: API_ENDPOINT + API_AUTH_ACTION,
-            data: JSON.stringify({username : username, password : password }),
-            contentType:"application/json; charset=utf-8",
-            success(data) {
-                dispatch(updateUser(username, true, data.id_token));
+            url: API_ENDPOINT + API_ACTION_AUTH,
+            data: JSON.stringify({username: username, password: password}),
+            contentType: CONTENT_TYPE,
+            success(response) {
+                dispatch(updateUser(username, response.id_token));
             },
             error(response) {
-                dispatch(updateUser(null, false, null));
-                $('#username, #password').val('');
-                $('#loginForm').removeClass().addClass('shake animated')
-                .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-                    $(this).removeClass();
-                });
+                dispatch(updateUser(null, null));
             }
-        });
+        })
+    }
+}
+
+export function apiLogout() {
+    return dispatch => {
+        dispatch(updateUser(null, null));
     }
 }

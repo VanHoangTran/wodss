@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    background: #EEEEEE;
+}
+
+a {
+    color: #2196F3;
+}
+
+.material-icons {
+    vertical-align: bottom;
+    line-height: 1rem;
+    color: black;
+}

@@ -1,5 +1,20 @@
 export const API_ENDPOINT = 'http://localhost:8080/api/';
-export const API_AUTH_ACTION = 'authenticate';
+export const API_ACTION_AUTH = 'authenticate';
+export const API_ACTION_REGISTER = 'registration';
+export const API_ACTION_RECOVERY = 'recovery';
+export const API_ACTION_PHASES = 'phases';
+export const API_ACTION_GAMES = 'games';
+
+// pages
+export const pages = {
+    root: "/",
+    login: "/login",
+    logout: "/logout",
+    registration: "/registration",
+    activate: "/activate",
+    resetPassword: "/reset-password",
+    matchList: "/match-list",
+};
 
 // colors
 export const colors = {
@@ -8,6 +23,9 @@ export const colors = {
     // text colors
     hint: '#9E9E9E',
     light: '#FFFFFF',
+
+    // card
+    cardHeaderBackground: '#FAFAFA',
 };
 
 // dimensions

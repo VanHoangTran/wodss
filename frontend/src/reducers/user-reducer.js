@@ -1,4 +1,4 @@
-import { UPDATE_USER } from '../actions/user-actions';
+import {UPDATE_USER} from '../actions/user-actions';
 
 export default function userReducer(state = '', {type, payload}) {
     switch (type) {

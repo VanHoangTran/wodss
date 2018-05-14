@@ -1,11 +1,81 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import Match from "../match/Match";
+import {Col, Container, Row} from "react-grid-system";
+import {Card, CardActions, CardHeader, CardText, FlatButton} from "material-ui";
+import {colors, dimensions} from "../../util/constants";
+import {connect} from "react-redux";
+import {apiLoadMatchList} from "../../actions/match-list-actions";
+
+function team(name, fifaCode, code) {
+    return {
+        name: name,
+        fifaCode: fifaCode,
+        flagImageUrl: fifaCode != '' ? require('../../images/flags/' + fifaCode + '.svg') : fifaCode,
+    };
+}
+
+const styles = {
+    card: {
+        margin: dimensions.defaultSpacing,
+    },
+    cardHeader: {
+        backgroundColor: colors.cardHeaderBackground,
+    },
+    cardBody: {
+        paddingBottom: "0",
+    },
+};
 
 class MatchList extends Component {
 
-    render() {
-        return (<h1>Hallo Welt, MatchList here!</h1>);
+    constructor(props) {
+        super(props);
+        this.buildMatchList = this.buildMatchList.bind(this);
     }
 
+    buildMatchList() {
+        this.props.buildMatchList();
+    }
+
+    render() {
+        return (
+            <div>
+            
+            {this.props.matchList.map((phase, i) => {     
+                
+                return (<Card style={styles.card}>
+                    <CardHeader
+                        title={phase.name}
+                        actAsExpander={true}
+                        showExpandableButton={true}
+                        style={styles.cardHeader}
+                    />
+
+                    <CardText expandable={true} style={styles.cardBody}>
+                        <Row>
+                            {phase.games.map((game) => {
+                                return <Match match={game}/>
+                            })}
+                        </Row>
+                    </CardText>
+                </Card>);
+
+            })}
+
+        </div>
+
+        );
+    }
 }
 
-export default MatchList;
+const mapStateToProps = state => {
+    return {
+        matchList: state.matchList
+    }
+};
+
+const mapActionsToProps = {
+    buildMatchList: apiLoadMatchList
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(MatchList);
