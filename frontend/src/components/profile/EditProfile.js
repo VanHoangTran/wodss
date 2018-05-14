@@ -1,9 +1,11 @@
-import React from 'react';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
-import {RaisedButton, TextField} from "material-ui";
+import React, {Component} from 'react'
+import {Card, CardHeader, CardText, RaisedButton, TextField} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
 import {strings} from "../../strings";
 import {Col, Row} from "react-grid-system";
+import {withRouter} from "react-router";
+import {connect} from "react-redux";
+import {apiAuthenticate, apiGetAccountInformation} from "../../actions/user-actions";
 
 const styles = {
     card: {},
@@ -42,20 +44,31 @@ const styles = {
     }
 };
 
-class EditProfile extends React.Component {
+class EditProfile extends Component {
+    constructor(props) {
+        super(props);
+        this.getAccountInformation = this.getAccountInformation.bind(this);
+
+        this.getAccountInformation();
+    }
+
+    getAccountInformation() {
+        this.props.getAccountInformation();
+    }
 
     render() {
         return (
             <Row style={styles.row}>
                 <Col xs={12} sm={6} md={4} lg={3} xl={3} style={styles.col}>
                     <Card style={styles.card}>
-                        <CardHeader title={strings.userInformation} style={styles.cardHeader} titleColor={colors.light}/>
+                        <CardHeader title={strings.userInformation} style={styles.cardHeader}
+                                    titleColor={colors.light}/>
                         <CardText style={styles.cardBody}>
                             <img id="avatar" style={styles.avatar}
                                  alt=""
                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN89x8AAuEB74Y0o2cAAAAASUVORK5CYII="/>
-                            Van Hoang Tran<br/>
-                            hoang.tran@students.fhnw.ch
+                            {this.props.user.username}<br/>
+                            {this.props.user.mail}
                         </CardText>
                     </Card>
                 </Col>
@@ -87,4 +100,14 @@ class EditProfile extends React.Component {
     }
 }
 
-export default EditProfile
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+};
+
+const mapActionsToProps = {
+    getAccountInformation: apiGetAccountInformation
+};
+
+export default withRouter(connect(mapStateToProps, mapActionsToProps)(EditProfile));
