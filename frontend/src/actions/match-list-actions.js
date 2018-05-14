@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import {API_ACTION_PHASES, API_ENDPOINT, API_ACTION_GAMES} from '../util/constants';
-import {jwt} from '../index'
+import {store} from '../index'
 const CONTENT_TYPE = "application/json; charset=utf-8";
 
 export const UPDATE_MATCH_LIST = 'matchlist:updateList';
@@ -13,10 +13,11 @@ export const UPDATE_MATCH_LIST = 'matchlist:updateList';
  * 
  * @author Kevin Kirn <kevin.kirn@students.fhnw.ch>
  */
-export function apiLoadMatchList(token) {
+export function apiLoadMatchList() {
     return dispatch => {
-        let phases = undefined;
+        let jwt = store.getState().user.token;
 
+        let phases = undefined;
         // get all phases from API
         $.ajax({
             type: 'GET',
