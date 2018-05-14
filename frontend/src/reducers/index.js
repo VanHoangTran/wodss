@@ -3,7 +3,8 @@ import {routerReducer} from 'react-router-redux'
 import productsReducer from './product-reducer';
 import userReducer from './user-reducer';
 import registrationReducer from "./registration-reducer";
-import matchListReducer from './match-reducer'
+import matchListReducer from './match-reducer';
+import recoveryReducer from "./recovery-reducer";
 
 // combine all reducers into a single object
 const allReducers = combineReducers({
@@ -11,7 +12,8 @@ const allReducers = combineReducers({
     user: userReducer,
     registration: registrationReducer,
     router: routerReducer,
-    matchList: matchListReducer
+    matchList: matchListReducer,
+    recovery: recoveryReducer,
 });
 
 export default allReducers

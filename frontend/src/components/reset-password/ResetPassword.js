@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import {RaisedButton, TextField} from "material-ui";
-import {colors, dimensions, MAIL_REGEX} from "../../util/constants";
+import {colors, dimensions, MAIL_REGEX, pages} from "../../util/constants";
 import {strings} from "../../strings";
 import {getAvatarUrl} from "../../util/avatarUtil";
 import {connect} from "react-redux";
@@ -53,6 +53,7 @@ class ResetPassword extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
         let initiated = nextProps.recovery.initiated;
         if (initiated) {
             this.handleRecoveryInitiationSuccessful();
@@ -62,17 +63,22 @@ class ResetPassword extends Component {
     }
 
     handleRecoveryInitiationSuccessful() {
-        console.log("SUCCESS")
+        this.props.history.push(pages.login + pages.paramRecoveryInitiated);
     }
 
     handleRecoveryInitiationFailed() {
-        console.log("FAILED")
+        this.setState({
+            username: "",
+            mail: "",
+            failAnimationActive: true,
+            resetOngoing: false,
+        });
     }
 
     initiateRecovery() {
         this.props.initiateRecovery(this.state.username, this.state.mail);
         this.setState({
-            loginOngoing: true,
+            resetOngoing: true,
         }, this.handleSubmitButton);
     };
 
@@ -99,9 +105,17 @@ class ResetPassword extends Component {
         }
     };
 
+    onAnimationEnd = () => {
+        this.setState({
+            failAnimationActive: false,
+        });
+    };
+
     render() {
         return (
-            <Card style={styles.card}>
+            <Card className={this.state.failAnimationActive ? "shake animated" : ""}
+                  onAnimationEnd={this.onAnimationEnd}
+                  style={styles.card}>
                 <CardHeader title={strings.resetPassword} style={styles.cardHeader} titleColor={colors.light}/>
                 <CardText style={styles.cardBody}>
                     <TextField value={this.state.username}
@@ -125,6 +139,7 @@ class ResetPassword extends Component {
                     <RaisedButton label={strings.ok}
                                   onClick={this.initiateRecovery}
                                   primary={true}
+                                  disabled={this.state.resetOngoing}
                                   style={styles.button}/>
                 </CardText>
             </Card>

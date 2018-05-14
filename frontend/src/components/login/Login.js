@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {NavLink} from "react-router-dom"
-import {Card, CardHeader, CardText, RaisedButton, TextField} from "material-ui";
+import {Card, CardHeader, CardText, Dialog, FlatButton, RaisedButton, TextField} from "material-ui";
 import {apiAuthenticate} from "../../actions/user-actions";
 import {colors, dimensions, pages} from "../../util/constants";
 import {strings} from "../../strings";
@@ -40,11 +40,22 @@ class Login extends Component {
         super(props);
         this.authenticate = this.authenticate.bind(this);
 
+        let dialogTitle = "";
+        let dialogMessage = "";
+        let param = this.props.history.location.search;
+        if (param === pages.paramRecoveryInitiated) {
+            dialogTitle = strings.recoveryInitiated;
+            dialogMessage = strings.recoveryInitiatedSuccessfully;
+        }
+
         this.state = {
             username: "",
             password: "",
             failAnimationActive: false,
             loginOngoing: false,
+            param: param,
+            dialogTitle: dialogTitle,
+            dialogMessage: dialogMessage,
         };
     }
 
@@ -101,44 +112,68 @@ class Login extends Component {
         });
     };
 
+    handleCloseDialog = () => {
+        this.setState({
+            param: null,
+        });
+    };
+
     render() {
+        const actions = [
+            <FlatButton
+                label={strings.ok}
+                primary={true}
+                keyboardFocused={true}
+                onClick={this.handleCloseDialog}
+            />,
+        ];
         return (
-            <Card className={this.state.failAnimationActive ? "shake animated" : ""}
-                  onAnimationEnd={this.onAnimationEnd}
-                  style={styles.card}>
-                <CardHeader title={strings.login} style={styles.cardHeader} titleColor={colors.light}/>
-                <CardText style={styles.cardBody}>
-                    <TextField value={this.state.username}
-                               onChange={this.onUsernameChanged}
-                               onKeyPress={this.onKeyPress}
-                               style={styles.textField}
-                               floatingLabelText={strings.username}
-                               underlineFocusStyle={styles.textField}
-                               floatingLabelFocusStyle={styles.textField}/>
-                    <br/>
-                    <TextField value={this.state.password}
-                               onChange={this.onPasswordChanged}
-                               onKeyPress={this.onKeyPress}
-                               type="password"
-                               style={styles.textField}
-                               floatingLabelText={strings.password}
-                               underlineFocusStyle={styles.textField}
-                               floatingLabelFocusStyle={styles.textField}/>
-                    <br/>
-                    <RaisedButton label={strings.ok}
-                                  primary={true}
-                                  onClick={this.authenticate}
-                                  disabled={this.state.loginOngoing}
-                                  style={styles.button}/>
-                    <div style={styles.actionLinksContainer}>
-                        <span>{strings.forgotPassword} </span>
-                        <NavLink exact to={pages.resetPassword}>{strings.resetPassword}</NavLink>
+            <div>
+                <Card className={this.state.failAnimationActive ? "shake animated" : ""}
+                      onAnimationEnd={this.onAnimationEnd}
+                      style={styles.card}>
+                    <CardHeader title={strings.login} style={styles.cardHeader} titleColor={colors.light}/>
+                    <CardText style={styles.cardBody}>
+                        <TextField value={this.state.username}
+                                   onChange={this.onUsernameChanged}
+                                   onKeyPress={this.onKeyPress}
+                                   style={styles.textField}
+                                   floatingLabelText={strings.username}
+                                   underlineFocusStyle={styles.textField}
+                                   floatingLabelFocusStyle={styles.textField}/>
                         <br/>
-                        <span>{strings.noAccountYet} </span>
-                        <NavLink exact to={pages.registration}>{strings.registration}</NavLink>
-                    </div>
-                </CardText>
-            </Card>
+                        <TextField value={this.state.password}
+                                   onChange={this.onPasswordChanged}
+                                   onKeyPress={this.onKeyPress}
+                                   type="password"
+                                   style={styles.textField}
+                                   floatingLabelText={strings.password}
+                                   underlineFocusStyle={styles.textField}
+                                   floatingLabelFocusStyle={styles.textField}/>
+                        <br/>
+                        <RaisedButton label={strings.ok}
+                                      primary={true}
+                                      onClick={this.authenticate}
+                                      disabled={this.state.loginOngoing}
+                                      style={styles.button}/>
+                        <div style={styles.actionLinksContainer}>
+                            <span>{strings.forgotPassword} </span>
+                            <NavLink exact to={pages.resetPassword}>{strings.resetPassword}</NavLink>
+                            <br/>
+                            <span>{strings.noAccountYet} </span>
+                            <NavLink exact to={pages.registration}>{strings.registration}</NavLink>
+                        </div>
+                    </CardText>
+                </Card>
+                <Dialog
+                    title={this.state.dialogTitle}
+                    actions={actions}
+                    modal={false}
+                    open={this.state.param}
+                    onRequestClose={this.handleCloseDialog}>
+                    {this.state.dialogMessage}
+                </Dialog>
+            </div>
         );
     }
 }

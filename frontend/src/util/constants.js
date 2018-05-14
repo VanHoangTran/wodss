@@ -20,6 +20,8 @@ export const pages = {
     matchList: "/match-list",
     bettingPools: "/betting-pools",
     admin: "/admin",
+
+    paramRecoveryInitiated: "?recoveryInitiated",
 };
 
 // colors
