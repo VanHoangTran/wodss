@@ -4,6 +4,7 @@ export const API_ACTION_REGISTER = 'registration';
 export const API_ACTION_RECOVERY = 'recovery';
 export const API_ACTION_PHASES = 'phases';
 export const API_ACTION_GAMES = 'games';
+export const API_ACTION_BET = 'bet';
 export const API_ACTION_ACCOUNT = 'account';
 
 export const MAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/;

@@ -1,4 +1,44 @@
-.matchResultRow span.actual, 
-.matchResultRow span.bet{
-    background: red !important;
+.matchResultRow span {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+
+.matchResultRow input {
+    text-align: center;
+}
+
+.matchResultRow div.centered {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.matchResultRow div.bets div.homeBet,
+.matchResultRow div.bets div.awayBet{
+    float: left;
+    width: calc(50% - 5px);
+}
+
+.matchResultRow div.bets div.awayBet {
+    margin-left: 10px;
+}
+
+.matchResultRow span.actual {
+    background: #f3f3f3 !important;
+    float: left;
+    width: calc(50% - 5px);
+}
+
+.matchResultRow span.actual:nth-child(2) {
+    margin-left: 10px;
+}
+
+.matchResultRow span.location,
+.matchResultRow span.date{
+    font-size: 12px;
+    line-height: 12px;
+    height: 12px;
 }

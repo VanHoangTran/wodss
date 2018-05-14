@@ -1,9 +1,10 @@
 import $ from 'jquery';
-import {API_ACTION_PHASES, API_ENDPOINT, API_ACTION_GAMES} from '../util/constants';
+import {API_ACTION_PHASES, API_ACTION_BET, API_ENDPOINT, API_ACTION_GAMES} from '../util/constants';
 import {store} from '../index'
 const CONTENT_TYPE = "application/json; charset=utf-8";
 
 export const UPDATE_MATCH_LIST = 'matchlist:updateList';
+export const PUT_BET = 'matchlist:putBet';
 
 /**
  * Loads available game phases and their games.
@@ -28,7 +29,9 @@ export function apiLoadMatchList() {
                 phases = response;
             },
             error(response) {
-                store.getState().user.token = null;
+                if(response.status === 403){
+                    store.getState().user.token = null;
+                }
             }, 
             beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
         })
@@ -47,14 +50,45 @@ export function apiLoadMatchList() {
                     phases[index].games = response;
                 },
                 error(response) {
-                    store.getState().user.token = null;
+                    if(response.status === 403){
+                        store.getState().user.token = null;
+                    }
                 }, 
                 beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
             })
         }
 
         // save data into store
+        phases = phases === undefined ? null : phases;
         dispatch(updateMatchList(phases));
+    }
+}
+
+export function apiPutBet(gameId, homeGoals, awayGoals) {
+    return dispatch => {
+        let jwt = store.getState().user.token;
+
+        // get all phases from API
+        $.ajax({
+            type: 'PUT',
+            async: false,
+            url: API_ENDPOINT + API_ACTION_BET,
+            contentType: CONTENT_TYPE,
+            data: JSON.stringify({
+                gameId: gameId,
+                homeGoals: homeGoals,
+                awayGoals: awayGoals
+            }),
+            success(response) {
+                dispatch(putBet(gameId, homeGoals, awayGoals));
+            },
+            error(response) {
+                if(response.status === 403){
+                    store.getState().user.token = null;
+                }
+            }, 
+            beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
+        })
     }
 }
 
@@ -63,6 +97,19 @@ export function updateMatchList(list) {
         type: UPDATE_MATCH_LIST,
         payload: {
             list: list
+        }
+    }
+}
+
+export function putBet(gameId, homeGoals, awayGoals) {
+    return {
+        type: PUT_BET,
+        payload: {
+            bet: {
+                gameId: gameId,
+                homeGoals: homeGoals,
+                awayGoals: awayGoals
+            }
         }
     }
 }
