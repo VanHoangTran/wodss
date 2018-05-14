@@ -178,11 +178,11 @@ public class AccountResource {
 		try {
 			Account account = accountService.getAccountByName(securityUtil.getUsername());
 			AccountDTO accountDTO = new AccountDTO(account);
-			return new ResponseEntity<AccountDTO>(accountDTO, HttpStatus.OK);
+			return new ResponseEntity<>(accountDTO, HttpStatus.OK);
 
 		} catch (IllegalArgumentException iae) {
 			log.info("get account failed");
-			return new ResponseEntity<AccountDTO>(null, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
 }
