@@ -28,7 +28,7 @@ export function apiLoadMatchList() {
                 phases = response;
             },
             error(response) {
-                // TODO - some generic error message?
+                store.getState().user.token = null;
             }, 
             beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
         })
@@ -47,7 +47,7 @@ export function apiLoadMatchList() {
                     phases[index].games = response;
                 },
                 error(response) {
-                    // TODO - some generic error message?
+                    store.getState().user.token = null;
                 }, 
                 beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
             })

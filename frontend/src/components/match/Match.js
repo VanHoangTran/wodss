@@ -6,39 +6,7 @@ import {strings} from "../../strings";
 import {connect} from 'react-redux';
 import {Col} from "react-grid-system";
 import ReactTooltip from 'react-tooltip'
-
-const styles = {
-    card: {
-        marginBottom: dimensions.defaultSpacing,
-    },
-    cardHeader: {
-        backgroundColor: colors.cardHeaderBackground,
-        padding: dimensions.defaultSpacing,
-        textAlign: 'center'
-    },
-    cardBody: {
-        padding: dimensions.defaultSpacing,
-    },
-    cardFooter: {
-        borderTop: 'solid 1px #E0E0E0',
-        padding: dimensions.defaultSpacing,
-    },
-    textField: {
-        borderColor: colors.primaryColor,
-        color: colors.primaryColor,
-        width: '5rem',
-        marginTop: '-1rem',
-    },
-    flag: {
-        height: '3rem',
-        marginRight: '1rem',
-        verticalAlign: 'top',
-        display: 'inline-block',
-    },
-    icon: {
-        marginRight: dimensions.smallSpacing,
-    }
-};
+import "./Match.css"
 
 class Match extends Component {
     
@@ -58,7 +26,16 @@ class Match extends Component {
             <TableRow>
                 <TableRowColumn width="30"><img height="30" src={match.home.flagImageUrl} /></TableRowColumn>
                 <TableRowColumn>{match.home.name}</TableRowColumn>
-                <TableRowColumn>{match.homeGoals}</TableRowColumn>
+                <TableRowColumn className="matchResultRow">
+                    <span className="actual">1</span>
+                    <span className="bet">2</span>
+                </TableRowColumn>
+                <TableRowColumn class="matchResultRow">
+                    <span className="actual">1</span>
+                    <span className="bet">2</span>
+                </TableRowColumn>
+                <TableRowColumn>{match.away.name}</TableRowColumn>
+                <TableRowColumn width="30"><img height="30" src={match.away.flagImageUrl} /></TableRowColumn>
             </TableRow>
         );
     }

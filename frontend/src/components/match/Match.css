@@ -1,0 +1,4 @@
+.matchResultRow span.actual, 
+.matchResultRow span.bet{
+    background: red !important;
+}
