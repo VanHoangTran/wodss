@@ -216,7 +216,7 @@ public class AccountService {
 	 * 
 	 * @param newPassword to set
 	 */
-	private void changePassword(String newPassword, Account account) {
+	public void changePassword(String newPassword, Account account) {
 		log.info("Setting a new password for {}", account);
 
 		log.info("salting and hashing user's password with argon2");

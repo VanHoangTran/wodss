@@ -13,10 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.fhnw.wodss.tournament.domain.Account;
 import ch.fhnw.wodss.tournament.service.AccountService;
+import ch.fhnw.wodss.tournament.util.SecurityUtil;
+import ch.fhnw.wodss.tournament.util.ValidationUtil;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.FinalizeRecoveryViewModel;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.RegisterViewModel;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.StartRecoveryViewModel;
+import ch.fhnw.wodss.tournament.web.rest.viewmodel.UpdateProfileVM;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.VerificationVM;
 
 /**
@@ -32,6 +36,9 @@ public class AccountResource {
 
 	@Autowired
 	private AccountService accountService;
+
+	@Autowired
+	private SecurityUtil securityUtil;
 
 	/**
 	 * POST /account : create (register) a new user
@@ -115,7 +122,7 @@ public class AccountResource {
 	 * @param recoveryViewModel
 	 */
 	@PutMapping("/recovery")
-	public ResponseEntity<String> updatePassword(@Valid @RequestBody FinalizeRecoveryViewModel recoveryViewModel) {
+	public ResponseEntity<String> finalizeRecovery(@Valid @RequestBody FinalizeRecoveryViewModel recoveryViewModel) {
 		log.info("new call to POST recovery");
 
 		if (!recoveryViewModel.isValid()) {
@@ -128,6 +135,25 @@ public class AccountResource {
 			log.info("password reset successful, sending response to client");
 		} catch (IllegalArgumentException iae) {
 			log.info("password reset failed, sending response to client");
+			return new ResponseEntity<String>(iae.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+
+		return new ResponseEntity<String>("Sucessfully updated password", HttpStatus.OK);
+	}
+
+	@PutMapping("/account")
+	public ResponseEntity<String> updatePassword(@Valid @RequestBody UpdateProfileVM vm) {
+		log.info("new call to PUT account (update profile)");
+		
+		try {
+			// setting new password
+			if (vm.getNewPassword() != null && ValidationUtil.isValidPassword(vm.getNewPassword())) {
+				final String currentUser = securityUtil.getUsername();
+				Account account = accountService.getAccountByName(currentUser);
+				accountService.changePassword(vm.getNewPassword(), account);
+			}
+		} catch (IllegalArgumentException iae) {
+			log.info("update password failed");
 			return new ResponseEntity<String>(iae.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 

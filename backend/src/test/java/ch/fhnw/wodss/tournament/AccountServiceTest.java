@@ -210,4 +210,9 @@ public class AccountServiceTest {
 		accountService.resetPassword(vm);
 	}
 
+	@Test
+	public void testChangePassword() {
+		Assert.fail("todo");
+	}
+
 }
