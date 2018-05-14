@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {Col} from "react-grid-system";
 import ReactTooltip from 'react-tooltip'
 import "./Match.css"
+import Bet from '../bet/Bet';
 
 class Match extends Component {
     
@@ -24,15 +25,22 @@ class Match extends Component {
 
         return (
             <TableRow>
-                <TableRowColumn width="30"><img height="30" src={match.home.flagImageUrl} /></TableRowColumn>
+                <TableRowColumn width="30">
+                    <img height="30" src={match.home.flagImageUrl} />
+                </TableRowColumn>
                 <TableRowColumn>{match.home.name}</TableRowColumn>
                 <TableRowColumn className="matchResultRow">
-                    <span className="actual">1</span>
-                    <span className="bet">2</span>
-                </TableRowColumn>
-                <TableRowColumn class="matchResultRow">
-                    <span className="actual">1</span>
-                    <span className="bet">2</span>
+                    <div className="centered">
+                        <span className="date"><b>{formatDate(matchDate)}</b></span>
+                        <span className="location">{match.stadium.name} ({match.stadium.city})</span>
+                    </div>
+                    
+                    <Bet matchId={match.id}/>
+
+                    <div className="result">
+                        <span className="actual">{match.open ? '-' : match.homeGoals}</span>
+                        <span className="actual">{match.open ? '-' : match.awayGoals}</span>
+                    </div>
                 </TableRowColumn>
                 <TableRowColumn>{match.away.name}</TableRowColumn>
                 <TableRowColumn width="30"><img height="30" src={match.away.flagImageUrl} /></TableRowColumn>

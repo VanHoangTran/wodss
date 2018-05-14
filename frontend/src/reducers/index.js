@@ -4,6 +4,7 @@ import productsReducer from './product-reducer';
 import userReducer from './user-reducer';
 import registrationReducer from "./registration-reducer";
 import matchListReducer from './match-reducer'
+import betReducer from './bet-reducer'
 
 // combine all reducers into a single object
 const allReducers = combineReducers({
@@ -11,7 +12,8 @@ const allReducers = combineReducers({
     user: userReducer,
     registration: registrationReducer,
     router: routerReducer,
-    matchList: matchListReducer
+    matchList: matchListReducer,
+    bets: betReducer
 });
 
 export default allReducers

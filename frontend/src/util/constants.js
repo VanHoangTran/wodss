@@ -4,6 +4,7 @@ export const API_ACTION_REGISTER = 'registration';
 export const API_ACTION_RECOVERY = 'recovery';
 export const API_ACTION_PHASES = 'phases';
 export const API_ACTION_GAMES = 'games';
+export const API_ACTION_BET = 'bet';
 
 // pages
 export const pages = {

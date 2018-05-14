@@ -37,7 +37,7 @@ class MatchList extends Component {
     }
 
     render() {
-        if(this.props.matchList == "")
+        if(this.props.matchList == "" || this.props.matchList == null)
             return "";
 
         return (            
