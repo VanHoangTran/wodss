@@ -43,9 +43,6 @@ public class AccountService {
 	@Autowired
 	private MailService mailService;
 
-	@Autowired
-	private AccountService accountService;
-
 	/**
 	 * Registers a new account which is inactive and not verified
 	 * 
@@ -136,10 +133,10 @@ public class AccountService {
 		}
 
 		// invalidate all existing AccountRecoveries for this account!
-		accountService.invalidateRecovieries(foundByMail);
+		invalidateRecovieries(foundByMail);
 
 		// create a new recovery entry
-		AccountRecovery recovery = accountService.createRecovery(foundByMail);
+		AccountRecovery recovery = createRecovery(foundByMail);
 
 		// send recovery mail
 		mailService.sendRecoveryMail(recovery);
@@ -174,10 +171,10 @@ public class AccountService {
 		}
 
 		// update password
-		accountService.changePassword(recoveryViewModel.getPassword(), account);
+		changePassword(recoveryViewModel.getPassword(), account);
 
 		// invalidate all recovery entries
-		accountService.invalidateRecovieries(account);
+		invalidateRecovieries(account);
 	}
 
 	/**
@@ -213,8 +210,6 @@ public class AccountService {
 	 * @param account to invalidate recoveries for
 	 */
 	private void invalidateRecovieries(Account account) {
-		log.info("invalidating all recovery entries for {}", account);
-
 		List<AccountRecovery> active = accountRecoveryRepository.findAllByAccount(account);
 		accountRecoveryRepository.deleteAll(active);
 
