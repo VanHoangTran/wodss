@@ -18,6 +18,7 @@ import ResetPassword from "./components/reset-password/ResetPassword";
 import Logout from "./components/logout/Logout";
 import Activate from "./components/activate/Activate";
 import "./Root.css";
+import Header from "./components/header/Header";
 
 const persistedState = loadState();
 
@@ -41,18 +42,21 @@ export const jwt = () => {
 render(
     <MuiThemeProvider muiTheme={getMuiTheme(appTheme)}>
         <Provider store={store}>
-            <Router>
-                <Switch>
-                    <PrivateRoute exact path={pages.root} component={MatchList}/>
-                    <Route path={pages.login} component={Login}/>
-                    <Route path={pages.logout} component={Logout}/>
-                    <Route path={pages.registration} component={Registration}/>
-                    <Route path={pages.activate} component={Activate}/>
-                    <Route path={pages.resetPassword} component={ResetPassword}/>
+            <div>
+                <Header/>
+                <Router>
+                    <Switch>
+                        <PrivateRoute exact path={pages.root} component={MatchList}/>
+                        <Route path={pages.login} component={Login}/>
+                        <Route path={pages.logout} component={Logout}/>
+                        <Route path={pages.registration} component={Registration}/>
+                        <Route path={pages.activate} component={Activate}/>
+                        <Route path={pages.resetPassword} component={ResetPassword}/>
 
-                    <PrivateRoute path={pages.matchList} component={MatchList}/>
-                </Switch>
-            </Router>
+                        <PrivateRoute path={pages.matchList} component={MatchList}/>
+                    </Switch>
+                </Router>
+            </div>
         </Provider>
     </MuiThemeProvider>
     ,

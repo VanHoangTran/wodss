@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from "react";
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import {RaisedButton, TextField} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
@@ -29,7 +29,7 @@ const styles = {
     },
 };
 
-class ResetPassword extends React.Component {
+class ResetPassword extends Component {
 
     render() {
         return (

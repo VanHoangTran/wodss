@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import {NavLink} from 'react-router-dom'
-import FlatButton from 'material-ui/FlatButton';
-import {Tab, Tabs} from 'material-ui/Tabs';
+import {Tab, Tabs, FlatButton} from 'material-ui';
 import {colors, dimensions} from "../../util/constants";
 import MatchList from "../match-list/MatchList";
 import Registration from "../registration/Registration";
 import {Route, Switch} from 'react-router-dom';
+import {jwt} from "../../index";
+import {apiAuthenticate} from "../../actions/user-actions";
+import {connect} from "react-redux";
 
 const styles = {
     toolbar: {
@@ -40,39 +42,53 @@ const styles = {
     }
 };
 
-const Header = () => {
-    return (
+class Header extends Component {
+    constructor(props) {
+        super(props);
 
-        <div className="header">
-            <Switch>
-                <Route exact path="/" component={MatchList}/>
-                <Route exact path="/signUp" component={Registration}/>
-            </Switch>
-            <NavLink exact to="/">Startseite</NavLink>
-            <NavLink exact to="/logout">Logout</NavLink>
+        console.log(this.props.user.username);
+
+        this.state = {
+            username: this.props.user.username,
+        };
+    }
+
+    render() {
+        const loggedIn = this.props.user.username && this.props.user.token;
+        const content = <div className="header">
             <div style={styles.toolbar}>
                 <div style={styles.logoContainer}>
-                    LOGO
-                    <NavLink exact to="/signUp">Test</NavLink>
+                    LOGO{this.state.username}
                 </div>
                 <Tabs style={styles.tabs} inkBarStyle={styles.tabIndicator}>
-                    <Tab label="Tippspiel" style={styles.tab}/>
+                    <Tab label={"Tippspiel"} style={styles.tab}/>
                     <Tab label="Tippteam" style={styles.tab}/>
                     <Tab
                         label="Admin"
                         data-route="/Startseite"
                         style={styles.tab}
                     />
-                    <NavLink exact to="/logout">Test</NavLink>
                 </Tabs>
                 <FlatButton rippleColor={colors.light} hoverColor="transparent" style={styles.avatarButton}>
                     <img id="avatar" style={styles.avatar} alt=""
                          src="https://api.adorable.io/avatars/100/HoangTran.png"/>
                 </FlatButton>
             </div>
-        </div>
-    )
+        </div>;
+
+        return (<div>{loggedIn ? content : ""}</div>)
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
 };
 
 
-export default Header
+const mapActionsToProps = {
+    //authenticate: apiAuthenticate
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(Header);
