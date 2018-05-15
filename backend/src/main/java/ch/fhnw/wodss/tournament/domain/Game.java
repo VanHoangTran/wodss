@@ -36,6 +36,8 @@ public class Game {
 
 	private int awayGoals;
 
+	private boolean resultsEntered;
+	
 	public Long getId() {
 		return id;
 	}
@@ -98,6 +100,14 @@ public class Game {
 
 	public void setStadium(Stadium stadium) {
 		this.stadium = stadium;
+	}
+
+	public boolean isResultsEntered() {
+		return resultsEntered;
+	}
+
+	public void setResultsEntered(boolean resultsEntered) {
+		this.resultsEntered = resultsEntered;
 	}
 
 	public boolean isReady() {

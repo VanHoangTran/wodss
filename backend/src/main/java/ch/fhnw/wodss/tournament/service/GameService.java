@@ -80,15 +80,22 @@ public class GameService {
 	 */
 	public boolean updateGameResult(Long gameId, int homeGoals, int awayGoals) {
 		log.info("updating game with id: {} to homeGoals={} and awayGoals={}", gameId, homeGoals, awayGoals);
+
+		if (homeGoals > Game.MAX_GOALS || awayGoals > Game.MAX_GOALS) {
+			throw new IllegalArgumentException("invalid goals count");
+		}
+
 		Game game = findGameById(gameId);
 		game.setHomeGoals(homeGoals);
 		game.setAwayGoals(awayGoals);
-		getGroupRanking(1l);
+		game.setResultsEntered(true);
+		gameRepository.save(game);
 		return true;
 	}
 
 	/**
 	 * TODO
+	 * 
 	 * @param groupId
 	 * @return
 	 */
@@ -161,6 +168,7 @@ public class GameService {
 
 	/**
 	 * TODO
+	 * 
 	 * @param gameId
 	 * @param homeDTO
 	 * @param awayDTO
@@ -207,6 +215,7 @@ public class GameService {
 
 	/**
 	 * TODO
+	 * 
 	 * @param gameId
 	 * @param leftGameId
 	 * @param rightGameId
@@ -227,6 +236,7 @@ public class GameService {
 
 	/**
 	 * TODO
+	 * 
 	 * @param gameId
 	 * @param leftGameId
 	 * @param rightGameId
