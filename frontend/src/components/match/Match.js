@@ -35,7 +35,7 @@ class Match extends Component {
                         <span className="location">{match.stadium.name} ({match.stadium.city})</span>
                     </div>
                     
-                    <Bet matchId={match.id}/>
+                    <Bet matchId={match.id} open={match.open}/>
 
                     <div className="result">
                         <span className="actual">{match.open ? '-' : match.homeGoals}</span>

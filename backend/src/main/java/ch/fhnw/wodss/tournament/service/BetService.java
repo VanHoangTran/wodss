@@ -63,6 +63,12 @@ public class BetService {
 			throw new IllegalArgumentException("invalid arguments provided");
 		}
 
+		// is match ready for betting?
+		if (!foundGame.get().isReady()) {
+			log.warn("could not PUT bet since game was not ready yet");
+			throw new IllegalArgumentException("invalid arguments provided");
+		}
+
 		// check if there is already a bet for this game
 		Bet bet = betRepository.findByGameId(vm.getGameId());
 

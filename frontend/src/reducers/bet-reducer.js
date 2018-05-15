@@ -1,9 +1,34 @@
-import {PUT_BET} from '../actions/match-list-actions';
+import { PUT_BET, SET_ACCOUNT_BETS } from '../actions/bet-actions';
 
-export default function matchReducer(state = '', {type, payload}) {
+const initialState = {
+    bets: [],
+    lastAdded: {}
+}
+
+export default function betReducer(state = initialState, {type, payload}) {
     switch (type) {
         case PUT_BET:
-            return payload.bet;
+            return Object.assign({}, state, {
+                bets: [
+                    ...state.bets,
+                    {
+                        id: -1,
+                        gameId: payload.bet.gameId,
+                        homeGoals: payload.bet.homeGoals,
+                        awayGoals: payload.bet.awayGoals
+                    }
+                ],
+                lastAdded: {
+                    gameId: payload.bet.gameId,
+                    homeGoals: payload.bet.homeGoals,
+                    awayGoals: payload.bet.awayGoals,
+                    apiStatus: payload.bet.apiStatus
+                }
+            })
+        case SET_ACCOUNT_BETS:
+            return Object.assign({}, state, {
+                bets: [...payload.bets]
+            })
         default:
             return state;
     }
