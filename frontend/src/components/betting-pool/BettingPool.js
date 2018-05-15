@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {apiLoadAllBettingPools} from "../../actions/betting-pool-actions";
+import {apiLoadAllBettingPools, apiDeleteGroup} from "../../actions/betting-pool-actions";
 import {colors, dimensions} from "../../util/constants";
-import {Card, CardHeader, CardText, Table, TableBody, RaisedButton} from "material-ui";
+import {Card, CardHeader, CardText, Table, TableBody, RaisedButton, CardActions, FlatButton} from "material-ui";
 import {strings} from "../../strings";
 import "./BettingPool.css"
+import PoolDetail from './PoolDetail';
 
 const styles = {
     card: {
@@ -38,30 +39,7 @@ class BettingPool extends Component {
                 </div>
 
                 {this.props.poolStore.pools.map((pool, i) => {  
-                    let isOwner = this.props.user.username == pool.owner.username;
-                    let isMemebr = pool.members.find(u => u.username === this.props.user.username) != undefined;
-
-                    let subtitle = isOwner ? strings.owner : (isMemebr ? strings.member : '');
-
-                    return (
-                        <Card style={styles.card}>
-                            <CardHeader
-                                title={pool.name}
-                                actAsExpander={true}
-                                showExpandableButton={true}
-                                subtitle={subtitle}
-                                style={styles.cardHeader}
-                            />
-
-                            <CardText expandable={true} style={styles.cardBody}>
-                                <Table>
-                                    <TableBody displayRowCheckbox={false}>
-                                        
-                                    </TableBody>
-                                </Table>
-                            </CardText>
-                        </Card>
-                    );
+                    return <PoolDetail pool={pool} />
                 })}
             </div>
         );
@@ -70,8 +48,7 @@ class BettingPool extends Component {
 
 const mapStateToProps = state => {
     return {
-        poolStore: state.poolStore,
-        user: state.user
+        poolStore: state.poolStore
     }
 };
 

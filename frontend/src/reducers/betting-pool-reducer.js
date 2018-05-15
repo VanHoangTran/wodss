@@ -1,4 +1,4 @@
-import { LOAD_BETTING_POOLS } from '../actions/betting-pool-actions';
+import { LOAD_BETTING_POOLS, DELETE_BETTING_POOL } from '../actions/betting-pool-actions';
 
 const initialState = {
     pools: []
@@ -9,6 +9,13 @@ export default function betReducer(state = initialState, {type, payload}) {
         case LOAD_BETTING_POOLS:
             return Object.assign({}, state, {
                 pools: [...payload.pools]
+            })
+        case DELETE_BETTING_POOL:
+            let currentList = [...state.pools];
+            let toDeleteIndex = currentList.findIndex(i => i.name === payload.name);
+            currentList.pop(toDeleteIndex);
+            return Object.assign({}, state, {
+                pools: currentList
             })
         default:
             return state;

@@ -49,6 +49,7 @@ export const strings = new LocalizedStrings({
         newBettingPool: "Neue Gruppe erstellen",
         owner: "Admin",
         member: "Mitglied",
+        delPool: "Gruppe löschen",
 
         admin: "Admin",
 
