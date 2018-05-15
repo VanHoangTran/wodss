@@ -36,7 +36,7 @@ public class Game {
 
 	private int awayGoals;
 
-	private boolean resultsEntered;
+	private boolean resultsEntered = false;
 	
 	public Long getId() {
 		return id;

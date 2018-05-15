@@ -22,7 +22,7 @@ class Match extends Component {
         // set appropriate country icon for home and away team
         match.home.flagImageUrl = match.home.countryFifaCode != '' ? require('../../images/flags/' + match.home.countryFifaCode + '.svg') : undefined;
         match.away.flagImageUrl = match.away.countryFifaCode != '' ? require('../../images/flags/' + match.away.countryFifaCode + '.svg') : undefined;
-
+        debugger;
         return (
             <TableRow>
                 <TableRowColumn width="30">
@@ -38,8 +38,8 @@ class Match extends Component {
                     <Bet matchId={match.id} open={match.open}/>
 
                     <div className="result">
-                        <span className="actual">{match.open ? '-' : match.homeGoals}</span>
-                        <span className="actual">{match.open ? '-' : match.awayGoals}</span>
+                        <span className="actual">{match.resultsEntered === false ? '-' : match.homeGoals}</span>
+                        <span className="actual">{match.resultsEntered === false ? '-' : match.awayGoals}</span>
                     </div>
                 </TableRowColumn>
                 <TableRowColumn>{match.away.name}</TableRowColumn>
