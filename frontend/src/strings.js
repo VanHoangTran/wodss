@@ -46,6 +46,9 @@ export const strings = new LocalizedStrings({
         goals: "Tore",
 
         bettingPools: "Tippgruppen",
+        newBettingPool: "Neue Gruppe erstellen",
+        owner: "Admin",
+        member: "Mitglied",
 
         admin: "Admin"
     }

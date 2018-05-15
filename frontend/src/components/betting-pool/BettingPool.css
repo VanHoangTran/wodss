@@ -1,0 +1,15 @@
+.newButton {
+    float: right;
+    margin-right: 15px !important;
+}
+
+div.buttonContainer {
+    width: 100%;
+    margin-top: 10px;
+}
+
+div.buttonContainer::after{
+    content: '';
+    display: block;
+    clear: both;
+}
