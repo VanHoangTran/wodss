@@ -2,6 +2,8 @@
 -- sample account (admin)
 INSERT INTO `account` (`id`, `activation_key`, `active`, `admin`, `mail`, `password`, `salt`, `username`, `verified`) VALUES
 (1, '92549257615158256383', b'1', b'1', 'kevin.kirn@students.fhwn.ch', '$argon2i$v=19$m=65536,t=20,p=4$mfYfUobRiPYPkYeQ5V3rtw$qHeBhHdtABi079RWeg9nzLRNw+lCgW4YBDgA30zfCqs', 'PhuSu1sPJQyjGvdSC02V', 'kevin.kirn', b'1');
+INSERT INTO `account` (`id`, `activation_key`, `active`, `admin`, `mail`, `password`, `salt`, `username`, `verified`) VALUES
+(2, '26332059566311682503', b'1', b'0', 'hoang.tran@students.fhnw.ch', '$argon2i$v=19$m=65536,t=20,p=4$PX7nChK0322TB4WJs6zhoQ$WAk3fm3kHkYFRn7y0ULpXtPCfDx8g3Hwa8eahiBN/aU', '6RGED5TfhosiuzMf48cJ', 'hoang.tran', b'1');
 
 -- official game phases
 delete from phase; commit;
@@ -190,3 +192,4 @@ insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, 
 
 -- finale
 insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (64, '2018-07-15 18:00:00', 0, 0, 501, 502, 6, 4, 0);
+

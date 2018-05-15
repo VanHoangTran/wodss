@@ -153,7 +153,11 @@ public class AccountResource {
 				final String currentUser = securityUtil.getUsername();
 				Account account = accountService.getAccountByName(currentUser);
 				accountService.changePassword(vm.getNewPassword(), account);
+
+			} else {
+				throw new IllegalArgumentException("Password does not meet requirements");
 			}
+
 		} catch (IllegalArgumentException iae) {
 			log.info("update password failed");
 			return new ResponseEntity<String>(iae.getMessage(), HttpStatus.BAD_REQUEST);
