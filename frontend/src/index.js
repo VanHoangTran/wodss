@@ -20,6 +20,7 @@ import Activate from "./components/activate/Activate";
 import "./Root.css";
 import Header from "./components/header/Header";
 import Recover from "./components/recover/Recover";
+import Profile from "./components/profile/EditProfile";
 
 const persistedState = loadState();
 
@@ -53,6 +54,7 @@ render(
                         <Route path={pages.recover} component={Recover}/>
 
                         <PrivateRoute path={pages.matchList} component={MatchList}/>
+                        <PrivateRoute path={pages.profile} component={Profile}/>
                     </Switch>
                 </div>
             </Router>

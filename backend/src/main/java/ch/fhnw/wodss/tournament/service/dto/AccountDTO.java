@@ -1,11 +1,10 @@
 package ch.fhnw.wodss.tournament.service.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import ch.fhnw.wodss.tournament.domain.Account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import ch.fhnw.wodss.tournament.domain.Account;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountDTO {
 
@@ -13,12 +12,15 @@ public class AccountDTO {
 
 	private String username;
 
+	private String mail;
+
 	@JsonIgnore
 	private int points;
 
 	public AccountDTO(Account owner) {
 		this.id = owner.getId();
 		this.username = owner.getUsername();
+		this.mail = owner.getMail();
 	}
 
 	public Long getId() {
@@ -43,6 +45,14 @@ public class AccountDTO {
 
 	public void setPoints(int points) {
 		this.points = points;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 
 	/**
