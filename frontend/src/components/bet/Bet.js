@@ -20,7 +20,9 @@ class Bet extends Component {
             this.state = {
                 background: {backgroundColor: '#ffa900'},
                 homeGoals: bet.homeGoals,
-                awayGoals: bet.awayGoals
+                awayGoals: bet.awayGoals,
+                homeNeedsSave: false,
+                awayNeedsSave: false
             };
         }
     }
@@ -30,23 +32,79 @@ class Bet extends Component {
             if(nextProps.betStore.lastAdded.apiStatus === 200) {
                 this.setState({ background: {backgroundColor: '#ffa900'} });
             } else {
-                this.refs.betHome.input.value = "";
-                this.refs.betAway.input.value = "";
+                this.state = {
+                    background: {backgroundColor: 'transparent'},
+                    homeGoals: "",
+                    awayGoals: "",
+                    homeNeedsSave: false,
+                    awayNeedsSave: false
+                };
             }
         }
     }
 
-    onValueChange(event){
-        let betHome = this.refs.betHome.input.value;
-        let betAway = this.refs.betAway.input.value;
-        
-        if(isNaN(betHome) || isNaN(betAway) || betHome > 20 || betAway > 20) {
-            this.refs.betHome.input.value = "";
-            this.refs.betAway.input.value = "";
+    onValueChange = (event) => {
+        if(event.target.name === "betHome"){
+            if(isNaN(event.target.value)) {
+                this.setState({ 
+                    homeGoals: "",
+                    homeNeedsSave: false
+                }, this.onStateChanged);
+            } else  {
+                this.setState({ 
+                    homeGoals: event.target.value,
+                    homeNeedsSave: true
+                }, this.onStateChanged);
+            }
+        } else if (event.target.name === "betAway") {
+            if(isNaN(event.target.value)) {
+                this.setState({ 
+                    awayGoals: "",
+                    awayNeedsSave: false
+                }, this.onStateChanged);
+            } else  {
+                this.setState({ 
+                    awayGoals: event.target.value,
+                    awayNeedsSave: true
+                }, this.onStateChanged);
+            }
+        } 
+    }
+
+    onStateChanged = () => {
+        // both bet fields have been changed
+        if(!this.state.awayNeedsSave || !this.state.homeNeedsSave){
+            this.setState({background: {backgroundColor: 'transparent'}});
+            return;
         }
 
-        if(betHome != "" && betAway != "") {
-            this.props.putBet(this.props.matchId, betHome, betAway);
+        // case 1: both empty -> API DELETE BET
+        if(this.state.awayGoals === "" && this.state.homeGoals === "") {
+            this.setState({
+                homeNeedsSave: false,
+                awayNeedsSave: false
+            });
+            return;
+        }
+
+        // case 2: one is a number, the other not -> do nothing
+        if((this.state.awayGoals === "" && !isNaN(this.state.homeGoals)) 
+            || (this.state.homeGoals === "" && !isNaN(this.state.awayGoals))) {
+            this.setState({
+                homeNeedsSave: false,
+                awayNeedsSave: false
+            });
+            return;
+        }
+
+        // case 3: both are numbers -> API PUT BET
+        if(!isNaN(this.state.homeGoals) && !isNaN(this.state.awayGoals)) {
+            this.setState({
+                homeNeedsSave: false,
+                awayNeedsSave: false
+            });
+            this.props.putBet(this.props.matchId, this.state.homeGoals, this.state.awayGoals);
+            return;
         }
     }
 
