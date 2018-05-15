@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import {API_ACTION_ACCOUNT, API_ACTION_AUTH, API_ENDPOINT} from '../util/constants';
+import {store} from "../index";
 
 const CONTENT_TYPE = "application/json; charset=utf-8";
 
@@ -44,15 +45,20 @@ export function apiLogout() {
 
 export function apiGetAccountInformation() {
     return dispatch => {
+        let jwt = store.getState().user.token;
+
         $.ajax({
             type: 'GET',
             url: API_ENDPOINT + API_ACTION_ACCOUNT,
             contentType: CONTENT_TYPE,
             success(response) {
-                console.log(response);
+                dispatch(updateUser(response.username, jwt, response.mail));
             },
             error(response) {
-                console.log(response);
+                dispatch(updateUser(null, null, null));
+            },
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + jwt);
             }
         })
     }

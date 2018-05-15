@@ -39,6 +39,8 @@ export const strings = new LocalizedStrings({
         profile: "Profil",
         userInformation: "Benutzerinformationen",
         changePassword: "Passwort ändern",
+        passwordChanged: "Passwort geändert",
+        passwordChangedSuccessfully: "Dein Passwort wurde erfolgreich geändert.",
 
         bettingGame: "Tippspiel",
         goals: "Tore",

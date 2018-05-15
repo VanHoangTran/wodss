@@ -20,7 +20,7 @@ import Activate from "./components/activate/Activate";
 import "./Root.css";
 import Header from "./components/header/Header";
 import Recover from "./components/recover/Recover";
-import Profile from "./components/profile/EditProfile";
+import Profile from "./components/profile/Profile";
 
 const persistedState = loadState();
 
