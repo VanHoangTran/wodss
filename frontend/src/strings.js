@@ -50,6 +50,8 @@ export const strings = new LocalizedStrings({
         owner: "Admin",
         member: "Mitglied",
 
-        admin: "Admin"
+        admin: "Admin",
+
+        appTitle: "WM Tippspiel (G1/wodss)"
     }
 });
