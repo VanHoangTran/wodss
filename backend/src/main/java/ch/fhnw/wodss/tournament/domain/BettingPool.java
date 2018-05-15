@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class BettingPool {
@@ -21,10 +21,10 @@ public class BettingPool {
 
 	private String name;
 
-	@OneToOne
+	@ManyToOne
 	private Account owner;
 
-	@OneToMany
+	@ManyToMany
 	private List<Account> members;
 
 	public Long getId() {
