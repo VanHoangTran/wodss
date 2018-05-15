@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ch.fhnw.wodss.tournament.domain.Account;
-import ch.fhnw.wodss.tournament.domain.Account;
 import ch.fhnw.wodss.tournament.service.AccountService;
 import ch.fhnw.wodss.tournament.service.dto.AccountDTO;
-import ch.fhnw.wodss.tournament.util.SecurityUtil;
 import ch.fhnw.wodss.tournament.util.SecurityUtil;
 import ch.fhnw.wodss.tournament.util.ValidationUtil;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.FinalizeRecoveryViewModel;
@@ -25,14 +24,6 @@ import ch.fhnw.wodss.tournament.web.rest.viewmodel.RegisterViewModel;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.StartRecoveryViewModel;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.UpdateProfileVM;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.VerificationVM;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 /**
  * REST controller to manage the user accounts

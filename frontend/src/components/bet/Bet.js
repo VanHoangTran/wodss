@@ -53,8 +53,8 @@ class Bet extends Component {
     render() {
         return (
             <div className="bets">
-                <div className="homeBet"><TextField value={this.state.homeGoals} style={this.state.background} onChange={this.onValueChange} ref="betHome" name="betHome" fullWidth={true}/></div>
-                <div className="awayBet"><TextField value={this.state.awayGoals} style={this.state.background} onChange={this.onValueChange} ref="betAway" name="betAway" fullWidth={true}/></div>
+                <div className="homeBet"><TextField disabled={!this.props.open} value={this.state.homeGoals} style={this.state.background} onChange={this.onValueChange} ref="betHome" name="betHome" fullWidth={true}/></div>
+                <div className="awayBet"><TextField disabled={!this.props.open} value={this.state.awayGoals} style={this.state.background} onChange={this.onValueChange} ref="betAway" name="betAway" fullWidth={true}/></div>
             </div>
         );
     }

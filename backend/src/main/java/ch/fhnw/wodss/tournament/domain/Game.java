@@ -13,9 +13,9 @@ import javax.persistence.OneToOne;
 public class Game {
 
 	public static final int MAX_GOALS = 20;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne
@@ -98,6 +98,11 @@ public class Game {
 
 	public void setStadium(Stadium stadium) {
 		this.stadium = stadium;
+	}
+
+	public boolean isReady() {
+		return !home.getGroup().getName().equals(TournamentGroup.DUMMY_NAME)
+				&& !away.getGroup().getName().equals(TournamentGroup.DUMMY_NAME);
 	}
 
 }

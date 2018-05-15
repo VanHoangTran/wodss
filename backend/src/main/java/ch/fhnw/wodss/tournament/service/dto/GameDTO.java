@@ -35,7 +35,7 @@ public class GameDTO {
 		this.stadium = new StadiumDTO(g.getStadium());
 		this.homeGoals = g.getHomeGoals();
 		this.awayGoals = g.getAwayGoals();
-		this.open = new Date().before(g.getDate());
+		this.open = new Date().before(g.getDate()) && g.isReady();
 	}
 
 	public Long getId() {
