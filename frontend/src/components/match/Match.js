@@ -28,7 +28,10 @@ class Match extends Component {
                 <TableRowColumn width="30">
                     <img height="30" src={match.home.flagImageUrl} />
                 </TableRowColumn>
-                <TableRowColumn>{match.home.name}</TableRowColumn>
+                <TableRowColumn>
+                    <span className="homeTeam">{match.home.name}</span>
+                    <span className="points">Punkte: -</span>
+                </TableRowColumn>
                 <TableRowColumn className="matchResultRow">
                     <div className="centered">
                         <span className="date"><b>{formatDate(matchDate)}</b></span>

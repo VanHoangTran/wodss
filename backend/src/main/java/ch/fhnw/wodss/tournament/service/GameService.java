@@ -165,7 +165,7 @@ public class GameService {
 
 		return weightedTeams;
 	}
-
+	
 	/**
 	 * TODO
 	 * 

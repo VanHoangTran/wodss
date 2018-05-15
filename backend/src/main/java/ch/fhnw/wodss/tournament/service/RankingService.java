@@ -37,6 +37,55 @@ public class RankingService {
 	@Autowired
 	private GameService gameService;
 
+	public int getBetPoints(Long betId) {
+		BetDTO userBet = betService.getBetsForUserById(betId);
+		GameDTO game = gameService.getGameById(userBet.getGameId());
+
+		int points = 0;
+		boolean correctWinner = false;
+
+		// 1) winning team correct (10pt)
+		if (game.getAwayGoals() == userBet.getHomeGoals()) {
+			if (userBet.getAwayGoals() == userBet.getHomeGoals()) {
+				points += 10;
+				correctWinner = true;
+			}
+		} else {
+			if (game.getAwayGoals() > userBet.getHomeGoals()) {
+				if (userBet.getAwayGoals() > userBet.getHomeGoals()) {
+					points += 10;
+					correctWinner = true;
+				}
+			} else if (game.getAwayGoals() < userBet.getHomeGoals()) {
+				if (userBet.getAwayGoals() < userBet.getHomeGoals()) {
+					points += 10;
+					correctWinner = true;
+				}
+			}
+		}
+
+		// 2) correct goal difference - winner must be correct (6pt)
+		if (correctWinner) {
+			int actualDifference = game.getAwayGoals() - game.getHomeGoals();
+			int betDifference = userBet.getAwayGoals() - userBet.getHomeGoals();
+			if (actualDifference == betDifference) {
+				points += 6;
+			}
+		}
+
+		// 3) correct number of away goals (2pt)
+		if (userBet.getAwayGoals() == game.getAwayGoals()) {
+			points += 2;
+		}
+
+		// 4) correct number of home goals (2pt)
+		if (userBet.getHomeGoals() == game.getHomeGoals()) {
+			points += 2;
+		}
+
+		return points;
+	}
+
 	/**
 	 * Calculates the ranking of a given pool.
 	 * 
