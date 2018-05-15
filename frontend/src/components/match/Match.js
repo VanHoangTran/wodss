@@ -42,7 +42,7 @@ class Match extends Component {
                         <span className="actual">{match.resultsEntered === false ? '-' : match.awayGoals}</span>
                     </div>
                 </TableRowColumn>
-                <TableRowColumn>{match.away.name}</TableRowColumn>
+                <TableRowColumn className="awayTeam">{match.away.name}</TableRowColumn>
                 <TableRowColumn width="30"><img height="30" src={match.away.flagImageUrl} /></TableRowColumn>
             </TableRow>
         );

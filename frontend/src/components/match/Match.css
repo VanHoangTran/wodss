@@ -42,3 +42,7 @@
     line-height: 12px;
     height: 12px;
 }
+
+td.awayTeam{
+    text-align: right !important;
+}
