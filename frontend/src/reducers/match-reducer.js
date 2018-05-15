@@ -8,4 +8,3 @@ export default function matchReducer(state = '', {type, payload}) {
             return state;
     }
 }
-

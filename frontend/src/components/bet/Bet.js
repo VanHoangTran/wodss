@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {TextField} from "material-ui";
 import ReactDOM from 'react-dom';
-import {apiPutBet} from '../../actions/match-list-actions'
+import {apiPutBet} from '../../actions/bet-actions'
 
 class Bet extends Component {
 
@@ -13,13 +13,26 @@ class Bet extends Component {
         this.state = {
             background: {backgroundColor: 'transparent'}
         };
+
+        // check if we got a bet for this match!
+        let bet = this.props.betStore.bets.find(b => b.gameId === this.props.matchId);
+        if(bet){
+            this.state = {
+                background: {backgroundColor: '#ffa900'},
+                homeGoals: bet.homeGoals,
+                awayGoals: bet.awayGoals
+            };
+        }
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.bets.gameId === this.props.matchId) {
-            let betHome = this.refs.betHome;
-            let betAway = this.refs.betAway;
-            this.setState({ background: {backgroundColor: '#ffa900'} });
+        if(nextProps.betStore.lastAdded.gameId === this.props.matchId) {
+            if(nextProps.betStore.lastAdded.apiStatus === 200) {
+                this.setState({ background: {backgroundColor: '#ffa900'} });
+            } else {
+                this.refs.betHome.input.value = "";
+                this.refs.betAway.input.value = "";
+            }
         }
     }
 
@@ -40,8 +53,8 @@ class Bet extends Component {
     render() {
         return (
             <div className="bets">
-                <div className="homeBet"><TextField style={this.state.background} onChange={this.onValueChange} ref="betHome" name="betHome" fullWidth={true}/></div>
-                <div className="awayBet"><TextField style={this.state.background} onChange={this.onValueChange} ref="betAway" name="betAway" fullWidth={true}/></div>
+                <div className="homeBet"><TextField value={this.state.homeGoals} style={this.state.background} onChange={this.onValueChange} ref="betHome" name="betHome" fullWidth={true}/></div>
+                <div className="awayBet"><TextField value={this.state.awayGoals} style={this.state.background} onChange={this.onValueChange} ref="betAway" name="betAway" fullWidth={true}/></div>
             </div>
         );
     }
@@ -49,7 +62,7 @@ class Bet extends Component {
 
 const mapStateToProps = state => {
     return {
-        bets: state.bets
+        betStore: state.betStore
     }
 };
 

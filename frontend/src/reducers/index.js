@@ -14,7 +14,7 @@ const allReducers = combineReducers({
     registration: registrationReducer,
     router: routerReducer,
     matchList: matchListReducer,
-    bets: betReducer,
+    betStore: betReducer,
     recovery: recoveryReducer
 });
 

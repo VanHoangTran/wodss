@@ -5,6 +5,7 @@ import {Card, CardActions, CardHeader, CardText, FlatButton, Table, TableRow, Ta
 import {colors, dimensions, pages} from "../../util/constants";
 import {connect} from "react-redux";
 import {apiLoadMatchList} from "../../actions/match-list-actions";
+import {apiLoadAccountBets} from "../../actions/bet-actions"
 import Header from '../header/Header';
 import {NavLink} from "react-router-dom"
 import { withRouter } from 'react-router'
@@ -34,12 +35,13 @@ class MatchList extends Component {
     constructor(props) {
         super(props);
         this.props.buildMatchList();
+        this.props.loadAccountBets();
     }
 
     render() {
         if(this.props.matchList == "" || this.props.matchList == null)
             return "";
-
+        
         return (            
             <div>
             {this.props.matchList.map((phase, i) => {     
@@ -55,9 +57,9 @@ class MatchList extends Component {
                         <CardText expandable={true} style={styles.cardBody}>
                             <Table>
                                 <TableBody displayRowCheckbox={false}>
-                                {phase.games.map((game) => {
-                                    return <Match match={game}/>
-                                })}
+                                    {phase.games.map((game) => {
+                                        return <Match match={game}/>
+                                    })}
                                 </TableBody>
                             </Table>
                         </CardText>
@@ -76,7 +78,8 @@ const mapStateToProps = state => {
 };
 
 const mapActionsToProps = {
-    buildMatchList: apiLoadMatchList
+    buildMatchList: apiLoadMatchList,
+    loadAccountBets: apiLoadAccountBets
 };
 
 export default withRouter(connect(mapStateToProps, mapActionsToProps)(MatchList));
