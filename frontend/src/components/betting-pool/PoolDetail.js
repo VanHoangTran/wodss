@@ -73,7 +73,8 @@ class PoolDetail extends Component {
                         </TableHeader>
                         <TableBody displayRowCheckbox={false}>
                             {pool.ranking.map((ranking, i) => {  
-                                return (<TableRow>
+                                let style = ranking.account.username === this.props.user.username ?  {backgroundColor:'#4eae4414'} : {};
+                                return (<TableRow style={style}>
                                     <TableRowColumn>{ranking.position}</TableRowColumn>
                                     <TableRowColumn>{ranking.points}</TableRowColumn>
                                     <TableRowColumn>{ranking.account.username}</TableRowColumn>
