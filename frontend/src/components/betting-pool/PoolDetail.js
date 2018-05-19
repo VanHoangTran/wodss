@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {apiLoadAllBettingPools, apiDeleteGroup, apiUpdateRelation, JOIN_ACTION, LEAVE_ACTION} from "../../actions/betting-pool-actions";
 import {colors, dimensions} from "../../util/constants";
-import {Card, CardHeader, CardText, Table, TableBody, RaisedButton, CardActions, FlatButton} from "material-ui";
+import {Card, CardHeader, CardText, Table, TableBody, RaisedButton, CardActions, FlatButton, TableRow, TableRowColumn, TableHeader, TableHeaderColumn} from "material-ui";
 import {strings} from "../../strings";
 
 const styles = {
@@ -46,7 +46,6 @@ class PoolDetail extends Component {
         let isMemebr = pool.members.find(u => u.username === this.props.user.username) != undefined;
 
         let subtitle = isOwner ? strings.owner : (isMemebr ? strings.member : '');
-
         return (
             <Card style={styles.card}>
                 <CardHeader
@@ -62,11 +61,24 @@ class PoolDetail extends Component {
                     {isOwner && <FlatButton onClick={this.onDeleteGroup} label={strings.delPool} /> }
                     {!isMemebr && <FlatButton onClick={this.onJoinGroup} label={strings.joinPool} /> }
                     {!isOwner && isMemebr && <FlatButton onClick={this.onLeaveGroup} label={strings.leavePool} /> }
-                        
                     </CardActions>
+
                     <Table>
+                        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                            <TableRow>
+                                <TableHeaderColumn>Rang</TableHeaderColumn>
+                                <TableHeaderColumn>Punkte</TableHeaderColumn>
+                                <TableHeaderColumn>Benutzername</TableHeaderColumn>
+                            </TableRow>
+                        </TableHeader>
                         <TableBody displayRowCheckbox={false}>
-                            
+                            {pool.ranking.map((ranking, i) => {  
+                                return (<TableRow>
+                                    <TableRowColumn>{ranking.position}</TableRowColumn>
+                                    <TableRowColumn>{ranking.points}</TableRowColumn>
+                                    <TableRowColumn>{ranking.account.username}</TableRowColumn>
+                                </TableRow>);
+                            })}                            
                         </TableBody>
                     </Table>
                 </CardText>
