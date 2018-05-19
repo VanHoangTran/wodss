@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {apiLoadAllBettingPools, apiDeleteGroup} from "../../actions/betting-pool-actions";
+import {apiLoadAllBettingPools, apiDeleteGroup, apiUpdateRelation, JOIN_ACTION, LEAVE_ACTION} from "../../actions/betting-pool-actions";
 import {colors, dimensions} from "../../util/constants";
 import {Card, CardHeader, CardText, Table, TableBody, RaisedButton, CardActions, FlatButton} from "material-ui";
 import {strings} from "../../strings";
@@ -31,6 +31,14 @@ class PoolDetail extends Component {
         this.props.deletePool(this.props.pool.name);
     }
 
+    onJoinGroup = (event) => {
+        this.props.updateRelation(this.props.pool.name, JOIN_ACTION);
+    }
+
+    onLeaveGroup = (event) => {
+        this.props.updateRelation(this.props.pool.name, LEAVE_ACTION);
+    }
+
     render() {
         let pool = this.props.pool;
 
@@ -51,7 +59,9 @@ class PoolDetail extends Component {
                 
                 <CardText expandable={true} style={styles.cardBody}>
                     <CardActions>
-                    {isOwner && <FlatButton data-pool-name={pool.name} onClick={this.onDeleteGroup} label={strings.delPool} /> }
+                    {isOwner && <FlatButton onClick={this.onDeleteGroup} label={strings.delPool} /> }
+                    {!isMemebr && <FlatButton onClick={this.onJoinGroup} label={strings.joinPool} /> }
+                    {!isOwner && isMemebr && <FlatButton onClick={this.onLeaveGroup} label={strings.leavePool} /> }
                         
                     </CardActions>
                     <Table>
@@ -72,7 +82,8 @@ const mapStateToProps = state => {
 };
 
 const mapActionsToProps = {
-    deletePool: apiDeleteGroup
+    deletePool: apiDeleteGroup,
+    updateRelation: apiUpdateRelation
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(PoolDetail);

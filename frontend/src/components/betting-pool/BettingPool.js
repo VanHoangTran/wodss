@@ -42,9 +42,14 @@ class BettingPool extends Component {
     }
 
     componentWillReceiveProps(props) {
-        debugger;
+        this.setState({ newPoolName: '' });
+        
         if(props.poolStore.action === "reload") {
             this.props.loadPools();
+        } else if (props.poolStore.action === "unableToCreate") {
+            alert(strings.groupAlreadyExists);
+        } else if (props.poolStore.action === "unableToJoinOrLeave") {
+            alert(strings.unableToJoinOrLeave);
         }
     }
 
