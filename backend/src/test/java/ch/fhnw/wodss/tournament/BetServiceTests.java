@@ -115,7 +115,7 @@ public class BetServiceTests {
 
 		Mockito.when(accountService.getAccountByName(Mockito.anyString())).thenReturn(someBets.get(0).getAccount());
 		Mockito.when(gameRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(someBets.get(0).getGame()));
-		Mockito.when(betRepository.findByGameId(Mockito.anyLong())).thenReturn(someBets.get(0));
+		Mockito.when(betRepository.findAllByGameId(Mockito.anyLong())).thenReturn(someBets);
 
 		betService.createOrUpdate(mock);
 

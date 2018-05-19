@@ -2,6 +2,7 @@ package ch.fhnw.wodss.tournament.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,8 +71,9 @@ public class BetService {
 		}
 
 		// check if there is already a bet for this game
-		Bet bet = betRepository.findByGameId(vm.getGameId());
-
+		List<Bet> bets = betRepository.findAllByGameId(vm.getGameId());
+		List<Bet> userBets = bets.stream().filter(b -> b.getAccount().equals(foundAccount)).collect(Collectors.toList());
+		Bet bet = userBets.size() == 0 ? null : userBets.get(0);
 		if (bet == null) {
 			// just create a new bet
 			bet = new Bet();

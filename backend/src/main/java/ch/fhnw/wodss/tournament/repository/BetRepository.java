@@ -9,7 +9,7 @@ import ch.fhnw.wodss.tournament.domain.Bet;
 
 public interface BetRepository extends JpaRepository<Bet, Long> {
 
-	public Bet findByGameId(Long id);
+	public List<Bet> findAllByGameId(Long id);
 
 	public List<Bet> findAllByAccount(Account account);
 }
