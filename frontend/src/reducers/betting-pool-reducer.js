@@ -1,12 +1,13 @@
-import { LOAD_BETTING_POOLS, DELETE_BETTING_POOL } from '../actions/betting-pool-actions';
+import { LOAD_BETTING_POOLS, DELETE_BETTING_POOL, CREATE_BETTING_POOL } from '../actions/betting-pool-actions';
 
 const initialState = {
     pools: []
 }
 
-export default function betReducer(state = initialState, {type, payload}) {
+export default function bettingPoolReducer(state = initialState, {type, payload}) {
     switch (type) {
         case LOAD_BETTING_POOLS:
+            debugger;
             return Object.assign({}, state, {
                 pools: [...payload.pools]
             })

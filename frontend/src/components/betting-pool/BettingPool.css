@@ -13,3 +13,8 @@ div.buttonContainer::after{
     display: block;
     clear: both;
 }
+
+div.buttonContainer div:nth-child(2){
+    float: right;
+    margin-top: 8px;
+}

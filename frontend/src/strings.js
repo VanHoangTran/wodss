@@ -50,6 +50,7 @@ export const strings = new LocalizedStrings({
         owner: "Admin",
         member: "Mitglied",
         delPool: "Gruppe löschen",
+        newGroupHint: "Name neuer Gruppe...",
 
         admin: "Admin",
 
