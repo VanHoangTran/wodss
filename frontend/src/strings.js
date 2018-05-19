@@ -55,7 +55,8 @@ export const strings = new LocalizedStrings({
         newGroupHint: "Name neuer Gruppe...",
         groupAlreadyExists: "Gruppe mit identischem Namen existiert bereits.\nBitte wählen Sie einen anderen Gruppen-Namen.",
         unableToJoinOrLeave: "Verlassen oder Beitreten der Gruppe ist fehlgeschlagen, versuchen Sie es später nochmals.",
-
+        failedToDeleteBet: "Tipp konnte nicht gelöscht werden!",
+        betDeleted: "Tipp wurde gelöscht!",
         admin: "Admin",
 
         appTitle: "WM Tippspiel (G1/wodss)"

@@ -72,7 +72,8 @@ public class BetService {
 
 		// check if there is already a bet for this game
 		List<Bet> bets = betRepository.findAllByGameId(vm.getGameId());
-		List<Bet> userBets = bets.stream().filter(b -> b.getAccount().equals(foundAccount)).collect(Collectors.toList());
+		List<Bet> userBets = bets.stream().filter(b -> b.getAccount().equals(foundAccount))
+				.collect(Collectors.toList());
 		Bet bet = userBets.size() == 0 ? null : userBets.get(0);
 		if (bet == null) {
 			// just create a new bet
@@ -137,5 +138,24 @@ public class BetService {
 		List<Bet> userBets = betRepository.findAllByAccount(account);
 
 		return BetDTO.fromList(userBets);
+	}
+
+	/**
+	 * Deletes a bet by it's id
+	 * 
+	 * @param betId to delete
+	 */
+	public void deleteByGameId(Long gameId) {
+		final String username = securityUtil.getUsername();
+		Account foundAccount = accountService.getAccountByName(username);
+
+		List<Bet> bet = betRepository.findAllByGameId(gameId);
+		for(Bet b : bet) {
+			if(!b.getAccount().equals(foundAccount)) {
+				continue;
+			}
+			
+			betRepository.delete(b);
+		}
 	}
 }

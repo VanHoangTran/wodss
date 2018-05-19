@@ -5,6 +5,7 @@ const CONTENT_TYPE = "application/json; charset=utf-8";
 
 export const PUT_BET = 'bets:putBet';
 export const SET_ACCOUNT_BETS = 'bets:setAccountBets';
+export const DELETE_BET = 'bets:deleteBet';
 
 /**
  * Loads all account bets from the API endpoint.
@@ -71,6 +72,29 @@ export function apiPutBet(gameId, homeGoals, awayGoals) {
     }
 }
 
+export function apiDeleteBet(gameId) {
+    return dispatch => {
+        let jwt = store.getState().user.token;
+
+        // get all phases from API
+        $.ajax({
+            type: 'DELETE',
+            async: false,
+            url: API_ENDPOINT + API_ACTION_BET + '/' + gameId,
+            contentType: CONTENT_TYPE,
+            success(response) {
+                dispatch(betDeleted(gameId, true));
+            },
+            error(response) {
+                if(response.status === 403){
+                    window.location = "/logout"
+                }
+                dispatch(betDeleted(gameId, false));
+            }, 
+            beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
+        })
+    }
+}
 
 export function putBet(gameId, homeGoals, awayGoals, status) {
     return {
@@ -91,6 +115,16 @@ export function setAccountBets(bets) {
         type: SET_ACCOUNT_BETS,
         payload: {
             bets: bets
+        }
+    }
+}
+
+export function betDeleted(gameId, success) {
+    return {
+        type: DELETE_BET,
+        payload: {
+            gameId: gameId,
+            success: success
         }
     }
 }
