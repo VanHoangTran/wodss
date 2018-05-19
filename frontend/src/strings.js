@@ -44,6 +44,7 @@ export const strings = new LocalizedStrings({
 
         bettingGame: "Tippspiel",
         goals: "Tore",
+        points: "Punkte:",
 
         bettingPools: "Tippgruppen",
         newBettingPool: "Neue Gruppe erstellen",

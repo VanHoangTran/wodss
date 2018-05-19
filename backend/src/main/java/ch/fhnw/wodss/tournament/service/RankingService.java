@@ -45,18 +45,18 @@ public class RankingService {
 		boolean correctWinner = false;
 
 		// 1) winning team correct (10pt)
-		if (game.getAwayGoals() == userBet.getHomeGoals()) {
+		if (game.getAwayGoals() == game.getHomeGoals()) {
 			if (userBet.getAwayGoals() == userBet.getHomeGoals()) {
 				points += 10;
 				correctWinner = true;
 			}
 		} else {
-			if (game.getAwayGoals() > userBet.getHomeGoals()) {
+			if (game.getAwayGoals() > game.getHomeGoals()) {
 				if (userBet.getAwayGoals() > userBet.getHomeGoals()) {
 					points += 10;
 					correctWinner = true;
 				}
-			} else if (game.getAwayGoals() < userBet.getHomeGoals()) {
+			} else if (game.getAwayGoals() < game.getHomeGoals()) {
 				if (userBet.getAwayGoals() < userBet.getHomeGoals()) {
 					points += 10;
 					correctWinner = true;
@@ -153,7 +153,7 @@ public class RankingService {
 				}
 
 				// 4) correct number of home goals (2pt)
-				if (bet.getHomeGoals() == bet.getHomeGoals()) {
+				if (bet.getHomeGoals() == actual.getHomeGoals()) {
 					member.setPoints(member.getPoints() + 2);
 				}
 			}

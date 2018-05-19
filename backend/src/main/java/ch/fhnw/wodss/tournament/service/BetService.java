@@ -1,5 +1,6 @@
 package ch.fhnw.wodss.tournament.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,6 +42,9 @@ public class BetService {
 
 	@Autowired
 	private SecurityUtil securityUtil;
+
+	@Autowired
+	private RankingService rankService;
 
 	/**
 	 * Creates or updates a bet using provided BetVM
@@ -99,8 +103,16 @@ public class BetService {
 		}
 
 		List<Bet> userBets = betRepository.findAllByAccount(account);
-
-		return BetDTO.fromList(userBets);
+		List<BetDTO> results = new ArrayList<>();
+		for (Bet b : userBets) {
+			BetDTO dto = new BetDTO(b);
+			// get points from service for this bet
+			if (b.getGame().isResultsEntered()) {
+				dto.setPoints(rankService.getBetPoints(b.getId()));
+			}
+			results.add(dto);
+		}
+		return results;
 	}
 
 	/**
@@ -150,11 +162,11 @@ public class BetService {
 		Account foundAccount = accountService.getAccountByName(username);
 
 		List<Bet> bet = betRepository.findAllByGameId(gameId);
-		for(Bet b : bet) {
-			if(!b.getAccount().equals(foundAccount)) {
+		for (Bet b : bet) {
+			if (!b.getAccount().equals(foundAccount)) {
 				continue;
 			}
-			
+
 			betRepository.delete(b);
 		}
 	}
