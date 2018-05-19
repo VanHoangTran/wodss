@@ -41,12 +41,19 @@ class BettingPool extends Component {
         this.props.createPool(this.state.newPoolName);
     }
 
+    componentWillReceiveProps(props) {
+        debugger;
+        if(props.poolStore.action === "reload") {
+            this.props.loadPools();
+        }
+    }
+
     render() {
         return (            
             <div>
                 <div className="buttonContainer">
                     <RaisedButton onClick={this.onCreatePool} className="newButton" label={strings.newBettingPool} style={styles.newButton} />
-                    <TextField value={this.state.newPoolName} onChange={this.onNewPoolNameChange} ref="newPoolName" hintText={strings.newGroupHint} name="newPoolName" />
+                    <TextField value={this.state.newPoolName} onChange={this.onNewPoolNameChange} hintText={strings.newGroupHint} name="newPoolName" />
                 </div>
 
                 {this.props.poolStore.pools.map((pool, i) => {  
