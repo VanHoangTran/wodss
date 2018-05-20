@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {NavLink} from "react-router-dom"
 import {Card, CardHeader, CardText, Dialog, FlatButton, RaisedButton, TextField} from "material-ui";
-import {apiAuthenticate} from "../../actions/user-actions";
+import {apiAuthenticate, apiGetAccountInformation} from "../../actions/user-actions";
 import {colors, dimensions, pages} from "../../util/constants";
 import {strings} from "../../strings";
 import "animate.css";
@@ -39,6 +39,8 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.authenticate = this.authenticate.bind(this);
+        this.getAccountInformation = this.getAccountInformation.bind(this);
+        this.handleLoginSuccessful = this.handleLoginSuccessful.bind(this);
 
         let dialogTitle = "";
         let dialogMessage = "";
@@ -72,11 +74,15 @@ class Login extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let loginSuccessful = nextProps.user.token !== null;
+        let authenticated = nextProps.user.token !== undefined;
+        let loginSuccessful = nextProps.user.mail !== undefined;
+
         if (loginSuccessful) {
-            this.onLoginSuccessful();
+            this.handleLoginSuccessful();
+        } else if (authenticated) {
+            this.handleAuthenticationSuccessful();
         } else {
-            this.onLoginFailed();
+            this.handleLoginFailed();
         }
     }
 
@@ -88,11 +94,19 @@ class Login extends Component {
         });
     }
 
-    onLoginSuccessful() {
+    getAccountInformation() {
+        this.props.getAccountInformation()
+    }
+
+    handleAuthenticationSuccessful() {
+        this.props.getAccountInformation();
+    }
+
+    handleLoginSuccessful() {
         this.props.history.push(pages.matchList);
     }
 
-    onLoginFailed() {
+    handleLoginFailed() {
         this.setState({
             password: "",
             failAnimationActive: true,
@@ -126,7 +140,7 @@ class Login extends Component {
 
     handleCloseDialog = () => {
         this.setState({
-            param: null,
+            param: undefined,
         });
     };
 
@@ -198,7 +212,8 @@ const mapStateToProps = state => {
 };
 
 const mapActionsToProps = {
-    authenticate: apiAuthenticate
+    authenticate: apiAuthenticate,
+    getAccountInformation: apiGetAccountInformation,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Login);

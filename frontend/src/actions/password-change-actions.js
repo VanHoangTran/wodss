@@ -29,7 +29,7 @@ export function apiChangePassword(newPassword) {
             data: JSON.stringify({newPassword: newPassword}),
             contentType: CONTENT_TYPE,
             success(response) {
-                dispatch(updatePassword(true, null));
+                dispatch(updatePassword(true));
             },
             error(response) {
                 dispatch(updatePassword(false, response.responseText));

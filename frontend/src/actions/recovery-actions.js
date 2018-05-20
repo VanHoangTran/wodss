@@ -27,7 +27,7 @@ export function apiInitiateRecovery(username, mail) {
             data: JSON.stringify({username: username, mail: mail}),
             contentType: CONTENT_TYPE,
             success(response) {
-                dispatch(updateRecovery(true, false, null));
+                dispatch(updateRecovery(true, false));
             },
             error(response) {
                 dispatch(updateRecovery(false, false, response.responseText));
@@ -44,7 +44,7 @@ export function apiCompleteRecovery(token, password) {
             data: JSON.stringify({token: token, password: password}),
             contentType: CONTENT_TYPE,
             success(response) {
-                dispatch(updateRecovery(true, true, null));
+                dispatch(updateRecovery(true, true));
             },
             error(response) {
                 dispatch(updateRecovery(true, false, response.responseText));

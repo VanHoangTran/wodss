@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Card, CardHeader, CardText, Divider} from "material-ui";
-import {colors, dimensions} from "../../util/constants";
+import {colors, dimensions, pages} from "../../util/constants";
 import {connect} from "react-redux";
 import {apiLoadMatchList} from "../../actions/match-list-actions";
 import {apiLoadAccountBets} from "../../actions/bet-actions"
@@ -24,13 +24,19 @@ class Admin extends Component {
 
     constructor(props) {
         super(props);
+
+        // check if admin
+        if (!props.user.isAdmin) {
+            this.props.history.push(pages.root);
+        }
+
         this.props.buildMatchList();
         this.props.loadAccountBets();
         this.props.getTeams();
     }
 
     render() {
-        if (this.props.matchList === "" || this.props.matchList == null)
+        if (!this.props.matchList)
             return "";
 
         return (
@@ -67,6 +73,7 @@ const mapStateToProps = state => {
     return {
         matchList: state.matchList,
         admin: state.admin,
+        user: state.user,
     }
 };
 

@@ -85,7 +85,7 @@ class AdminGame extends Component {
     changeHomeGoalsValue(value) {
         this.setState({
             homeGoals: value,
-        }, this.handleSubmitButton);
+        });
     }
 
     handleAwayGoalsChange = (event) => {
@@ -100,7 +100,7 @@ class AdminGame extends Component {
     changeAwayGoalsValue(value) {
         this.setState({
             awayGoals: value,
-        }, this.handleSubmitButton);
+        });
     }
 
     formatGoalsValue(value) {
@@ -140,7 +140,7 @@ class AdminGame extends Component {
             backupAway: this.state.away,
             backupHomeGoals: this.state.homeGoals,
             backupAwayGoals: this.state.awayGoals,
-        }, this.handleSubmitButton);
+        });
     };
 
     handleSaveButtonClick = () => {
@@ -150,7 +150,7 @@ class AdminGame extends Component {
             away: this.state.backupAway,
             homeGoals: this.state.backupHomeGoals,
             awayGoals: this.state.backupAwayGoals,
-        }, this.handleSubmitButton);
+        });
         this.updateGame();
     };
 
@@ -161,15 +161,10 @@ class AdminGame extends Component {
             away: this.state.backupAway,
             homeGoals: this.state.backupHomeGoals,
             awayGoals: this.state.backupAwayGoals,
-        }, this.handleSubmitButton);
+        });
     };
 
-    handleSubmitButton() {
-        console.log("");
-    };
-
-
-    formatDate(matchDate) {
+    static formatDate(matchDate) {
         let date = matchDate.getDate();
         if (date < 10) {
             date = '0' + date;
@@ -192,11 +187,11 @@ class AdminGame extends Component {
             // swap teams
             this.setState({
                 away: this.state.home
-            }, this.handleSubmitButton);
+            });
         }
         this.setState({
             home: selectedTeam
-        }, this.handleSubmitButton);
+        });
     };
 
     handleChangeAwayTeam(event, index, value) {
@@ -206,12 +201,12 @@ class AdminGame extends Component {
             // swap teams
             this.setState({
                 home: this.state.away
-            }, this.handleSubmitButton);
+            });
         }
 
         this.setState({
             away: selectedTeam
-        }, this.handleSubmitButton);
+        });
     };
 
     handleCloseDialog = () => {
@@ -237,7 +232,7 @@ class AdminGame extends Component {
             backupAway: awayTeam,
             backupHomeGoals: updatedGame.homeGoals,
             backupAwayGoals: updatedGame.awayGoals,
-        }, this.handleSubmitButton);
+        });
     }
 
     handleUpdateGameFailed() {
@@ -255,7 +250,7 @@ class AdminGame extends Component {
             <div>
                 <div className={"game-header"}>
                     <div className={"labels"}>
-                        <span>{this.formatDate(new Date(this.state.game.date))}</span>
+                        <span>{AdminGame.formatDate(new Date(this.state.game.date))}</span>
                         <span>{this.state.game.stadium.name} - {this.state.game.stadium.city}</span>
                     </div>
                     <div style={{display: this.state.inEditMode ? "none" : "block"}}>
@@ -332,22 +327,6 @@ class AdminGame extends Component {
             </div>
         );
     }
-}
-
-function formatDate(matchDate) {
-    let date = matchDate.getDate();
-    if (date < 10) {
-        date = '0' + date;
-    }
-    let month = (matchDate.getMonth() + 1);
-    if (month < 10) {
-        month = '0' + month;
-    }
-    let minutes = (matchDate.getMinutes());
-    if (minutes < 10) {
-        minutes = '0' + minutes;
-    }
-    return date + '.' + month + '.' + matchDate.getFullYear() + ' ' + matchDate.getHours() + ':' + minutes;
 }
 
 const mapStateToProps = state => {

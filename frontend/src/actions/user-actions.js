@@ -6,14 +6,15 @@ const CONTENT_TYPE = "application/json; charset=utf-8";
 
 export const UPDATE_USER = 'user:updateUser';
 
-export function updateUser(username, token, mail) {
+export function updateUser(username, token, mail, isAdmin) {
     return {
         type: UPDATE_USER,
         payload: {
             user: {
                 username: username,
                 token: token,
-                mail: mail
+                mail: mail,
+                isAdmin: isAdmin,
             }
         }
     }
@@ -28,10 +29,10 @@ export function apiAuthenticate(username, password) {
             data: JSON.stringify({username: username, password: password}),
             contentType: CONTENT_TYPE,
             success(response) {
-                dispatch(updateUser(username, response.id_token, null));
+                dispatch(updateUser(username, response.id_token));
             },
             error(response) {
-                dispatch(updateUser(null, null, null));
+                dispatch(updateUser());
             }
         })
     }
@@ -39,7 +40,7 @@ export function apiAuthenticate(username, password) {
 
 export function apiLogout() {
     return dispatch => {
-        dispatch(updateUser(null, null, null));
+        dispatch(updateUser());
     }
 }
 
@@ -52,10 +53,10 @@ export function apiGetAccountInformation() {
             url: API_ENDPOINT + API_ACTION_ACCOUNT,
             contentType: CONTENT_TYPE,
             success(response) {
-                dispatch(updateUser(response.username, jwt, response.mail));
+                dispatch(updateUser(response.username, jwt, response.mail, response.admin));
             },
             error(response) {
-                dispatch(updateUser(null, null, null));
+                dispatch(updateUser());
             },
             beforeSend: function (xhr, settings) {
                 xhr.setRequestHeader('Authorization', 'Bearer ' + jwt);

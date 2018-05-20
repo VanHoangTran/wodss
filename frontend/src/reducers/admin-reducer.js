@@ -2,7 +2,7 @@ import {GET_TEAMS, PUT_GAME} from "../actions/admin-actions";
 
 const initialState = {
     teams: [],
-    game: null,
+    game: undefined,
 };
 
 export default function adminReducer(state = initialState, {type, payload}) {

@@ -41,7 +41,7 @@ const styles = {
 };
 
 class Header extends Component {
-    
+
     constructor(props) {
         super(props);
         this.openUrl = this.openUrl.bind(this);
@@ -53,7 +53,7 @@ class Header extends Component {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         document.title = strings.appTitle;
     }
 
@@ -112,9 +112,11 @@ class Header extends Component {
                     <Tab label={strings.bettingPools}
                          value={pages.bettingPools}
                          style={styles.tab}/>
-                    <Tab label={strings.admin}
-                         value={pages.admin}
-                         style={styles.tab}/>
+                    {this.props.user.isAdmin ? (
+                        <Tab label={strings.admin}
+                             value={pages.admin}
+                             style={styles.tab}/>
+                    ) : ("")}
                 </Tabs>
                 <FlatButton onClick={this.handleAvatarClick}
                             rippleColor={colors.light}

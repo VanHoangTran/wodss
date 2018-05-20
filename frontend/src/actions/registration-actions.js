@@ -27,7 +27,7 @@ export function apiRegister(username, password, mail) {
             data: JSON.stringify({username: username, password: password, mail: mail}),
             contentType: CONTENT_TYPE,
             success(response) {
-                dispatch(updateRegistration(true, false, null));
+                dispatch(updateRegistration(true, false));
             },
             error(response) {
                 dispatch(updateRegistration(false, false, response.responseText));
@@ -44,7 +44,7 @@ export function apiActivate(activationToken) {
             data: JSON.stringify({token: activationToken}),
             contentType: CONTENT_TYPE,
             success(response) {
-                dispatch(updateRegistration(true, true, null));
+                dispatch(updateRegistration(true, true));
             },
             error(response) {
                 console.log(response);
