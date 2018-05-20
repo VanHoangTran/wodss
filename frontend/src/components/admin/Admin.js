@@ -1,20 +1,12 @@
 import React, {Component} from 'react';
-import {Card, CardHeader, CardText, Divider, Table, TableBody} from "material-ui";
+import {Card, CardHeader, CardText, Divider} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
 import {connect} from "react-redux";
 import {apiLoadMatchList} from "../../actions/match-list-actions";
 import {apiLoadAccountBets} from "../../actions/bet-actions"
 import {withRouter} from 'react-router'
-import AdminMatch from "./AdminGame";
+import AdminMatch from "../admin-game/AdminGame";
 import {apiGetTeams} from "../../actions/admin-actions";
-
-function team(name, fifaCode, code) {
-    return {
-        name: name,
-        fifaCode: fifaCode,
-        flagImageUrl: fifaCode != '' ? require('../../images/flags/' + fifaCode + '.svg') : fifaCode,
-    };
-}
 
 const styles = {
     card: {
@@ -38,7 +30,7 @@ class Admin extends Component {
     }
 
     render() {
-        if (this.props.matchList == "" || this.props.matchList == null)
+        if (this.props.matchList === "" || this.props.matchList == null)
             return "";
 
         return (

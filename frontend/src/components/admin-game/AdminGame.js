@@ -1,25 +1,12 @@
 import React, {Component} from 'react';
-import {Card, CardHeader, CardText} from 'material-ui/Card';
-import {
-    RaisedButton,
-    TextField,
-    TableRow,
-    TableRowColumn,
-    Divider,
-    FlatButton,
-    IconButton,
-    DropDownMenu, MenuItem, Dialog
-} from "material-ui";
+import {Dialog, DropDownMenu, FlatButton, IconButton, MenuItem, TextField} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
 import {strings} from "../../strings";
 import {connect} from 'react-redux';
 import {Col, Row} from "react-grid-system";
-import ReactTooltip from 'react-tooltip'
-import "./Match.css"
-import Bet from '../bet/Bet';
-import {getAvatarUrl, getFlagImage} from "../../util/imageUtil";
+import "./AdminGame.css"
+import {getFlagImage} from "../../util/imageUtil";
 import {withRouter} from "react-router";
-import {apiRegister} from "../../actions/registration-actions";
 import {apiPutGame} from "../../actions/admin-actions";
 
 const styles = {

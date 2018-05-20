@@ -28,4 +28,15 @@ public class TeamService {
 		log.info("loading all teams from database");
 		return TeamDTO.fromList(teamRepository.findAllByCountryFifaCodeNotOrderByName(""));
 	}
+
+	/**
+	 * Gets a team by provided id
+	 *
+	 * @param id of team
+	 * @return team object
+	 */
+	public TeamDTO getTeamById(long id) {
+		log.info("loading team by id {}", id);
+		return new TeamDTO(teamRepository.findTeamById(id));
+	}
 }
