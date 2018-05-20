@@ -55,7 +55,7 @@ public class BettingPoolResource {
 	@PostMapping
 	public ResponseEntity<String> createNewPool(@Valid @RequestBody BettingPoolVM vm) {
 		log.info("call to POST betting pool. username:{}", securityUtil.getUsername());
-
+		
 		if (!vm.isValid()) {
 			log.info("provided view model was invalid, sending bad request");
 			return new ResponseEntity<String>("Illegal state of view model", HttpStatus.BAD_REQUEST);

@@ -17,6 +17,8 @@ public class BettingPoolDTO {
 
 	private List<AccountDTO> members;
 
+	private List<RankingDTO> ranking;
+	
 	public BettingPoolDTO(BettingPool g) {
 		this.id = g.getId();
 		this.name = g.getName();
@@ -62,6 +64,14 @@ public class BettingPoolDTO {
 
 	public void setMember(boolean isMember) {
 		this.isMember = isMember;
+	}
+
+	public List<RankingDTO> getRanking() {
+		return ranking;
+	}
+
+	public void setRanking(List<RankingDTO> ranking) {
+		this.ranking = ranking;
 	}
 
 	/**

@@ -7,6 +7,7 @@ import matchListReducer from './match-reducer'
 import betReducer from './bet-reducer'
 import recoveryReducer from "./recovery-reducer";
 import passwordChangeReducer from "./password-change-reducer";
+import bettingPoolReducer from "./betting-pool-reducer";
 import adminReducer from "./admin-reducer";
 
 // combine all reducers into a single object
@@ -19,6 +20,7 @@ const allReducers = combineReducers({
     betStore: betReducer,
     recovery: recoveryReducer,
     passwordChange: passwordChangeReducer,
+    poolStore: bettingPoolReducer,
     admin: adminReducer,
 });
 

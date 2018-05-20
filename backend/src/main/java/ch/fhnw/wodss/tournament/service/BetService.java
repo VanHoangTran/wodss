@@ -1,7 +1,9 @@
 package ch.fhnw.wodss.tournament.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +43,9 @@ public class BetService {
 	@Autowired
 	private SecurityUtil securityUtil;
 
+	@Autowired
+	private RankingService rankService;
+
 	/**
 	 * Creates or updates a bet using provided BetVM
 	 * 
@@ -70,8 +75,10 @@ public class BetService {
 		}
 
 		// check if there is already a bet for this game
-		Bet bet = betRepository.findByGameId(vm.getGameId());
-
+		List<Bet> bets = betRepository.findAllByGameId(vm.getGameId());
+		List<Bet> userBets = bets.stream().filter(b -> b.getAccount().equals(foundAccount))
+				.collect(Collectors.toList());
+		Bet bet = userBets.size() == 0 ? null : userBets.get(0);
 		if (bet == null) {
 			// just create a new bet
 			bet = new Bet();
@@ -96,8 +103,16 @@ public class BetService {
 		}
 
 		List<Bet> userBets = betRepository.findAllByAccount(account);
-
-		return BetDTO.fromList(userBets);
+		List<BetDTO> results = new ArrayList<>();
+		for (Bet b : userBets) {
+			BetDTO dto = new BetDTO(b);
+			// get points from service for this bet
+			if (b.getGame().isResultsEntered()) {
+				dto.setPoints(rankService.getBetPoints(b.getId()));
+			}
+			results.add(dto);
+		}
+		return results;
 	}
 
 	/**
@@ -135,5 +150,24 @@ public class BetService {
 		List<Bet> userBets = betRepository.findAllByAccount(account);
 
 		return BetDTO.fromList(userBets);
+	}
+
+	/**
+	 * Deletes a bet by it's id
+	 * 
+	 * @param betId to delete
+	 */
+	public void deleteByGameId(Long gameId) {
+		final String username = securityUtil.getUsername();
+		Account foundAccount = accountService.getAccountByName(username);
+
+		List<Bet> bet = betRepository.findAllByGameId(gameId);
+		for (Bet b : bet) {
+			if (!b.getAccount().equals(foundAccount)) {
+				continue;
+			}
+
+			betRepository.delete(b);
+		}
 	}
 }

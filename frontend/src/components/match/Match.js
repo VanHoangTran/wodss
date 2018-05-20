@@ -14,21 +14,33 @@ class Match extends Component {
     constructor(props){
         super(props);
     }
-    
+
     render() {
         let match = this.props.match;
         let matchDate = new Date(match.date);
+        let points = '-';
 
         // set appropriate country icon for home and away team
         match.home.flagImageUrl = match.home.countryFifaCode != '' ? require('../../images/flags/' + match.home.countryFifaCode + '.svg') : undefined;
         match.away.flagImageUrl = match.away.countryFifaCode != '' ? require('../../images/flags/' + match.away.countryFifaCode + '.svg') : undefined;
+
+        // check for points
+        if(match.resultsEntered && !match.open){
+            let bet = this.props.betStore.bets.find(b => b.gameId === match.id);
+            if(bet){
+                points = bet.points;
+            }
+        }
 
         return (
             <TableRow>
                 <TableRowColumn width="30">
                     <img height="30" src={match.home.flagImageUrl} />
                 </TableRowColumn>
-                <TableRowColumn>{match.home.name}</TableRowColumn>
+                <TableRowColumn>
+                    <span className="homeTeam">{match.home.name}</span>
+                    <span className="points">{strings.points} {points}</span>
+                </TableRowColumn>
                 <TableRowColumn className="matchResultRow">
                     <div className="centered">
                         <span className="date"><b>{formatDate(matchDate)}</b></span>
@@ -65,4 +77,16 @@ function formatDate(matchDate) {
     return date + '.' + month + '.' + matchDate.getFullYear() + ' ' + matchDate.getHours() + ':' + minutes;
 }
 
-export default connect(s => s)(Match);
+
+
+const mapStateToProps = state => {
+    return {
+        betStore: state.betStore
+    }
+};
+
+const mapActionsToProps = {
+
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(Match);

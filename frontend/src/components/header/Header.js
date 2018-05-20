@@ -41,6 +41,7 @@ const styles = {
 };
 
 class Header extends Component {
+    
     constructor(props) {
         super(props);
         this.openUrl = this.openUrl.bind(this);
@@ -50,6 +51,10 @@ class Header extends Component {
             menuOpen: false,
             value: pages.matchList,
         };
+    }
+
+    componentDidMount(){
+        document.title = strings.appTitle;
     }
 
     handleAvatarClick = (event) => {

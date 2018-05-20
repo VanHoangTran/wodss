@@ -6,6 +6,7 @@ export const API_ACTION_PHASES = 'phases';
 export const API_ACTION_GAMES = 'games';
 export const API_ACTION_BET = 'bet';
 export const API_ACTION_ACCOUNT = 'account';
+export const API_ACTION_POOLS = 'betting-pool';
 export const API_ACTION_TEAMS = 'teams';
 
 export const MAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/;

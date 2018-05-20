@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {TextField} from "material-ui";
 import ReactDOM from 'react-dom';
-import {apiPutBet} from '../../actions/bet-actions'
+import {apiPutBet, apiDeleteBet} from '../../actions/bet-actions'
+import {apiLoadMatchList} from '../../actions/match-list-actions'
+import { RELOAD_BET } from '../../reducers/bet-reducer';
+import {strings} from "../../strings";
 
 class Bet extends Component {
 
@@ -22,7 +25,8 @@ class Bet extends Component {
                 homeGoals: bet.homeGoals,
                 awayGoals: bet.awayGoals,
                 homeNeedsSave: false,
-                awayNeedsSave: false
+                awayNeedsSave: false,
+                bet: bet
             };
         }
     }
@@ -32,13 +36,22 @@ class Bet extends Component {
             if(nextProps.betStore.lastAdded.apiStatus === 200) {
                 this.setState({ background: {backgroundColor: '#ffa900'} });
             } else {
-                this.state = {
+                this.setState({
                     background: {backgroundColor: 'transparent'},
                     homeGoals: "",
                     awayGoals: "",
                     homeNeedsSave: false,
                     awayNeedsSave: false
-                };
+                });
+            }
+        }
+
+        if(nextProps.betStore.lastDeleted.gameId === this.props.matchId) {
+            this.setState({ background: {backgroundColor: 'transparent'} });
+            if(nextProps.betStore.lastDeleted.success === false){
+                alert(strings.failedToDeleteBet);
+            } else if(nextProps.betStore.lastDeleted.success === true){
+                alert(strings.betDeleted);
             }
         }
     }
@@ -84,6 +97,9 @@ class Bet extends Component {
                 homeNeedsSave: false,
                 awayNeedsSave: false
             });
+
+            this.props.deleteBet(this.props.matchId);
+            
             return;
         }
 
@@ -125,7 +141,9 @@ const mapStateToProps = state => {
 };
 
 const mapActionsToProps = {
-    putBet: apiPutBet
+    putBet: apiPutBet,
+    deleteBet: apiDeleteBet,
+    buildMatchList: apiLoadMatchList
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Bet);

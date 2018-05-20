@@ -15,6 +15,8 @@ public class BetDTO {
 
 	private int awayGoals;
 
+	private int points;
+
 	public BetDTO(Bet bet) {
 		this.id = bet.getId();
 		this.gameId = bet.getGame().getId();
@@ -52,6 +54,14 @@ public class BetDTO {
 
 	public void setAwayGoals(int awayGoals) {
 		this.awayGoals = awayGoals;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 
 	/**

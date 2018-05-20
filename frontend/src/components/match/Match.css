@@ -46,3 +46,12 @@
 td.awayTeam{
     text-align: right !important;
 }
+
+span.homeTeam, span.points {
+    display: block;
+}
+
+span.homeTeam {
+    height: 85px;
+    line-height: 100px
+}

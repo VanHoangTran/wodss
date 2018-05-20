@@ -22,6 +22,7 @@ import Header from "./components/header/Header";
 import Recover from "./components/recover/Recover";
 import Profile from "./components/profile/Profile";
 import Admin from "./components/admin/Admin";
+import BettingPool from './components/betting-pool/BettingPool';
 
 const persistedState = loadState();
 
@@ -55,6 +56,7 @@ render(
                         <Route path={pages.recover} component={Recover}/>
 
                         <PrivateRoute path={pages.matchList} component={MatchList}/>
+                        <PrivateRoute path={pages.bettingPools} component={BettingPool}/>
                         <PrivateRoute path={pages.profile} component={Profile}/>
                         <PrivateRoute path={pages.admin} component={Admin}/>
                     </Switch>

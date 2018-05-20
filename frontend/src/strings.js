@@ -44,9 +44,22 @@ export const strings = new LocalizedStrings({
 
         bettingGame: "Tippspiel",
         goals: "Tore",
+        points: "Punkte:",
 
         bettingPools: "Tippgruppen",
+        newBettingPool: "Neue Gruppe erstellen",
+        owner: "Admin",
+        member: "Mitglied",
+        delPool: "Gruppe löschen",
+        joinPool: "Beitreten",
+        leavePool: "Gruppe verlassen",
+        newGroupHint: "Name neuer Gruppe...",
+        groupAlreadyExists: "Gruppe mit identischem Namen existiert bereits.\nBitte wählen Sie einen anderen Gruppen-Namen.",
+        unableToJoinOrLeave: "Verlassen oder Beitreten der Gruppe ist fehlgeschlagen, versuchen Sie es später nochmals.",
+        failedToDeleteBet: "Tipp konnte nicht gelöscht werden!",
+        betDeleted: "Tipp wurde gelöscht!",
+        admin: "Admin",
 
-        admin: "Admin"
+        appTitle: "WM Tippspiel (G1/wodss)"
     }
 });

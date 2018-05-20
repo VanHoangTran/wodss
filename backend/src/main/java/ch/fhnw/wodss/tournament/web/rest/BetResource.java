@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,10 +35,10 @@ public class BetResource {
 
 	@Autowired
 	private BetService betService;
-	
+
 	@Autowired
 	private SecurityUtil securityUtil;
-	
+
 	/**
 	 * PUT /bet : creates or updates a new bet
 	 */
@@ -91,6 +92,20 @@ public class BetResource {
 		} catch (IllegalArgumentException re) {
 			log.warn("failed to get bet");
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+		}
+
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> deleteBet(@PathVariable Long id) {
+		log.info("call to DELETE bet. username:{}", securityUtil.getUsername());
+
+		try {
+			betService.deleteByGameId(id);
+			return new ResponseEntity<>("success", HttpStatus.OK);
+		} catch (IllegalArgumentException iae) {
+			log.info("failed to DELETE bet", iae);
+			return new ResponseEntity<>(iae.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 
 	}

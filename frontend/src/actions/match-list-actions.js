@@ -29,7 +29,7 @@ export function apiLoadMatchList() {
             },
             error(response) {
                 if(response.status === 403){
-                    store.getState().user.token = null;
+                    window.location = "/logout"
                 }
             }, 
             beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
@@ -50,7 +50,7 @@ export function apiLoadMatchList() {
                 },
                 error(response) {
                     if(response.status === 403){
-                        store.getState().user.token = null;
+                        window.location = "/logout"
                     }
                 }, 
                 beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }

@@ -35,6 +35,9 @@ public class BettingPoolService {
 	private AccountService accountService;
 	
 	@Autowired
+	private RankingService rankingService;
+	
+	@Autowired
 	private SecurityUtil securityUtil;
 	
 	/**
@@ -57,6 +60,7 @@ public class BettingPoolService {
 
 			log.info("current user is " + (isMember ? "" : "not") + " member of pool {}", pool.getName());
 			pool.setMember(isMember);
+			pool.setRanking(rankingService.getRankingOfPool(pool.getId()));
 		}
 
 		return dtoList;
