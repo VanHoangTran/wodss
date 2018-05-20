@@ -1,6 +1,7 @@
 body {
     margin: 0;
     background: #EEEEEE;
+    min-width: 32rem;
 }
 
 a {

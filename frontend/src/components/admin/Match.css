@@ -1,0 +1,58 @@
+.flexItem {
+    display: block;
+}
+
+
+.avatar {
+    display: inline-block;
+    width: 100%;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+.row {
+    margin: 0!important;
+    justify-content: center;
+    line-height: 4rem;
+    padding: 0;
+}
+.col {
+    padding: 0!important;
+}
+.flag {
+    height: 2rem;
+    margin: 1rem;
+    vertical-align: bottom;
+}
+.country-name {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.right {
+    text-align: right;
+}
+.goals {
+    padding: 0 0.5rem!important;
+}
+.goals input {
+    text-align: center;
+}
+.button {
+    height: 100%!important;;
+    width: 100%;
+    min-width: 0!important;
+}
+.game-header {
+    background: #F5F5F5;
+    display: flex;
+}
+.game-header .labels {
+    flex-grow: 1;
+    line-height: 3rem;
+}
+.game-header .labels span {
+    margin-left: 1rem;
+    color: #616161;
+}
+.game-header .labels {
+    flex-grow: 1;
+}

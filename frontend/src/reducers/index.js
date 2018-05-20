@@ -7,6 +7,7 @@ import matchListReducer from './match-reducer'
 import betReducer from './bet-reducer'
 import recoveryReducer from "./recovery-reducer";
 import passwordChangeReducer from "./password-change-reducer";
+import adminReducer from "./admin-reducer";
 
 // combine all reducers into a single object
 const allReducers = combineReducers({
@@ -18,6 +19,7 @@ const allReducers = combineReducers({
     betStore: betReducer,
     recovery: recoveryReducer,
     passwordChange: passwordChangeReducer,
+    admin: adminReducer,
 });
 
 export default allReducers

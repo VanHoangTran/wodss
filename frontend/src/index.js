@@ -21,6 +21,7 @@ import "./Root.css";
 import Header from "./components/header/Header";
 import Recover from "./components/recover/Recover";
 import Profile from "./components/profile/Profile";
+import Admin from "./components/admin/Admin";
 
 const persistedState = loadState();
 
@@ -55,6 +56,7 @@ render(
 
                         <PrivateRoute path={pages.matchList} component={MatchList}/>
                         <PrivateRoute path={pages.profile} component={Profile}/>
+                        <PrivateRoute path={pages.admin} component={Admin}/>
                     </Switch>
                 </div>
             </Router>

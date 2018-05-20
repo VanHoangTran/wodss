@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Card, CardHeader, CardText, Dialog, FlatButton, RaisedButton, TextField} from "material-ui";
 import {colors, dimensions, MAIL_REGEX, pages, PASSWORD_REGEX} from "../../util/constants";
 import {strings} from "../../strings";
-import {getAvatarUrl} from "../../util/avatarUtil";
+import {getAvatarUrl} from "../../util/imageUtil";
 import "animate.css";
 import {connect} from "react-redux";
 import {apiRegister} from "../../actions/registration-actions";

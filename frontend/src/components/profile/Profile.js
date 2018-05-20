@@ -6,7 +6,7 @@ import {Col, Row} from "react-grid-system";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import {apiGetAccountInformation} from "../../actions/user-actions";
-import {getAvatarUrl} from "../../util/avatarUtil";
+import {getAvatarUrl} from "../../util/imageUtil";
 import {apiChangePassword} from "../../actions/password-change-actions";
 
 const styles = {
