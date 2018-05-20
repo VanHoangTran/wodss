@@ -14,6 +14,8 @@ public class AccountDTO {
 
 	private String mail;
 
+	private Boolean isAdmin;
+
 	@JsonIgnore
 	private int points;
 
@@ -21,6 +23,7 @@ public class AccountDTO {
 		this.id = owner.getId();
 		this.username = owner.getUsername();
 		this.mail = owner.getMail();
+		this.isAdmin = owner.isAdmin();
 	}
 
 	public Long getId() {
@@ -55,6 +58,14 @@ public class AccountDTO {
 		this.mail = mail;
 	}
 
+	public Boolean getAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(Boolean admin) {
+		isAdmin = admin;
+	}
+
 	/**
 	 * Converts a list of @Entity account to accountDTO
 	 * 
@@ -68,5 +79,4 @@ public class AccountDTO {
 		}
 		return dtoList;
 	}
-
 }

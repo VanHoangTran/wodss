@@ -5,7 +5,6 @@ import {strings} from "../../strings";
 import {Col, Row} from "react-grid-system";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
-import {apiGetAccountInformation} from "../../actions/user-actions";
 import {getAvatarUrl} from "../../util/imageUtil";
 import {apiChangePassword} from "../../actions/password-change-actions";
 
@@ -49,7 +48,6 @@ const styles = {
 class Profile extends Component {
     constructor(props) {
         super(props);
-        this.getAccountInformation = this.getAccountInformation.bind(this);
         this.changePassword = this.changePassword.bind(this);
 
         this.state = {
@@ -72,8 +70,6 @@ class Profile extends Component {
 
             constructionTime: new Date(),
         };
-
-        this.getAccountInformation();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -103,10 +99,6 @@ class Profile extends Component {
                 }
             }
         }
-    }
-
-    getAccountInformation() {
-        this.props.getAccountInformation();
     }
 
     changePassword() {
@@ -254,7 +246,6 @@ const mapStateToProps = state => {
 };
 
 const mapActionsToProps = {
-    getAccountInformation: apiGetAccountInformation,
     changePassword: apiChangePassword,
 };
 
