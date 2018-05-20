@@ -1,9 +1,11 @@
 import $ from 'jquery';
 import {API_ACTION_PHASES, API_ACTION_BET, API_ENDPOINT, API_ACTION_GAMES, API_ACTION_TEAMS} from '../util/constants';
 import {store} from '../index'
+
 const CONTENT_TYPE = "application/json; charset=utf-8";
 
 export const GET_TEAMS = 'admin:getTeams';
+export const PUT_GAME = 'admin:putGame';
 
 export function setTeams(teams) {
     return {
@@ -14,7 +16,23 @@ export function setTeams(teams) {
     }
 }
 
-export function apiGetTeams(){
+export function putGame(gameId, homeId, awayId, homeGoals, awayGoals, apiStatus) {
+    return {
+        type: PUT_GAME,
+        payload: {
+            game: {
+                gameId: gameId,
+                homeId: homeId,
+                awayId: awayId,
+                homeGoals: homeGoals,
+                awayGoals: awayGoals,
+                apiStatus: apiStatus
+            }
+        }
+    }
+}
+
+export function apiGetTeams() {
     return dispatch => {
         let jwt = store.getState().user.token;
         $.ajax({
@@ -26,11 +44,44 @@ export function apiGetTeams(){
                 dispatch(setTeams(response));
             },
             error(response) {
-                if(response.status === 403){
+                if (response.status === 403) {
                     store.getState().user.token = null;
                 }
-            }, 
-            beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
+            },
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + jwt);
+            }
+        })
+    }
+}
+
+export function apiPutGame(gameId, homeId, awayId, homeGoals, awayGoals) {
+    return dispatch => {
+        let jwt = store.getState().user.token;
+        $.ajax({
+            type: 'PUT',
+            async: false,
+            url: API_ENDPOINT + API_ACTION_GAMES,
+            contentType: CONTENT_TYPE,
+            data: JSON.stringify({
+                id: gameId,
+                homeId: homeId,
+                awayId: awayId,
+                homeGoals: homeGoals,
+                awayGoals: awayGoals,
+            }),
+            success(response) {
+                dispatch(putGame(gameId, homeId, awayId, homeGoals, awayGoals, 200));
+            },
+            error(response) {
+                if (response.status === 403) {
+                    store.getState().user.token = null;
+                }
+                dispatch(putGame(gameId, homeId, awayId, homeGoals, awayGoals, response.status));
+            },
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + jwt);
+            }
         })
     }
 }

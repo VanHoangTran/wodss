@@ -10,5 +10,8 @@ export const getAvatarUrl = (name) => {
 };
 
 export const getFlagImage = (code) => {
-    return require("../images/flags/" + code + ".svg");
+    if (code) {
+        return require("../images/flags/" + code + ".svg");
+    }
+    return DEFAULT_BASE64;
 };

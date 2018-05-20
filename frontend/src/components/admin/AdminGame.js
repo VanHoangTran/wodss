@@ -8,7 +8,7 @@ import {
     Divider,
     FlatButton,
     IconButton,
-    DropDownMenu, MenuItem
+    DropDownMenu, MenuItem, Dialog
 } from "material-ui";
 import {colors, dimensions} from "../../util/constants";
 import {strings} from "../../strings";
@@ -19,6 +19,8 @@ import "./Match.css"
 import Bet from '../bet/Bet';
 import {getAvatarUrl, getFlagImage} from "../../util/imageUtil";
 import {withRouter} from "react-router";
+import {apiRegister} from "../../actions/registration-actions";
+import {apiPutGame} from "../../actions/admin-actions";
 
 const styles = {
     card: {},
@@ -48,6 +50,11 @@ class AdminGame extends Component {
     constructor(props) {
         super(props);
 
+        this.handleChangeHomeTeam = this.handleChangeHomeTeam.bind(this);
+        this.handleChangeAwayTeam = this.handleChangeAwayTeam.bind(this);
+        this.updateGame = this.updateGame.bind(this);
+        this.handleUpdateGameSuccessful = this.handleUpdateGameSuccessful.bind(this);
+
         this.state = {
             teams: this.props.teams,
             game: this.props.game,
@@ -62,7 +69,21 @@ class AdminGame extends Component {
             backupAway: this.props.game.away,
             backupHomeGoals: this.props.game.homeGoals,
             backupAwayGoals: this.props.game.awayGoals,
+
+            showErrorDialog: false,
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let updatedGame = nextProps.admin.game;
+        if (updatedGame.gameId === this.state.game.id) {
+            let updateGameSuccessful = updatedGame.apiStatus === 200;
+            if (updateGameSuccessful) {
+                this.handleUpdateGameSuccessful(updatedGame);
+            } else {
+                this.handleUpdateGameFailed();
+            }
+        }
     }
 
     handleHomeGoalsChange = (event) => {
@@ -128,6 +149,8 @@ class AdminGame extends Component {
     handleEditButtonClick = () => {
         this.setState({
             inEditMode: true,
+            backupHome: this.state.home,
+            backupAway: this.state.away,
             backupHomeGoals: this.state.homeGoals,
             backupAwayGoals: this.state.awayGoals,
         }, this.handleSubmitButton);
@@ -136,18 +159,26 @@ class AdminGame extends Component {
     handleSaveButtonClick = () => {
         this.setState({
             inEditMode: false,
+            home: this.state.backupHome,
+            away: this.state.backupAway,
+            homeGoals: this.state.backupHomeGoals,
+            awayGoals: this.state.backupAwayGoals,
         }, this.handleSubmitButton);
+        this.updateGame();
     };
 
     handleCancelButtonClick = () => {
         this.setState({
             inEditMode: false,
+            home: this.state.backupHome,
+            away: this.state.backupAway,
             homeGoals: this.state.backupHomeGoals,
             awayGoals: this.state.backupAwayGoals,
         }, this.handleSubmitButton);
     };
 
     handleSubmitButton() {
+        console.log("");
     };
 
 
@@ -167,20 +198,74 @@ class AdminGame extends Component {
         return date + '.' + month + '.' + matchDate.getFullYear() + ' ' + matchDate.getHours() + ':' + minutes;
     }
 
-    handleChange = (event, index, value) => {
-        console.log(event);
-        console.log(index);
-        console.log(value);
+    handleChangeHomeTeam(event, index, value) {
+        let selectedTeam = this.props.teams[index];
+        // check if both are the same team
+        if (this.state.away.id === selectedTeam.id) {
+            // swap teams
+            this.setState({
+                away: this.state.home
+            }, this.handleSubmitButton);
+        }
+        this.setState({
+            home: selectedTeam
+        }, this.handleSubmitButton);
     };
+
+    handleChangeAwayTeam(event, index, value) {
+        let selectedTeam = this.props.teams[index];
+        // check if both are the same team
+        if (this.state.home.id === selectedTeam.id) {
+            // swap teams
+            this.setState({
+                home: this.state.away
+            }, this.handleSubmitButton);
+        }
+
+        this.setState({
+            away: selectedTeam
+        }, this.handleSubmitButton);
+    };
+
+    handleCloseDialog = () => {
+        this.setState({
+            showErrorDialog: false,
+        });
+    };
+
+    handleUpdateGameSuccessful(updatedGame) {
+        let homeTeam = this.props.teams.filter(function (team) {
+            return team.id === updatedGame.homeId;
+        })[0];
+        let awayTeam = this.props.teams.filter(function (team) {
+            return team.id === updatedGame.awayId;
+        })[0];
+        this.setState({
+            home: homeTeam,
+            away: awayTeam,
+            homeGoals: updatedGame.homeGoals,
+            awayGoals: updatedGame.awayGoals,
+
+            backupHome: homeTeam,
+            backupAway: awayTeam,
+            backupHomeGoals: updatedGame.homeGoals,
+            backupAwayGoals: updatedGame.awayGoals,
+        }, this.handleSubmitButton);
+    }
+
+    handleUpdateGameFailed() {
+        this.setState({
+            showErrorDialog: true,
+        });
+    }
+
+    updateGame() {
+        this.props.putGame(this.state.game.id, this.state.home.id, this.state.away.id, this.state.homeGoals, this.state.awayGoals);
+    }
 
     render() {
         return (
             <div>
-                <DropDownMenu value={this.state.home.countryFifaCode} onChange={this.handleChange}>
-                    {this.props.teams.map((team) => {
-                        return (<MenuItem key={team.countryFifaCode} value={team.countryFifaCode} primaryText={team.name}/>);
-                    })}
-                </DropDownMenu>
                 <div className={"game-header"}>
                     <div className={"labels"}>
                         <span>{this.formatDate(new Date(this.state.game.date))}</span>
@@ -199,15 +284,23 @@ class AdminGame extends Component {
                 </div>
                 <Row className="row">
                     <Col xs={4.5} className="col country-name">
-                        <img src={getFlagImage(this.state.game.home.countryFifaCode)} className="flag"/>
-                        {this.state.game.home.name}
+                        <img src={getFlagImage(this.state.home.countryFifaCode)} className="flag"/>
+                        <DropDownMenu value={this.state.home.countryFifaCode}
+                                      onChange={this.handleChangeHomeTeam}
+                                      disabled={!this.state.inEditMode}
+                                      className={"dropdown-team"}>
+                            {this.props.teams.map((team) => {
+                                return (<MenuItem key={team.countryFifaCode}
+                                                  value={team.countryFifaCode}
+                                                  primaryText={team.name}/>);
+                            })}
+                        </DropDownMenu>
                     </Col>
                     <Col xs={1.5} className={"col goals"}>
                         <TextField value={this.state.homeGoals}
                                    onChange={this.handleHomeGoalsChange}
                                    onKeyPress={this.handleHomeGoalsKeyPress}
                                    disabled={!this.state.inEditMode}
-                                   hintText={strings.goals}
                                    style={styles.textField}
                                    underlineFocusStyle={styles.textField}/>
                     </Col>
@@ -216,15 +309,39 @@ class AdminGame extends Component {
                                    onChange={this.handleAwayGoalsChange}
                                    onKeyPress={this.handleAwayGoalsKeyPress}
                                    disabled={!this.state.inEditMode}
-                                   hintText={strings.goals}
                                    style={styles.textField}
                                    underlineFocusStyle={styles.textField}/>
                     </Col>
                     <Col xs={4.5} className="col country-name right">
-                        {this.state.game.away.name}
-                        <img src={getFlagImage(this.state.game.away.countryFifaCode)} className="flag"/>
+                        <DropDownMenu value={this.state.away.countryFifaCode}
+                                      onChange={this.handleChangeAwayTeam}
+                                      disabled={!this.state.inEditMode}
+                                      className={"dropdown-team"}>
+                            {this.props.teams.map((team) => {
+                                return (<MenuItem key={team.countryFifaCode}
+                                                  value={team.countryFifaCode}
+                                                  primaryText={team.name}/>);
+                            })}
+                        </DropDownMenu>
+                        <img src={getFlagImage(this.state.away.countryFifaCode)} className="flag"/>
                     </Col>
                 </Row>
+                <Dialog
+                    title={strings.errorOccurred}
+                    actions={[
+                        <FlatButton
+                            label={strings.ok}
+                            primary={true}
+                            keyboardFocused={true}
+                            onClick={this.handleCloseDialog}
+                        />
+                    ]}
+                    modal={false}
+                    open={this.state.showErrorDialog}
+                    onRequestClose={this.handleCloseDialog}>
+                    {strings.failedToUpdateGame}
+                </Dialog>
+
             </div>
         );
     }
@@ -246,9 +363,14 @@ function formatDate(matchDate) {
     return date + '.' + month + '.' + matchDate.getFullYear() + ' ' + matchDate.getHours() + ':' + minutes;
 }
 
-
 const mapStateToProps = state => {
-    return {}
+    return {
+        admin: state.admin,
+    }
 };
 
-export default withRouter(connect(mapStateToProps, {})(AdminGame));
+const mapActionsToProps = {
+    putGame: apiPutGame
+};
+
+export default withRouter(connect(mapStateToProps, mapActionsToProps)(AdminGame));

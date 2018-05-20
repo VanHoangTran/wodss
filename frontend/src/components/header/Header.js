@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {FlatButton, Menu, MenuItem, Popover, Tab, Tabs} from 'material-ui';
 import {colors, dimensions, pages} from "../../util/constants";
 import {connect} from "react-redux";
-import {getAvatarUrl} from "../../util/avatarUtil";
+import {getAvatarUrl} from "../../util/imageUtil";
 import {strings} from "../../strings";
 import {withRouter} from 'react-router';
 

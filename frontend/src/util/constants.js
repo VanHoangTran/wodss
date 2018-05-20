@@ -61,5 +61,6 @@ export const appTheme = {
         primary1Color: colors.primaryColor,
         primary2Color: colors.primaryColor,
         primary3Color: colors.primaryColor,
+        accent1Color: colors.primaryColor,
     }
 };

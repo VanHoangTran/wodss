@@ -46,6 +46,8 @@ export const strings = new LocalizedStrings({
         goals: "Tore",
         points: "Punkte:",
 
+        failedToUpdateGame: "Spiel konnte nicht aktualisiert werden.",
+
         bettingPools: "Tippgruppen",
         newBettingPool: "Neue Gruppe erstellen",
         owner: "Admin",

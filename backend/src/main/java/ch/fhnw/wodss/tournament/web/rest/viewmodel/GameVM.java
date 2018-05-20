@@ -4,39 +4,58 @@ import ch.fhnw.wodss.tournament.domain.Game;
 
 public class GameVM {
 
-	private Long id;
+    private Long id;
 
-	private int homeGoals;
+    private Long homeId;
 
-	private int awayGoals;
+    private Long awayId;
 
-	public Long getId() {
-		return id;
-	}
+    private int homeGoals;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private int awayGoals;
 
-	public int getHomeGoals() {
-		return homeGoals;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setHomeGoals(int homeGoals) {
-		this.homeGoals = homeGoals;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public int getAwayGoals() {
-		return awayGoals;
-	}
+    public Long getHomeId() {
+        return homeId;
+    }
 
-	public void setAwayGoals(int awayGoals) {
-		this.awayGoals = awayGoals;
-	}
+    public void setHomeId(Long homeId) {
+        this.homeId = homeId;
+    }
 
-	public boolean isValid() {
-		return id != null && id != 0 && homeGoals >= 0 && homeGoals <= Game.MAX_GOALS && awayGoals >= 0
-				&& awayGoals <= Game.MAX_GOALS;
-	}
+    public Long getAwayId() {
+        return awayId;
+    }
 
+    public void setAwayId(Long awayId) {
+        this.awayId = awayId;
+    }
+
+    public int getHomeGoals() {
+        return homeGoals;
+    }
+
+    public void setHomeGoals(int homeGoals) {
+        this.homeGoals = homeGoals;
+    }
+
+    public int getAwayGoals() {
+        return awayGoals;
+    }
+
+    public void setAwayGoals(int awayGoals) {
+        this.awayGoals = awayGoals;
+    }
+
+    public boolean isValid() {
+        return id != null && id != 0 && homeGoals >= 0 && homeGoals <= Game.MAX_GOALS && awayGoals >= 0
+                && awayGoals <= Game.MAX_GOALS && homeId != null && homeId != 0 && awayId != null && awayId != 0;
+    }
 }

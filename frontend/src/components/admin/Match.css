@@ -12,7 +12,6 @@
 .row {
     margin: 0!important;
     justify-content: center;
-    line-height: 4rem;
     padding: 0;
 }
 .col {
@@ -55,4 +54,7 @@
 }
 .game-header .labels {
     flex-grow: 1;
+}
+.dropdown-team {
+    vertical-align: top;
 }
