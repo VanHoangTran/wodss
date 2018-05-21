@@ -25,7 +25,7 @@ export function apiLoadAllBettingPools(){
                 dispatch(updatePools(response));
             },
             error(response) {
-                if(response.status === 403){
+                if(response.status === 403 || response.status === 0){
                     window.location = "/logout"
                 }
             }, 
@@ -48,7 +48,7 @@ export function apiDeleteGroup(name) {
                 dispatch(deletePool(name));
             },
             error(response) {
-                if(response.status === 403){
+                if(response.status === 403 || response.status === 0){
                     window.location = "/logout"
                 }
             }, 
@@ -71,7 +71,7 @@ export function apiCreateGroup(name) {
                 dispatch(addPool(name, false));
             },
             error(response) {
-                if(response.status === 403){
+                if(response.status === 403 || response.status === 0){
                     window.location = "/logout"
                 } else if(response.status === 400){
                     dispatch(addPool(name, true));
@@ -96,7 +96,7 @@ export function apiUpdateRelation(name, action) {
                 dispatch(relationUpdate(false));
             },
             error(response) {
-                if(response.status === 403){
+                if(response.status === 403 || response.status === 0){
                     window.location = "/logout"
                 } else if(response.status === 400){
                     dispatch(relationUpdate(true));

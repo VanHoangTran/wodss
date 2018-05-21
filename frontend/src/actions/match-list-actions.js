@@ -28,7 +28,7 @@ export function apiLoadMatchList() {
                 phases = response;
             },
             error(response) {
-                if(response.status === 403){
+                if(response.status === 403 || response.status === 0){
                     window.location = "/logout"
                 }
             }, 
@@ -49,7 +49,7 @@ export function apiLoadMatchList() {
                     phases[index].games = response;
                 },
                 error(response) {
-                    if(response.status === 403){
+                    if(response.status === 403 || response.status === 0){
                         window.location = "/logout"
                     }
                 }, 

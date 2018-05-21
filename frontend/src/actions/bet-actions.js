@@ -26,7 +26,7 @@ export function apiLoadAccountBets(){
                 dispatch(setAccountBets(response));
             },
             error(response) {
-                if(response.status === 403){
+                if(response.status === 403 || response.status === 0){
                     window.location = "/logout"
                 }
             }, 
@@ -62,7 +62,7 @@ export function apiPutBet(gameId, homeGoals, awayGoals) {
                 dispatch(putBet(gameId, homeGoals, awayGoals, 200));
             },
             error(response) {
-                if(response.status === 403){
+                if(response.status === 403 || response.status === 0){
                     window.location = "/logout"
                 }
                 dispatch(putBet(gameId, homeGoals, awayGoals, response.status));
@@ -86,7 +86,7 @@ export function apiDeleteBet(gameId) {
                 dispatch(betDeleted(gameId, true));
             },
             error(response) {
-                if(response.status === 403){
+                if(response.status === 403 || response.status === 0){
                     window.location = "/logout"
                 }
                 dispatch(betDeleted(gameId, false));

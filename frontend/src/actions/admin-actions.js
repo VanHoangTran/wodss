@@ -44,7 +44,7 @@ export function apiGetTeams() {
                 dispatch(setTeams(response));
             },
             error(response) {
-                if (response.status === 403) {
+                if (response.status === 403 || response.status === 0) {
                     store.getState().user.token = undefined;
                 }
             },
@@ -74,7 +74,7 @@ export function apiPutGame(gameId, homeId, awayId, homeGoals, awayGoals) {
                 dispatch(putGame(gameId, homeId, awayId, homeGoals, awayGoals, 200));
             },
             error(response) {
-                if (response.status === 403) {
+                if (response.status === 403 || response.status === 0) {
                     store.getState().user.token = undefined;
                 }
                 dispatch(putGame(gameId, homeId, awayId, homeGoals, awayGoals, response.status));
