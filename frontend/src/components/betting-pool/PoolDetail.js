@@ -54,11 +54,11 @@ class PoolDetail extends Component {
     render() {
         let pool = this.props.pool;
 
-        let isOwner = this.props.user.username == pool.owner.username;
-        let isMemebr = pool.members.find(u => u.username === this.props.user.username) != undefined;
+        let isOwner = this.props.user.username === pool.owner.username;
+        let isMember = pool.members.find(u => u.username === this.props.user.username) !== undefined;
         let isSpecial = pool.specialGroup;
 
-        let subtitle = isOwner ? strings.owner : (isMemebr ? strings.member : '');
+        let subtitle = isOwner ? strings.admin : (isMember ? strings.member : '');
         return (
             <Card style={styles.card}>
                 <CardHeader
@@ -70,18 +70,19 @@ class PoolDetail extends Component {
                 />
 
                 <CardText expandable={true} style={styles.cardBody}>
-                    <CardActions style={isSpecial ? {display:'none'} : {}}>
-                    {isOwner && !isSpecial && <RaisedButton onClick={this.onDeleteGroup} label={strings.delPool} /> }
-                    {!isMemebr && !isSpecial && <RaisedButton onClick={this.onJoinGroup} label={strings.joinPool} /> }
-                    {!isOwner && isMemebr && !isSpecial && <RaisedButton onClick={this.onLeaveGroup} label={strings.leavePool} /> }
+                    <CardActions style={isSpecial ? {display: 'none'} : {}}>
+                        {isOwner && !isSpecial && <RaisedButton onClick={this.onDeleteGroup} label={strings.delPool}/>}
+                        {!isMember && !isSpecial && <RaisedButton onClick={this.onJoinGroup} label={strings.joinPool}/>}
+                        {!isOwner && isMember && !isSpecial &&
+                        <RaisedButton onClick={this.onLeaveGroup} label={strings.leavePool}/>}
                     </CardActions>
 
                     <Table>
                         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
                             <TableRow>
-                                <TableHeaderColumn>Rang</TableHeaderColumn>
-                                <TableHeaderColumn>Punkte</TableHeaderColumn>
-                                <TableHeaderColumn>Benutzername</TableHeaderColumn>
+                                <TableHeaderColumn className={"col-ranking"}>{strings.ranking}</TableHeaderColumn>
+                                <TableHeaderColumn>{strings.username}</TableHeaderColumn>
+                                <TableHeaderColumn className={"col-points"}>{strings.points}</TableHeaderColumn>
                             </TableRow>
                         </TableHeader>
                         <TableBody displayRowCheckbox={false}>
@@ -89,9 +90,9 @@ class PoolDetail extends Component {
                                 let style = ranking.account.username === this.props.user.username ? {backgroundColor: '#4eae4414'} : {};
                                 return (
                                     <TableRow key={i} style={style}>
-                                        <TableRowColumn>{ranking.position}</TableRowColumn>
-                                        <TableRowColumn>{ranking.points}</TableRowColumn>
+                                        <TableRowColumn className={"col-ranking"}>{ranking.position}</TableRowColumn>
                                         <TableRowColumn>{ranking.account.username}</TableRowColumn>
+                                        <TableRowColumn className={"col-points"}>{ranking.points}</TableRowColumn>
                                     </TableRow>);
                             })}
                         </TableBody>

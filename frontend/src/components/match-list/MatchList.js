@@ -1,22 +1,11 @@
 import React, {Component} from 'react';
 import Match from "../match/Match";
-import {Col, Container, Row} from "react-grid-system";
-import {Card, CardActions, CardHeader, CardText, FlatButton, Table, TableRow, TableBody, TableRowColumn} from "material-ui";
-import {colors, dimensions, pages} from "../../util/constants";
+import {Card, CardHeader, CardText, Table, TableBody} from "material-ui";
+import {colors, dimensions} from "../../util/constants";
 import {connect} from "react-redux";
 import {apiLoadMatchList} from "../../actions/match-list-actions";
-import {apiLoadAccountBets} from "../../actions/bet-actions"
-import Header from '../header/Header';
-import {NavLink} from "react-router-dom"
-import { withRouter } from 'react-router'
-
-function team(name, fifaCode, code) {
-    return {
-        name: name,
-        fifaCode: fifaCode,
-        flagImageUrl: fifaCode != '' ? require('../../images/flags/' + fifaCode + '.svg') : fifaCode,
-    };
-}
+import {apiLoadAccountBets} from "../../actions/bet-actions";
+import {withRouter} from 'react-router';
 
 const styles = {
     card: {
@@ -39,34 +28,34 @@ class MatchList extends Component {
     }
 
     render() {
-        if(this.props.matchList == "" || this.props.matchList == null)
+        if (!this.props.matchList)
             return "";
-        
-        return (            
-            <div>
-            {this.props.matchList.map((phase, i) => {     
-                return (
-                    <Card style={styles.card}>
-                        <CardHeader
-                            title={phase.name}
-                            actAsExpander={true}
-                            showExpandableButton={true}
-                            style={styles.cardHeader}
-                        />
 
-                        <CardText expandable={true} style={styles.cardBody}>
-                            <Table>
-                                <TableBody displayRowCheckbox={false}>
-                                    {phase.games.map((game) => {
-                                        return <Match match={game}/>
-                                    })}
-                                </TableBody>
-                            </Table>
-                        </CardText>
-                    </Card>
-                );
-            })}
-        </div>
+        return (
+            <div>
+                {this.props.matchList.map((phase, i) => {
+                    return (
+                        <Card key={i} style={styles.card}>
+                            <CardHeader
+                                title={phase.name}
+                                actAsExpander={true}
+                                showExpandableButton={true}
+                                style={styles.cardHeader}
+                            />
+
+                            <CardText expandable={true} style={styles.cardBody}>
+                                <Table>
+                                    <TableBody displayRowCheckbox={false}>
+                                        {phase.games.map((game, i) => {
+                                            return <Match key={i} match={game}/>
+                                        })}
+                                    </TableBody>
+                                </Table>
+                            </CardText>
+                        </Card>
+                    );
+                })}
+            </div>
         );
     }
 }

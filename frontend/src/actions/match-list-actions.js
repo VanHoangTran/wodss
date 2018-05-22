@@ -1,6 +1,7 @@
 import $ from 'jquery';
-import {API_ACTION_PHASES, API_ACTION_BET, API_ENDPOINT, API_ACTION_GAMES} from '../util/constants';
+import {API_ACTION_GAMES, API_ACTION_PHASES, API_ENDPOINT} from '../util/constants';
 import {store} from '../index'
+
 const CONTENT_TYPE = "application/json; charset=utf-8";
 
 export const UPDATE_MATCH_LIST = 'matchlist:updateList';
@@ -10,7 +11,7 @@ export const UPDATE_MATCH_LIST = 'matchlist:updateList';
  *  - first gets all phases
  *  - then gets games per phase
  *  - combines both data into store prop
- * 
+ *
  * @author Kevin Kirn <kevin.kirn@students.fhnw.ch>
  */
 export function apiLoadMatchList() {
@@ -28,17 +29,18 @@ export function apiLoadMatchList() {
                 phases = response;
             },
             error(response) {
-                if(response.status === 403 || response.status === 0){
+                if (response.status === 403 || response.status === 0) {
                     window.location = "/logout"
                 }
-            }, 
-            beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
-        })
+            },
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + jwt);
+            }
+        });
 
         // add games to phase
-        for(var index in phases) {
+        for (let index in phases) {
             let id = phases[index].id;
-            let name = phases[index].name;
 
             $.ajax({
                 type: 'GET',
@@ -49,11 +51,13 @@ export function apiLoadMatchList() {
                     phases[index].games = response;
                 },
                 error(response) {
-                    if(response.status === 403 || response.status === 0){
+                    if (response.status === 403 || response.status === 0) {
                         window.location = "/logout"
                     }
-                }, 
-                beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
+                },
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + jwt);
+                }
             })
         }
 

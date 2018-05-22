@@ -44,14 +44,14 @@ export const strings = new LocalizedStrings({
 
         bettingGame: "Tippspiel",
         goals: "Tore",
-        points: "Punkte:",
+        points: "Punkte",
 
         failedToUpdateGame: "Spiel konnte nicht aktualisiert werden.",
 
         bettingPools: "Tippgruppen",
         newBettingPool: "Neue Gruppe erstellen",
-        owner: "Admin",
         member: "Mitglied",
+        ranking: "Rang",
         delPool: "Gruppe löschen",
         joinPool: "Beitreten",
         leavePool: "Gruppe verlassen",
@@ -60,6 +60,7 @@ export const strings = new LocalizedStrings({
         unableToJoinOrLeave: "Verlassen oder Beitreten der Gruppe ist fehlgeschlagen, versuchen Sie es später nochmals.",
         failedToDeleteBet: "Tipp konnte nicht gelöscht werden!",
         betDeleted: "Tipp wurde gelöscht!",
+
         admin: "Admin",
 
         appTitle: "WM Tippspiel (G1/wodss)"

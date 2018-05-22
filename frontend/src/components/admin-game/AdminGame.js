@@ -266,7 +266,7 @@ class AdminGame extends Component {
                 </div>
                 <Row className="row">
                     <Col xs={4.5} className="col country-name">
-                        <img src={getFlagImage(this.state.home.countryFifaCode)} className="flag"/>
+                        <img src={getFlagImage(this.state.home.countryFifaCode)} className="flag" alt={""}/>
                         <DropDownMenu value={this.state.home.countryFifaCode}
                                       onChange={this.handleChangeHomeTeam}
                                       disabled={!this.state.inEditMode}
@@ -305,7 +305,7 @@ class AdminGame extends Component {
                                                   primaryText={team.name}/>);
                             })}
                         </DropDownMenu>
-                        <img src={getFlagImage(this.state.away.countryFifaCode)} className="flag"/>
+                        <img src={getFlagImage(this.state.away.countryFifaCode)} className="flag" alt={""}/>
                     </Col>
                 </Row>
                 <Dialog

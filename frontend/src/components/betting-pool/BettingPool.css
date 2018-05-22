@@ -29,3 +29,12 @@ div.buttonContainer div:nth-child(2) {
     height: 3rem !important;
     min-width: 3rem !important;
 }
+
+.col-ranking {
+    width: 2rem;
+}
+
+.col-points {
+    width: 3rem;
+    text-align: right!important;
+}

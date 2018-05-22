@@ -42,8 +42,8 @@ class Login extends Component {
         this.getAccountInformation = this.getAccountInformation.bind(this);
         this.handleLoginSuccessful = this.handleLoginSuccessful.bind(this);
 
-        let dialogTitle = "";
-        let dialogMessage = "";
+        let dialogTitle;
+        let dialogMessage;
         let param = this.props.history.location.search;
         switch (param) {
             case pages.paramRegistered:
@@ -60,6 +60,10 @@ class Login extends Component {
                 dialogTitle = strings.recoverCompleted;
                 dialogMessage = strings.recoverCompletedSuccessfully;
                 break;
+
+            default:
+                dialogTitle = "";
+                dialogMessage = "";
         }
 
         this.state = {

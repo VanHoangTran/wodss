@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {TextField} from "material-ui";
-import ReactDOM from 'react-dom';
-import {apiPutBet, apiDeleteBet} from '../../actions/bet-actions'
+import {apiDeleteBet, apiPutBet} from '../../actions/bet-actions'
 import {apiLoadMatchList} from '../../actions/match-list-actions'
-import { RELOAD_BET } from '../../reducers/bet-reducer';
 import {strings} from "../../strings";
 
 class Bet extends Component {
@@ -19,7 +17,7 @@ class Bet extends Component {
 
         // check if we got a bet for this match!
         let bet = this.props.betStore.bets.find(b => b.gameId === this.props.matchId);
-        if(bet){
+        if (bet) {
             this.state = {
                 background: {backgroundColor: '#ffa900'},
                 homeGoals: bet.homeGoals,
@@ -32,9 +30,9 @@ class Bet extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.betStore.lastAdded.gameId === this.props.matchId) {
-            if(nextProps.betStore.lastAdded.apiStatus === 200) {
-                this.setState({ background: {backgroundColor: '#ffa900'} });
+        if (nextProps.betStore.lastAdded.gameId === this.props.matchId) {
+            if (nextProps.betStore.lastAdded.apiStatus === 200) {
+                this.setState({background: {backgroundColor: '#ffa900'}});
             } else {
                 this.setState({
                     background: {backgroundColor: 'transparent'},
@@ -46,65 +44,65 @@ class Bet extends Component {
             }
         }
 
-        if(nextProps.betStore.lastDeleted.gameId === this.props.matchId) {
-            this.setState({ background: {backgroundColor: 'transparent'} });
-            if(nextProps.betStore.lastDeleted.success === false){
+        if (nextProps.betStore.lastDeleted.gameId === this.props.matchId) {
+            this.setState({background: {backgroundColor: 'transparent'}});
+            if (nextProps.betStore.lastDeleted.success === false) {
                 alert(strings.failedToDeleteBet);
-            } else if(nextProps.betStore.lastDeleted.success === true){
+            } else if (nextProps.betStore.lastDeleted.success === true) {
                 alert(strings.betDeleted);
             }
         }
     }
 
     onValueChange = (event) => {
-        if(event.target.name === "betHome"){
-            if(isNaN(event.target.value)) {
-                this.setState({ 
+        if (event.target.name === "betHome") {
+            if (isNaN(event.target.value)) {
+                this.setState({
                     homeGoals: "",
                     homeNeedsSave: false
                 }, this.onStateChanged);
-            } else  {
-                this.setState({ 
+            } else {
+                this.setState({
                     homeGoals: event.target.value,
                     homeNeedsSave: true
                 }, this.onStateChanged);
             }
         } else if (event.target.name === "betAway") {
-            if(isNaN(event.target.value)) {
-                this.setState({ 
+            if (isNaN(event.target.value)) {
+                this.setState({
                     awayGoals: "",
                     awayNeedsSave: false
                 }, this.onStateChanged);
-            } else  {
-                this.setState({ 
+            } else {
+                this.setState({
                     awayGoals: event.target.value,
                     awayNeedsSave: true
                 }, this.onStateChanged);
             }
-        } 
+        }
     }
 
     onStateChanged = () => {
         // both bet fields have been changed
-        if(!this.state.awayNeedsSave || !this.state.homeNeedsSave){
+        if (!this.state.awayNeedsSave || !this.state.homeNeedsSave) {
             this.setState({background: {backgroundColor: 'transparent'}});
             return;
         }
 
         // case 1: both empty -> API DELETE BET
-        if(this.state.awayGoals === "" && this.state.homeGoals === "") {
+        if (this.state.awayGoals === "" && this.state.homeGoals === "") {
             this.setState({
                 homeNeedsSave: false,
                 awayNeedsSave: false
             });
 
             this.props.deleteBet(this.props.matchId);
-            
+
             return;
         }
 
         // case 2: one is a number, the other not -> do nothing
-        if((this.state.awayGoals === "" && !isNaN(this.state.homeGoals)) 
+        if ((this.state.awayGoals === "" && !isNaN(this.state.homeGoals))
             || (this.state.homeGoals === "" && !isNaN(this.state.awayGoals))) {
             this.setState({
                 homeNeedsSave: false,
@@ -114,7 +112,7 @@ class Bet extends Component {
         }
 
         // case 3: both are numbers -> API PUT BET
-        if(!isNaN(this.state.homeGoals) && !isNaN(this.state.awayGoals)) {
+        if (!isNaN(this.state.homeGoals) && !isNaN(this.state.awayGoals)) {
             this.setState({
                 homeNeedsSave: false,
                 awayNeedsSave: false
@@ -127,8 +125,12 @@ class Bet extends Component {
     render() {
         return (
             <div className="bets">
-                <div className="homeBet"><TextField disabled={!this.props.open} value={this.state.homeGoals} style={this.state.background} onChange={this.onValueChange} ref="betHome" name="betHome" fullWidth={true}/></div>
-                <div className="awayBet"><TextField disabled={!this.props.open} value={this.state.awayGoals} style={this.state.background} onChange={this.onValueChange} ref="betAway" name="betAway" fullWidth={true}/></div>
+                <div className="homeBet"><TextField disabled={!this.props.open} value={this.state.homeGoals}
+                                                    style={this.state.background} onChange={this.onValueChange}
+                                                    ref="betHome" name="betHome" fullWidth={true}/></div>
+                <div className="awayBet"><TextField disabled={!this.props.open} value={this.state.awayGoals}
+                                                    style={this.state.background} onChange={this.onValueChange}
+                                                    ref="betAway" name="betAway" fullWidth={true}/></div>
             </div>
         );
     }

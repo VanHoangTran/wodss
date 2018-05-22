@@ -88,7 +88,7 @@ class BettingPool extends Component {
     };
 
     handlePagingButtonClick(event) {
-        let selectedIndex = parseInt(event.target.innerText) - 1;
+        let selectedIndex = parseInt(event.target.innerText, 10) - 1;
         this.setState({
             selectedIndex: selectedIndex,
         }, this.handlePoolsPaging);

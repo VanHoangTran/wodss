@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import {store} from '../index';
 import {API_ACTION_POOLS, API_ENDPOINT} from '../util/constants';
-import { EditorFormatListBulleted } from 'material-ui';
+
 const CONTENT_TYPE = "application/json; charset=utf-8";
 
 export const LOAD_BETTING_POOLS = 'pools:load';
@@ -12,7 +12,7 @@ export const UPDATE_BETTING_POOL = 'pools:update';
 export const JOIN_ACTION = 'join';
 export const LEAVE_ACTION = 'leave';
 
-export function apiLoadAllBettingPools(){
+export function apiLoadAllBettingPools() {
     return dispatch => {
         let jwt = store.getState().user.token;
 
@@ -25,11 +25,13 @@ export function apiLoadAllBettingPools(){
                 dispatch(updatePools(response));
             },
             error(response) {
-                if(response.status === 403 || response.status === 0){
+                if (response.status === 403 || response.status === 0) {
                     window.location = "/logout"
                 }
-            }, 
-            beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
+            },
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + jwt);
+            }
         })
     }
 }
@@ -48,11 +50,13 @@ export function apiDeleteGroup(name) {
                 dispatch(deletePool(name));
             },
             error(response) {
-                if(response.status === 403 || response.status === 0){
+                if (response.status === 403 || response.status === 0) {
                     window.location = "/logout"
                 }
-            }, 
-            beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
+            },
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + jwt);
+            }
         })
     }
 }
@@ -71,13 +75,15 @@ export function apiCreateGroup(name) {
                 dispatch(addPool(name, false));
             },
             error(response) {
-                if(response.status === 403 || response.status === 0){
+                if (response.status === 403 || response.status === 0) {
                     window.location = "/logout"
-                } else if(response.status === 400){
+                } else if (response.status === 400) {
                     dispatch(addPool(name, true));
                 }
-            }, 
-            beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
+            },
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + jwt);
+            }
         })
     }
 }
@@ -96,13 +102,15 @@ export function apiUpdateRelation(name, action) {
                 dispatch(relationUpdate(false));
             },
             error(response) {
-                if(response.status === 403 || response.status === 0){
+                if (response.status === 403 || response.status === 0) {
                     window.location = "/logout"
-                } else if(response.status === 400){
+                } else if (response.status === 400) {
                     dispatch(relationUpdate(true));
                 }
-            }, 
-            beforeSend: function(xhr, settings) { xhr.setRequestHeader('Authorization','Bearer ' + jwt); }
+            },
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + jwt);
+            }
         })
     }
 }
@@ -116,7 +124,7 @@ export function updatePools(pools) {
     }
 }
 
-export function deletePool(name){
+export function deletePool(name) {
     return {
         type: DELETE_BETTING_POOL,
         payload: {
@@ -125,7 +133,7 @@ export function deletePool(name){
     }
 }
 
-export function addPool(name, error){
+export function addPool(name, error) {
     return {
         type: CREATE_BETTING_POOL,
         payload: {
@@ -135,7 +143,7 @@ export function addPool(name, error){
     }
 }
 
-export function relationUpdate(error){
+export function relationUpdate(error) {
     return {
         type: UPDATE_BETTING_POOL,
         payload: {

@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {API_ACTION_PHASES, API_ACTION_BET, API_ENDPOINT, API_ACTION_GAMES, API_ACTION_TEAMS} from '../util/constants';
+import {API_ACTION_GAMES, API_ACTION_TEAMS, API_ENDPOINT} from '../util/constants';
 import {store} from '../index'
 
 const CONTENT_TYPE = "application/json; charset=utf-8";

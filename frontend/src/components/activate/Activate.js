@@ -42,11 +42,10 @@ class Activate extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let accountActivated = nextProps.registration.activated;
-        this.state = {
+        this.setState({
             activationOngoing: false,
-            accountActivated: accountActivated,
-        };
+            accountActivated: nextProps.registration.activated,
+        });
     }
 
     activate() {
@@ -67,9 +66,10 @@ class Activate extends Component {
                 }}/>
                 <div style={{display: this.state.activationOngoing ? "none" : "block"}}>
                     <Card style={styles.card}>
-                        <CardHeader title={this.state.accountActivated ? strings.accountActivated : strings.errorOccurred}
-                                    style={styles.cardHeader}
-                                    titleColor={colors.light}/>
+                        <CardHeader
+                            title={this.state.accountActivated ? strings.accountActivated : strings.errorOccurred}
+                            style={styles.cardHeader}
+                            titleColor={colors.light}/>
                         <CardText style={styles.cardBody}>
                             <span>{this.state.accountActivated ? strings.accountActivatedSuccessfully : this.props.registration.responseText}</span>
                             <br/>

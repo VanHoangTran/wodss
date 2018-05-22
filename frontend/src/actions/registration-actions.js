@@ -1,6 +1,5 @@
 import $ from 'jquery';
-import {API_ACTION_AUTH, API_ACTION_REGISTER, API_ENDPOINT} from '../util/constants';
-import {updateUser} from "./user-actions";
+import {API_ACTION_REGISTER, API_ENDPOINT} from '../util/constants';
 
 const CONTENT_TYPE = "application/json; charset=utf-8";
 
