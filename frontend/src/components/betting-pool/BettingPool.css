@@ -1,22 +1,24 @@
-.newButton {
-    float: right;
-    margin-right: 15px !important;
-}
-
-div.buttonContainer {
+.buttonContainer {
     width: 100%;
-    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
 }
 
-div.buttonContainer::after {
-    content: '';
-    display: block;
-    clear: both;
+.newButton {
+    height: 2.25rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
 }
 
-div.buttonContainer div:nth-child(2) {
-    float: right;
-    margin-top: 8px;
+.container-create-pool {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.component-create-pool {
+    background: gray;
 }
 
 .btn-grp-paging {
@@ -36,5 +38,5 @@ div.buttonContainer div:nth-child(2) {
 
 .col-points {
     width: 3rem;
-    text-align: right!important;
+    text-align: right !important;
 }

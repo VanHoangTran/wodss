@@ -128,12 +128,13 @@ class BettingPool extends Component {
         return (
             <div>
                 <div className="buttonContainer">
+                    <TextField value={this.state.newPoolName}
+                               onChange={this.onNewPoolNameChange}
+                               hintText={strings.newGroupHint}
+                               name="newPoolName"/>
                     <RaisedButton label={strings.newBettingPool}
                                   onClick={this.onCreatePool}
-                                  className="newButton"
-                                  style={styles.newButton}/>
-                    <TextField value={this.state.newPoolName} onChange={this.onNewPoolNameChange}
-                               hintText={strings.newGroupHint} name="newPoolName"/>
+                                  className="newButton"/>
                 </div>
 
                 {this.state.visiblePools.map((pool, i) => {
