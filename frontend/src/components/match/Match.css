@@ -1,57 +1,35 @@
-.matchResultRow span {
-    display: block;
+.game {
+    padding-bottom: 1rem;
+}
+
+span.team {
+    line-height: 4rem;
+}
+
+div.container {
+    margin-top: 1rem;
+}
+
+div.result {
+    display: flex;
+}
+
+div.result span.actual {
+    width: 50%;
+    line-height: 3rem;
     text-align: center;
-    font-size: 18px;
-    height: 30px;
-    line-height: 30px;
-    margin-bottom: 10px;
+    background: #f3f3f3;
+    font-size: 1.5rem;
 }
 
-.matchResultRow input {
-    text-align: center;
+div.result span.actual.home {
+    margin-right: 0.25rem;
 }
 
-.matchResultRow div.centered {
-    text-align: center;
-    margin-top: 20px;
+div.result span.actual.away {
+    margin-left: 0.25rem;
 }
 
-.matchResultRow div.bets div.homeBet,
-.matchResultRow div.bets div.awayBet{
-    float: left;
-    width: calc(50% - 5px);
-}
-
-.matchResultRow div.bets div.awayBet {
-    margin-left: 10px;
-}
-
-.matchResultRow span.actual {
-    background: #f3f3f3 !important;
-    float: left;
-    width: calc(50% - 5px);
-}
-
-.matchResultRow span.actual:nth-child(2) {
-    margin-left: 10px;
-}
-
-.matchResultRow span.location,
-.matchResultRow span.date{
-    font-size: 12px;
-    line-height: 12px;
-    height: 12px;
-}
-
-td.awayTeam{
-    text-align: right !important;
-}
-
-span.homeTeam, span.points {
-    display: block;
-}
-
-span.homeTeam {
-    height: 85px;
-    line-height: 100px
+span.points {
+    line-height: 3rem;
 }

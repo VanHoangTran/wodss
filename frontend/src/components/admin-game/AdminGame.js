@@ -74,36 +74,28 @@ class AdminGame extends Component {
     }
 
     handleHomeGoalsChange = (event) => {
-        let value = this.formatGoalsValue(event.target.value);
+        let value = AdminGame.formatGoalsValue(event.target.value);
         if (value === undefined) {
             // keep old value if new value not valid
             value = this.state.homeGoals;
         }
-        this.changeHomeGoalsValue(value);
-    };
-
-    changeHomeGoalsValue(value) {
         this.setState({
             homeGoals: value,
         });
-    }
-
-    handleAwayGoalsChange = (event) => {
-        let value = this.formatGoalsValue(event.target.value);
-        if (value === undefined) {
-            // keep old value if new value not valid
-            value = this.state.homeGoals;
-        }
-        this.changeAwayGoalsValue(value);
     };
 
-    changeAwayGoalsValue(value) {
+    handleAwayGoalsChange = (event) => {
+        let value = AdminGame.formatGoalsValue(event.target.value);
+        if (value === undefined) {
+            // keep old value if new value not valid
+            value = this.state.awayGoals;
+        }
         this.setState({
             awayGoals: value,
         });
-    }
+    };
 
-    formatGoalsValue(value) {
+    static formatGoalsValue(value) {
         value = value.trim();
 
         // return empty value
@@ -125,15 +117,17 @@ class AdminGame extends Component {
 
     handleHomeGoalsKeyPress = (event) => {
         if (event.key === "Enter") {
+            this.handleSave();
         }
     };
 
     handleAwayGoalsKeyPress = (event) => {
         if (event.key === "Enter") {
+            this.handleSave();
         }
     };
 
-    handleEditButtonClick = () => {
+    handleEdit = () => {
         this.setState({
             inEditMode: true,
             backupHome: this.state.home,
@@ -143,7 +137,7 @@ class AdminGame extends Component {
         });
     };
 
-    handleSaveButtonClick = () => {
+    handleSave = () => {
         this.setState({
             inEditMode: false,
             home: this.state.backupHome,
@@ -154,7 +148,7 @@ class AdminGame extends Component {
         this.updateGame();
     };
 
-    handleCancelButtonClick = () => {
+    handleCancel = () => {
         this.setState({
             inEditMode: false,
             home: this.state.backupHome,
@@ -255,13 +249,13 @@ class AdminGame extends Component {
                     </div>
                     <div style={{display: this.state.inEditMode ? "none" : "block"}}>
                         <IconButton iconClassName="material-icons"
-                                    onClick={this.handleEditButtonClick}>edit</IconButton>
+                                    onClick={this.handleEdit}>edit</IconButton>
                     </div>
                     <div style={{display: this.state.inEditMode ? "block" : "none"}}>
                         <IconButton iconClassName="material-icons"
-                                    onClick={this.handleSaveButtonClick}>save</IconButton>
+                                    onClick={this.handleSave}>save</IconButton>
                         <IconButton iconClassName="material-icons"
-                                    onClick={this.handleCancelButtonClick}>cancel</IconButton>
+                                    onClick={this.handleCancel}>cancel</IconButton>
                     </div>
                 </div>
                 <Row className="row">

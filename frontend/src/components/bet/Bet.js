@@ -4,12 +4,14 @@ import {TextField} from "material-ui";
 import {apiDeleteBet, apiPutBet} from '../../actions/bet-actions'
 import {apiLoadMatchList} from '../../actions/match-list-actions'
 import {strings} from "../../strings";
+import "./Bet.css";
 
 class Bet extends Component {
 
     constructor(props) {
         super(props);
-        this.onValueChange = this.onValueChange.bind(this);
+        this.handleHomeGoalsChange = this.handleHomeGoalsChange.bind(this);
+        this.handleAwayGoalsChange = this.handleAwayGoalsChange.bind(this);
 
         this.state = {
             background: {backgroundColor: 'transparent'}
@@ -22,8 +24,6 @@ class Bet extends Component {
                 background: {backgroundColor: '#ffa900'},
                 homeGoals: bet.homeGoals,
                 awayGoals: bet.awayGoals,
-                homeNeedsSave: false,
-                awayNeedsSave: false,
                 bet: bet
             };
         }
@@ -38,8 +38,6 @@ class Bet extends Component {
                     background: {backgroundColor: 'transparent'},
                     homeGoals: "",
                     awayGoals: "",
-                    homeNeedsSave: false,
-                    awayNeedsSave: false
                 });
             }
         }
@@ -54,83 +52,86 @@ class Bet extends Component {
         }
     }
 
-    onValueChange = (event) => {
-        if (event.target.name === "betHome") {
-            if (isNaN(event.target.value)) {
-                this.setState({
-                    homeGoals: "",
-                    homeNeedsSave: false
-                }, this.onStateChanged);
-            } else {
-                this.setState({
-                    homeGoals: event.target.value,
-                    homeNeedsSave: true
-                }, this.onStateChanged);
-            }
-        } else if (event.target.name === "betAway") {
-            if (isNaN(event.target.value)) {
-                this.setState({
-                    awayGoals: "",
-                    awayNeedsSave: false
-                }, this.onStateChanged);
-            } else {
-                this.setState({
-                    awayGoals: event.target.value,
-                    awayNeedsSave: true
-                }, this.onStateChanged);
-            }
+    handleHomeGoalsChange = (event) => {
+        let value = Bet.formatGoalsValue(event.target.value);
+        if (value === undefined) {
+            // keep old value if new value not valid
+            value = this.state.homeGoals;
         }
-    }
+        this.setState({
+            homeGoals: value,
+        }, this.onStateChanged);
+    };
+
+    handleAwayGoalsChange = (event) => {
+        let value = Bet.formatGoalsValue(event.target.value);
+        if (value === undefined) {
+            // keep old value if new value not valid
+            value = this.state.awayGoals;
+        }
+        this.setState({
+            awayGoals: value,
+        }, this.onStateChanged);
+    };
 
     onStateChanged = () => {
-        // both bet fields have been changed
-        if (!this.state.awayNeedsSave || !this.state.homeNeedsSave) {
+        let homeGoals = this.state.homeGoals;
+        let awayGoals = this.state.awayGoals;
+
+        // at least one number empty -> make background transparent
+        if (homeGoals === "" || awayGoals === "") {
             this.setState({background: {backgroundColor: 'transparent'}});
-            return;
         }
 
-        // case 1: both empty -> API DELETE BET
-        if (this.state.awayGoals === "" && this.state.homeGoals === "") {
-            this.setState({
-                homeNeedsSave: false,
-                awayNeedsSave: false
-            });
-
+        // both empty -> API DELETE BET
+        if (awayGoals === "" && homeGoals === "") {
             this.props.deleteBet(this.props.matchId);
-
             return;
         }
 
-        // case 2: one is a number, the other not -> do nothing
-        if ((this.state.awayGoals === "" && !isNaN(this.state.homeGoals))
-            || (this.state.homeGoals === "" && !isNaN(this.state.awayGoals))) {
-            this.setState({
-                homeNeedsSave: false,
-                awayNeedsSave: false
-            });
-            return;
+        // both are numbers -> API PUT BET
+        if (homeGoals !== "" && !isNaN(homeGoals) && awayGoals !== "" && !isNaN(awayGoals)) {
+            this.props.putBet(this.props.matchId, homeGoals, awayGoals);
+        }
+    };
+
+    static formatGoalsValue(value) {
+        value = value.trim();
+
+        // return empty value
+        if (value.length === 0) {
+            return "";
         }
 
-        // case 3: both are numbers -> API PUT BET
-        if (!isNaN(this.state.homeGoals) && !isNaN(this.state.awayGoals)) {
-            this.setState({
-                homeNeedsSave: false,
-                awayNeedsSave: false
-            });
-            this.props.putBet(this.props.matchId, this.state.homeGoals, this.state.awayGoals);
-            return;
+        // return undefined if value not valid
+        let intValue = parseInt(value, 10);
+        if (("" + intValue) !== value && ("0" + intValue) !== value) {
+            return undefined;
+        } else if (intValue < 0 || intValue > 20) {
+            return undefined;
         }
+
+        // return valid value
+        return intValue;
     }
 
     render() {
         return (
-            <div className="bets">
-                <div className="homeBet"><TextField disabled={!this.props.open} value={this.state.homeGoals}
-                                                    style={this.state.background} onChange={this.onValueChange}
-                                                    ref="betHome" name="betHome" fullWidth={true}/></div>
-                <div className="awayBet"><TextField disabled={!this.props.open} value={this.state.awayGoals}
-                                                    style={this.state.background} onChange={this.onValueChange}
-                                                    ref="betAway" name="betAway" fullWidth={true}/></div>
+            <div className={"container"}>
+                <div className={"home"}>
+                    <TextField value={this.state.homeGoals}
+                               onChange={this.handleHomeGoalsChange}
+                               disabled={!this.props.open}
+                               style={this.state.background}
+                               className={"textfield"}/>
+                </div>
+                <div className={"away"}>
+                    <TextField value={this.state.awayGoals}
+                               onChange={this.handleAwayGoalsChange}
+                               disabled={!this.props.open}
+                               style={this.state.background}
+                               className={"textfield"}/>
+                </div>
             </div>
         );
     }

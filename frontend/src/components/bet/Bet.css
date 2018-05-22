@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+}
+.home {
+    margin-right: 0.25rem;
+}
+.away {
+    margin-left: 0.25rem;
+}
+.textfield {
+    width: 100%!important;
+}

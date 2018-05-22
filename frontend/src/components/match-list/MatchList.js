@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Match from "../match/Match";
-import {Card, CardHeader, CardText, Table, TableBody} from "material-ui";
+import {Card, CardHeader, CardText, Divider, Table, TableBody} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
 import {connect} from "react-redux";
 import {apiLoadMatchList} from "../../actions/match-list-actions";
@@ -15,7 +15,7 @@ const styles = {
         backgroundColor: colors.cardHeaderBackground,
     },
     cardBody: {
-        paddingBottom: "0",
+        padding: "0",
     },
 };
 
@@ -47,7 +47,10 @@ class MatchList extends Component {
                                 <Table>
                                     <TableBody displayRowCheckbox={false}>
                                         {phase.games.map((game, i) => {
-                                            return <Match key={i} match={game}/>
+                                            return <div>
+                                                <Match key={i} match={game}/>
+                                                <Divider/>
+                                            </div>
                                         })}
                                     </TableBody>
                                 </Table>

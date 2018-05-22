@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {TableRow, TableRowColumn} from "material-ui";
+import {IconButton} from "material-ui";
 import {strings} from "../../strings";
 import {connect} from 'react-redux';
 import "./Match.css"
 import Bet from '../bet/Bet';
 import {getFlagImage} from "../../util/imageUtil";
+import {Col, Row} from "react-grid-system";
 
 class Match extends Component {
 
@@ -22,32 +23,41 @@ class Match extends Component {
         }
 
         return (
-            <TableRow>
-                <TableRowColumn width="30">
-                    <img height="30" src={getFlagImage(match.home.countryFifaCode)} alt={""}/>
-                </TableRowColumn>
-                <TableRowColumn>
-                    <span className="homeTeam">{match.home.name}</span>
-                    <span className="points">{strings.points}: {points}</span>
-                </TableRowColumn>
-                <TableRowColumn className="matchResultRow">
-                    <div className="centered">
-                        <span className="date"><b>{formatDate(matchDate)}</b></span>
-                        <span className="location">{match.stadium.name} ({match.stadium.city})</span>
+            <div className={"game"}>
+                <div className={"game-header"}>
+                    <div className={"labels"}>
+                        <span>{formatDate(matchDate)}</span>
+                        <span>{match.stadium.name} - {match.stadium.city}</span>
                     </div>
-
-                    <Bet matchId={match.id} open={match.open}/>
-
-                    <div className="result">
-                        <span className="actual">{match.resultsEntered === false ? '-' : match.homeGoals}</span>
-                        <span className="actual">{match.resultsEntered === false ? '-' : match.awayGoals}</span>
-                    </div>
-                </TableRowColumn>
-                <TableRowColumn className="awayTeam">{match.away.name}</TableRowColumn>
-                <TableRowColumn width="30">
-                    <img height="30" src={getFlagImage(match.away.countryFifaCode)} alt={""}/>
-                </TableRowColumn>
-            </TableRow>
+                    <IconButton iconClassName="material-icons">cancel</IconButton>
+                </div>
+                <Row className="row">
+                    <Col xs={4.5} className="col country-name">
+                        <img src={getFlagImage(match.home.countryFifaCode)} className="flag" alt={""}/>
+                        <span className="team">{match.home.name}</span>
+                    </Col>
+                    <Col xs={3} className={"col goals"}>
+                        <Bet matchId={match.id} open={match.open}/>
+                    </Col>
+                    <Col xs={4.5} className="col country-name right">
+                        <span className="team">{match.away.name}</span>
+                        <img src={getFlagImage(match.away.countryFifaCode)} className="flag" alt={""}/>
+                    </Col>
+                </Row>
+                <Row className="row">
+                    <Col xs={4.5}>
+                        <span className="points">{strings.points}: {points}</span>
+                    </Col>
+                    <Col xs={3} className={"col goals"}>
+                        <div className="result">
+                            <span className="actual home">{!match.resultsEntered ? '-' : match.homeGoals}</span>
+                            <span className="actual away">{!match.resultsEntered ? '-' : match.awayGoals}</span>
+                        </div>
+                    </Col>
+                    <Col xs={4.5}>
+                    </Col>
+                </Row>
+            </div>
         );
     }
 }
