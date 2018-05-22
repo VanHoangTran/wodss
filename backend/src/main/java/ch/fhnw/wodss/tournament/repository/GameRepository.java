@@ -8,6 +8,6 @@ import ch.fhnw.wodss.tournament.domain.Game;
 
 public interface GameRepository extends JpaRepository<Game, Long> {
 
-	public List<Game> findAllByPhaseId(Long id);
+	public List<Game> findAllByPhaseIdOrderByDate(Long id);
 
 }

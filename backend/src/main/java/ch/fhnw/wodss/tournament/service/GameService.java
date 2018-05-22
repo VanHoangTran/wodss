@@ -69,7 +69,7 @@ public class GameService {
 	 */
 	public List<GameDTO> getGamesByPhase(Long phaseId) {
 		log.info("loading games by phase_id {}", phaseId);
-		List<Game> result = gameRepository.findAllByPhaseId(phaseId);
+		List<Game> result = gameRepository.findAllByPhaseIdOrderByDate(phaseId);
 		List<GameDTO> dtos = GameDTO.fromList(result);
 
 		// special case byPhase -> serve also statistics
