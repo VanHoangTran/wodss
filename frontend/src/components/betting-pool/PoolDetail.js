@@ -4,16 +4,17 @@ import {apiDeleteGroup, apiUpdateRelation, JOIN_ACTION, LEAVE_ACTION} from "../.
 import {colors, dimensions} from "../../util/constants";
 import {
     Card,
-    CardActions,
     CardHeader,
     CardText,
+    Divider,
     RaisedButton,
     Table,
     TableBody,
     TableHeader,
     TableHeaderColumn,
     TableRow,
-    TableRowColumn
+    TableRowColumn,
+    TextField
 } from "material-ui";
 import {strings} from "../../strings";
 
@@ -23,9 +24,6 @@ const styles = {
     },
     cardHeader: {
         backgroundColor: colors.cardHeaderBackground,
-    },
-    cardBody: {
-        paddingBottom: "0",
     },
     newButton: {
         margin: 10,
@@ -37,18 +35,45 @@ class PoolDetail extends Component {
     constructor(props) {
         super(props);
         this.onDeleteGroup = this.onDeleteGroup.bind(this);
+        this.handleSearchValueChange = this.handleSearchValueChange.bind(this);
+
+        this.state = {
+            ranking: this.props.pool.ranking,
+            searchValue: "",
+        }
     }
 
     onDeleteGroup(event) {
         this.props.deletePool(this.props.pool.name);
-    }
+    };
 
     onJoinGroup = (event) => {
         this.props.updateRelation(this.props.pool.name, JOIN_ACTION);
-    }
+    };
 
     onLeaveGroup = (event) => {
         this.props.updateRelation(this.props.pool.name, LEAVE_ACTION);
+    };
+
+    handleSearchValueChange(event) {
+        let searchValue = event.target.value;
+
+        let ranking = [];
+        if (searchValue.trim().length === 0) {
+            ranking = this.props.pool.ranking;
+
+        } else {
+            this.props.pool.ranking.forEach(function (entry) {
+                if (entry.account.username.toLowerCase().includes(searchValue.toLowerCase().trim())) {
+                    ranking.push(entry);
+                }
+            });
+        }
+
+        this.setState({
+            searchValue: searchValue,
+            ranking: ranking,
+        });
     }
 
     render() {
@@ -69,16 +94,22 @@ class PoolDetail extends Component {
                     style={styles.cardHeader}
                 />
 
-                <CardText expandable={true} style={styles.cardBody}>
-                    <CardActions style={isSpecial ? {display: 'none'} : {}}>
-                        {isOwner && !isSpecial && <RaisedButton onClick={this.onDeleteGroup} label={strings.delPool}/>}
-                        {!isMember && !isSpecial && <RaisedButton onClick={this.onJoinGroup} label={strings.joinPool}/>}
+                <CardText className={"card-body"} expandable={true}>
+                    <div style={isSpecial ? {display: 'none'} : {}} className={"container-actions"}>
+                        <TextField value={this.state.searchValue}
+                                   hintText={strings.searchUserHint}
+                                   onChange={this.handleSearchValueChange}/>
+                        <div className={"spacer"}/>
+                        {isOwner && !isSpecial &&
+                        <RaisedButton onClick={this.onDeleteGroup} label={strings.delPool} className={"btn"}/>}
+                        {!isMember && !isSpecial &&
+                        <RaisedButton onClick={this.onJoinGroup} label={strings.joinPool} className={"btn"}/>}
                         {!isOwner && isMember && !isSpecial &&
-                        <RaisedButton onClick={this.onLeaveGroup} label={strings.leavePool}/>}
-                    </CardActions>
-
+                        <RaisedButton onClick={this.onLeaveGroup} label={strings.leavePool} className={"btn"}/>}
+                    </div>
+                    <Divider/>
                     <Table>
-                        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+                        <TableHeader displaySelectAll={false} adjustForCheckbox={false} className={"table-header"}>
                             <TableRow>
                                 <TableHeaderColumn className={"col-ranking"}>{strings.ranking}</TableHeaderColumn>
                                 <TableHeaderColumn>{strings.username}</TableHeaderColumn>
@@ -86,7 +117,7 @@ class PoolDetail extends Component {
                             </TableRow>
                         </TableHeader>
                         <TableBody displayRowCheckbox={false}>
-                            {pool.ranking.map((ranking, i) => {
+                            {this.state.ranking.map((ranking, i) => {
                                 let style = ranking.account.username === this.props.user.username ? {backgroundColor: '#4eae4414'} : {};
                                 return (
                                     <TableRow key={i} style={style}>

@@ -1,26 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {apiCreateGroup, apiLoadAllBettingPools} from "../../actions/betting-pool-actions";
-import {colors, dimensions} from "../../util/constants";
+import {colors} from "../../util/constants";
 import {FlatButton, IconButton, Paper, RaisedButton, TextField} from "material-ui";
 import {strings} from "../../strings";
 import "./BettingPool.css"
 import PoolDetail from './PoolDetail';
-
-const styles = {
-    card: {
-        margin: dimensions.defaultSpacing,
-    },
-    cardHeader: {
-        backgroundColor: colors.cardHeaderBackground,
-    },
-    cardBody: {
-        paddingBottom: "0",
-    },
-    newButton: {
-        margin: 10,
-    }
-};
 
 const visiblePoolsPerPage = 50;
 
@@ -130,11 +115,10 @@ class BettingPool extends Component {
                 <div className="buttonContainer">
                     <TextField value={this.state.newPoolName}
                                onChange={this.onNewPoolNameChange}
-                               hintText={strings.newGroupHint}
-                               name="newPoolName"/>
+                               hintText={strings.newGroupHint}/>
                     <RaisedButton label={strings.newBettingPool}
                                   onClick={this.onCreatePool}
-                                  className="newButton"/>
+                                  className={"btn btn-create-pool"}/>
                 </div>
 
                 {this.state.visiblePools.map((pool, i) => {

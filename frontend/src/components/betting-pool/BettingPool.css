@@ -5,20 +5,30 @@
     margin-top: 1rem;
 }
 
-.newButton {
+.btn {
     height: 2.25rem;
+}
+
+.btn-create-pool {
     margin-right: 1rem;
     margin-left: 1rem;
 }
 
-.container-create-pool {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+.card-body {
+    padding: 0 !important;
 }
 
-.component-create-pool {
-    background: gray;
+.container-actions {
+    padding: 1rem;
+    display: flex;
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+.table-header {
+    background: #F5F5F5;
 }
 
 .btn-grp-paging {

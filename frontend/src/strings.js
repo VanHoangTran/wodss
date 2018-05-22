@@ -60,6 +60,7 @@ export const strings = new LocalizedStrings({
         unableToJoinOrLeave: "Verlassen oder Beitreten der Gruppe ist fehlgeschlagen, versuchen Sie es später nochmals.",
         failedToDeleteBet: "Tipp konnte nicht gelöscht werden!",
         betDeleted: "Tipp wurde gelöscht!",
+        searchUserHint: "Name eines Benutzers...",
 
         admin: "Admin",
 
