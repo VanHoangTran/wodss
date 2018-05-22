@@ -28,6 +28,8 @@ public class GameDTO {
 
 	private boolean resultsEntered;
 
+	private BetStatisticsDTO betStats;
+
 	public GameDTO(Game g) {
 		this.id = g.getId();
 		this.phase_id = g.getPhase().getId();
@@ -133,6 +135,14 @@ public class GameDTO {
 			dtoList.add(new GameDTO(g));
 		}
 		return dtoList;
+	}
+
+	public BetStatisticsDTO getBetStats() {
+		return betStats;
+	}
+
+	public void setBetStats(BetStatisticsDTO betStats) {
+		this.betStats = betStats;
 	}
 
 }

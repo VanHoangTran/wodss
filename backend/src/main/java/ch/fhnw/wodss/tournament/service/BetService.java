@@ -1,5 +1,7 @@
 package ch.fhnw.wodss.tournament.service;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +19,7 @@ import ch.fhnw.wodss.tournament.domain.Game;
 import ch.fhnw.wodss.tournament.repository.BetRepository;
 import ch.fhnw.wodss.tournament.repository.GameRepository;
 import ch.fhnw.wodss.tournament.service.dto.BetDTO;
+import ch.fhnw.wodss.tournament.service.dto.BetStatisticsDTO;
 import ch.fhnw.wodss.tournament.util.SecurityUtil;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.BetVM;
 
@@ -169,5 +172,33 @@ public class BetService {
 
 			betRepository.delete(b);
 		}
+	}
+
+	public BetStatisticsDTO getBetStatisticsByGameId(Long gameId) {
+		float draw = 0;
+		float homeWins = 0;
+		float awayWins = 0;
+
+		// calculate statistics over all games
+		List<Bet> betsForGame = betRepository.findAllByGameId(gameId);
+		for (Bet b : betsForGame) {
+			if (b.getHomeGoals() > b.getAwayGoals()) {
+				homeWins++;
+			} else if (b.getHomeGoals() < b.getAwayGoals()) {
+				awayWins++;
+			} else {
+				draw++;
+			}
+		}
+
+		float ratioDraw = draw == 0 ? 0 : draw / ((float)betsForGame.size() / 100);
+		float ratioHomeWins = homeWins == 0 ? 0 : homeWins / ((float)betsForGame.size() / 100);
+		float ratioAwayWins = awayWins == 0 ? 0 : awayWins / ((float)betsForGame.size() / 100);
+		
+		// rounding rule
+		DecimalFormat df = new DecimalFormat("#");
+		df.setRoundingMode(RoundingMode.FLOOR);
+		
+		return new BetStatisticsDTO(df.format(ratioHomeWins), df.format(ratioAwayWins), df.format(ratioDraw));
 	}
 }
