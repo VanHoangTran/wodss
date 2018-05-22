@@ -37,6 +37,9 @@ public class GameService {
 	@Autowired
 	private TeamRepository teamRepository;
 
+	@Autowired
+	private BetService betService;
+
 	/**
 	 * Gets all games from database and returns them as list
 	 * 
@@ -67,7 +70,15 @@ public class GameService {
 	public List<GameDTO> getGamesByPhase(Long phaseId) {
 		log.info("loading games by phase_id {}", phaseId);
 		List<Game> result = gameRepository.findAllByPhaseId(phaseId);
-		return GameDTO.fromList(result);
+		List<GameDTO> dtos = GameDTO.fromList(result);
+
+		// special case byPhase -> serve also statistics
+		for (GameDTO dto : dtos) {
+			// fetch stats for this game
+			dto.setBetStats(betService.getBetStatisticsByGameId(dto.getId()));
+		}
+
+		return dtos;
 	}
 
 	/**
@@ -165,7 +176,7 @@ public class GameService {
 
 		return weightedTeams;
 	}
-	
+
 	/**
 	 * TODO
 	 * 
