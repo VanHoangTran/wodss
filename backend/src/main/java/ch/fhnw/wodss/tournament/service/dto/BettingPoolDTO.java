@@ -18,12 +18,23 @@ public class BettingPoolDTO {
 	private List<AccountDTO> members;
 
 	private List<RankingDTO> ranking;
-	
+
+	private boolean isSpecialGroup;
+
 	public BettingPoolDTO(BettingPool g) {
 		this.id = g.getId();
 		this.name = g.getName();
 		this.owner = new AccountDTO(g.getOwner());
 		this.members = AccountDTO.fromList(g.getMembers());
+		this.isSpecialGroup = g.getSpecial();
+	}
+
+	public boolean isSpecialGroup() {
+		return isSpecialGroup;
+	}
+
+	public void setSpecialGroup(boolean isSpecialGroup) {
+		this.isSpecialGroup = isSpecialGroup;
 	}
 
 	public Long getId() {
