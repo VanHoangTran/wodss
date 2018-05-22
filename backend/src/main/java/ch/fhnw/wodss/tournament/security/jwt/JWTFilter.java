@@ -35,8 +35,8 @@ public class JWTFilter extends GenericFilterBean {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 		String jwt = resolveToken(httpServletRequest);
 
-		// limit access per token
-		boolean canPassThrough = validateTokenRequestLimit(jwt);
+		// limit access per token and REMOTE_ADDRESS
+		boolean canPassThrough = validateRequestLimit(jwt) && validateRequestLimit(servletRequest.getRemoteAddr());
 
 		if (canPassThrough && StringUtils.hasText(jwt) && this.tokenProvider.validateToken(jwt)) {
 			Authentication authentication = this.tokenProvider.getAuthentication(jwt);
@@ -45,7 +45,7 @@ public class JWTFilter extends GenericFilterBean {
 		filterChain.doFilter(servletRequest, servletResponse);
 	}
 
-	private boolean validateTokenRequestLimit(String jwt) {
+	private boolean validateRequestLimit(String jwt) {
 		if (jwt != null && requestStats.containsKey(jwt)) {
 			long[] stats = requestStats.get(jwt);
 			long counter = stats[0]; // how many requests were yet send
