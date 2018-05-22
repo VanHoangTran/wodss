@@ -30,13 +30,13 @@ insert into tournament_group (id, name) values (100, 'dummy group');
 -- teams
 delete from team; commit;
 insert into team (id, name, country_fifa_code, group_id) values (1, 'Russland', 'RUS', 1);
-insert into team (id, name, country_fifa_code, group_id) values (2, 'Saudiarabien', 'KSA', 1);
+insert into team (id, name, country_fifa_code, group_id) values (2, 'Saudi-Arabien', 'KSA', 1);
 insert into team (id, name, country_fifa_code, group_id) values (3, 'Ägypten', 'EGY', 1);
 insert into team (id, name, country_fifa_code, group_id) values (4, 'Uruguay', 'URU', 1);
 insert into team (id, name, country_fifa_code, group_id) values (5, 'Portugal', 'POR', 2);
 insert into team (id, name, country_fifa_code, group_id) values (6, 'Spanien', 'ESP', 2);
 insert into team (id, name, country_fifa_code, group_id) values (7, 'Marokko', 'MAR', 2);
-insert into team (id, name, country_fifa_code, group_id) values (8, 'IR Iran', 'IRN', 2);
+insert into team (id, name, country_fifa_code, group_id) values (8, 'Iran', 'IRN', 2);
 insert into team (id, name, country_fifa_code, group_id) values (9, 'Frankreich', 'FRA', 3);
 insert into team (id, name, country_fifa_code, group_id) values (10, 'Australien', 'AUS', 3);
 insert into team (id, name, country_fifa_code, group_id) values (11, 'Peru', 'PER', 3);
@@ -52,7 +52,7 @@ insert into team (id, name, country_fifa_code, group_id) values (20, 'Serbien', 
 insert into team (id, name, country_fifa_code, group_id) values (21, 'Deutschland', 'GER', 6);
 insert into team (id, name, country_fifa_code, group_id) values (22, 'Mexiko', 'MEX', 6);
 insert into team (id, name, country_fifa_code, group_id) values (23, 'Schweden', 'SWE', 6);
-insert into team (id, name, country_fifa_code, group_id) values (24, 'Republik Korea', 'KOR', 6);
+insert into team (id, name, country_fifa_code, group_id) values (24, 'Südkorea', 'KOR', 6);
 insert into team (id, name, country_fifa_code, group_id) values (25, 'Belgien', 'BEL', 7);
 insert into team (id, name, country_fifa_code, group_id) values (26, 'Panama', 'PAN', 7);
 insert into team (id, name, country_fifa_code, group_id) values (27, 'Tunesien', 'TUN', 7);
