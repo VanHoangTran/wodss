@@ -1,8 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {apiLoadAllBettingPools, apiDeleteGroup, apiUpdateRelation, JOIN_ACTION, LEAVE_ACTION} from "../../actions/betting-pool-actions";
+import {apiDeleteGroup, apiUpdateRelation, JOIN_ACTION, LEAVE_ACTION} from "../../actions/betting-pool-actions";
 import {colors, dimensions} from "../../util/constants";
-import {Card, CardHeader, CardText, Table, TableBody, RaisedButton, CardActions, FlatButton, TableRow, TableRowColumn, TableHeader, TableHeaderColumn} from "material-ui";
+import {
+    Card,
+    CardActions,
+    CardHeader,
+    CardText,
+    RaisedButton,
+    Table,
+    TableBody,
+    TableHeader,
+    TableHeaderColumn,
+    TableRow,
+    TableRowColumn
+} from "material-ui";
 import {strings} from "../../strings";
 
 const styles = {
@@ -27,7 +39,7 @@ class PoolDetail extends Component {
         this.onDeleteGroup = this.onDeleteGroup.bind(this);
     }
 
-    onDeleteGroup(event){
+    onDeleteGroup(event) {
         this.props.deletePool(this.props.pool.name);
     }
 
@@ -55,12 +67,12 @@ class PoolDetail extends Component {
                     subtitle={subtitle}
                     style={styles.cardHeader}
                 />
-                
+
                 <CardText expandable={true} style={styles.cardBody}>
                     <CardActions>
-                    {isOwner && <FlatButton onClick={this.onDeleteGroup} label={strings.delPool} /> }
-                    {!isMemebr && <FlatButton onClick={this.onJoinGroup} label={strings.joinPool} /> }
-                    {!isOwner && isMemebr && <FlatButton onClick={this.onLeaveGroup} label={strings.leavePool} /> }
+                        {isOwner && <RaisedButton onClick={this.onDeleteGroup} label={strings.delPool}/>}
+                        {!isMemebr && <RaisedButton onClick={this.onJoinGroup} label={strings.joinPool}/>}
+                        {!isOwner && isMemebr && <RaisedButton onClick={this.onLeaveGroup} label={strings.leavePool}/>}
                     </CardActions>
 
                     <Table>
@@ -72,14 +84,15 @@ class PoolDetail extends Component {
                             </TableRow>
                         </TableHeader>
                         <TableBody displayRowCheckbox={false}>
-                            {pool.ranking.map((ranking, i) => {  
-                                let style = ranking.account.username === this.props.user.username ?  {backgroundColor:'#4eae4414'} : {};
-                                return (<TableRow style={style}>
-                                    <TableRowColumn>{ranking.position}</TableRowColumn>
-                                    <TableRowColumn>{ranking.points}</TableRowColumn>
-                                    <TableRowColumn>{ranking.account.username}</TableRowColumn>
-                                </TableRow>);
-                            })}                            
+                            {pool.ranking.map((ranking, i) => {
+                                let style = ranking.account.username === this.props.user.username ? {backgroundColor: '#4eae4414'} : {};
+                                return (
+                                    <TableRow key={i} style={style}>
+                                        <TableRowColumn>{ranking.position}</TableRowColumn>
+                                        <TableRowColumn>{ranking.points}</TableRowColumn>
+                                        <TableRowColumn>{ranking.account.username}</TableRowColumn>
+                                    </TableRow>);
+                            })}
                         </TableBody>
                     </Table>
                 </CardText>

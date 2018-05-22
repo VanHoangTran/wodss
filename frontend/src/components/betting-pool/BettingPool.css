@@ -8,13 +8,24 @@ div.buttonContainer {
     margin-top: 10px;
 }
 
-div.buttonContainer::after{
+div.buttonContainer::after {
     content: '';
     display: block;
     clear: both;
 }
 
-div.buttonContainer div:nth-child(2){
+div.buttonContainer div:nth-child(2) {
     float: right;
     margin-top: 8px;
+}
+
+.btn-grp-paging {
+    display: flex;
+    margin: auto;
+}
+
+.btn-paging {
+    width: 3rem;
+    height: 3rem !important;
+    min-width: 3rem !important;
 }
