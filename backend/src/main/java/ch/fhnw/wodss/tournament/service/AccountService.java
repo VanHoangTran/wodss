@@ -43,6 +43,9 @@ public class AccountService {
 	@Autowired
 	private MailService mailService;
 
+	@Autowired
+	private BettingPoolService bettingPoolService;
+
 	/**
 	 * Registers a new account which is inactive and not verified
 	 * 
@@ -114,6 +117,9 @@ public class AccountService {
 		} else {
 			account.setVerified(true);
 			accountRepository.save(account);
+
+			// add account to global betting pool
+			bettingPoolService.joinSpecialGroup(account);
 		}
 	}
 

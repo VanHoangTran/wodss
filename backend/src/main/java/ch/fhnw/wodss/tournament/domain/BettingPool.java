@@ -14,9 +14,9 @@ public class BettingPool {
 
 	public static final String leaveAction = "leave";
 	public static final String joinAction = "join";
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String name;
@@ -26,6 +26,16 @@ public class BettingPool {
 
 	@ManyToMany
 	private List<Account> members;
+
+	private boolean special;
+
+	public boolean getSpecial() {
+		return special;
+	}
+
+	public void setSpecial(boolean isSpecial) {
+		this.special = isSpecial;
+	}
 
 	public Long getId() {
 		return id;

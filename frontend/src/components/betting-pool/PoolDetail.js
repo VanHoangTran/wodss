@@ -44,7 +44,8 @@ class PoolDetail extends Component {
 
         let isOwner = this.props.user.username == pool.owner.username;
         let isMemebr = pool.members.find(u => u.username === this.props.user.username) != undefined;
-
+        let isSpecial = pool.specialGroup;
+        
         let subtitle = isOwner ? strings.owner : (isMemebr ? strings.member : '');
         return (
             <Card style={styles.card}>
@@ -52,15 +53,15 @@ class PoolDetail extends Component {
                     title={pool.name}
                     actAsExpander={true}
                     showExpandableButton={true}
-                    subtitle={subtitle}
+                    subtitle={!isSpecial && subtitle}
                     style={styles.cardHeader}
                 />
                 
                 <CardText expandable={true} style={styles.cardBody}>
-                    <CardActions>
-                    {isOwner && <FlatButton onClick={this.onDeleteGroup} label={strings.delPool} /> }
-                    {!isMemebr && <FlatButton onClick={this.onJoinGroup} label={strings.joinPool} /> }
-                    {!isOwner && isMemebr && <FlatButton onClick={this.onLeaveGroup} label={strings.leavePool} /> }
+                    <CardActions style={isSpecial ? {display:'none'} : {}}>
+                    {isOwner && !isSpecial && <FlatButton onClick={this.onDeleteGroup} label={strings.delPool} /> }
+                    {!isMemebr && !isSpecial && <FlatButton onClick={this.onJoinGroup} label={strings.joinPool} /> }
+                    {!isOwner && isMemebr && !isSpecial && <FlatButton onClick={this.onLeaveGroup} label={strings.leavePool} /> }
                     </CardActions>
 
                     <Table>

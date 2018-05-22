@@ -194,3 +194,5 @@ insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, 
 -- finale
 insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (64, '2018-07-15 18:00:00', 0, 0, 501, 502, 6, 4, 0);
 
+-- all user group
+insert into betting_pool (id, name, owner_id, special) values (1, "Rangliste aller Tipper", 1, 1);

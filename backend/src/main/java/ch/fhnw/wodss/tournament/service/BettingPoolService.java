@@ -33,13 +33,13 @@ public class BettingPoolService {
 
 	@Autowired
 	private AccountService accountService;
-	
+
 	@Autowired
 	private RankingService rankingService;
-	
+
 	@Autowired
 	private SecurityUtil securityUtil;
-	
+
 	/**
 	 * Gets all bettingPools and marks if current user is member of it
 	 * 
@@ -113,6 +113,11 @@ public class BettingPoolService {
 			throw new IllegalArgumentException("no pool found");
 		}
 
+		// is pool a protected special pool?
+		if (foundByName.getSpecial()) {
+			throw new IllegalArgumentException("protected pools can't be deleted");
+		}
+
 		// is current user owner of pool?
 		final String username = securityUtil.getUsername();
 		Account currentUser = accountService.getAccountByName(username);
@@ -138,6 +143,11 @@ public class BettingPoolService {
 		BettingPool foundByName = bettingPoolRepository.findByName(name);
 		if (foundByName == null) {
 			throw new IllegalArgumentException("no pool found");
+		}
+
+		// is pool a protected special pool?
+		if (foundByName.getSpecial()) {
+			throw new IllegalArgumentException("can't leave protected pools");
 		}
 
 		// is current user owner of pool?
@@ -197,6 +207,33 @@ public class BettingPoolService {
 		bettingPoolRepository.save(foundByName);
 
 		return new BettingPoolDTO(foundByName);
+	}
+
+	/**
+	 * Add a given account to the special groups
+	 * 
+	 * @param account to add
+	 */
+	public void joinSpecialGroup(Account account) {
+		if (account == null || !account.isActive() || !account.isVerified()) {
+			throw new IllegalArgumentException("invalid arguments supplied");
+		}
+
+		// find all special groups
+		List<BettingPool> findAllByIsSpecial = bettingPoolRepository.findAllBySpecial(true);
+		for (BettingPool p : findAllByIsSpecial) {
+			List<Account> currentMembers = p.getMembers();
+			for (Account member : currentMembers) {
+				if (member.getId().equals(account.getId())) {
+					return; // already member, idempotent!
+				}
+			}
+
+			currentMembers.add(account);
+			p.setMembers(currentMembers);
+
+			bettingPoolRepository.save(p);
+		}
 	}
 
 	/**

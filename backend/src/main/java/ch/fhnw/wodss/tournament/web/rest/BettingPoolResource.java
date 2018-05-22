@@ -78,7 +78,7 @@ public class BettingPoolResource {
 			log.info("provided view model was invalid, sending bad request");
 			return new ResponseEntity<String>("Illegal state of view model", HttpStatus.BAD_REQUEST);
 		}
-
+		
 		try {
 			bettingPoolService.deletePool(vm.getName());
 			return new ResponseEntity<>("success", HttpStatus.OK);
