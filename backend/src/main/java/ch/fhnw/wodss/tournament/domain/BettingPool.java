@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class BettingPool {
 
+	public static final long ALL_USERS_GROUP = 1;
+	
 	public static final String leaveAction = "leave";
 	public static final String joinAction = "join";
 

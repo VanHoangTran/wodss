@@ -1,26 +1,26 @@
 package ch.fhnw.wodss.tournament.service.dto;
 
-import ch.fhnw.wodss.tournament.domain.Account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.ArrayList;
-import java.util.List;
+import ch.fhnw.wodss.tournament.domain.Account;
 
-public class AccountDTO {
-
+public class MyAccountDTO {
 	private Long id;
 
 	private String username;
+
+	private String mail;
 
 	private Boolean isAdmin;
 
 	@JsonIgnore
 	private int points;
 
-	public AccountDTO(Account owner) {
+	public MyAccountDTO(Account owner) {
 		this.id = owner.getId();
 		this.username = owner.getUsername();
 		this.isAdmin = owner.isAdmin();
+		this.mail = owner.getMail();
 	}
 
 	public Long getId() {
@@ -47,25 +47,19 @@ public class AccountDTO {
 		this.points = points;
 	}
 
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
 	public Boolean getAdmin() {
 		return isAdmin;
 	}
 
 	public void setAdmin(Boolean admin) {
 		isAdmin = admin;
-	}
-
-	/**
-	 * Converts a list of @Entity account to accountDTO
-	 * 
-	 * @param list of JPA account
-	 * @return list of account DTOs
-	 */
-	public static List<AccountDTO> fromList(List<Account> list) {
-		List<AccountDTO> dtoList = new ArrayList<>();
-		for (Account g : list) {
-			dtoList.add(new AccountDTO(g));
-		}
-		return dtoList;
 	}
 }

@@ -137,4 +137,30 @@ public class MailService {
 		}
 	}
 
+	/**
+	 * Sends the users current ranking as mail to them.
+	 * 
+	 * @param address to send mail to
+	 * @param username of user
+	 * @param rank of user
+	 * @param points of user
+	 */
+	public void sendRankingUpdateMail(String address, String username, int rank, int points) {
+		log.info("sending ranking update to {}", address);
+
+		try {
+			// load mail template from resources
+			URL url = getClass().getClassLoader().getResource("ch/fhnw/wodds/tournament/service/rank_update.html");
+			String template = Resources.toString(url, Charsets.UTF_8);
+
+			// replace username and set activation link
+			template = template.replace("{{username}}", username);
+			template = template.replace("{{rank}}", "" + rank);
+			template = template.replace("{{points}}", "" + points);
+
+			sendMail(template, address, "Dein aktuelles Ranking");
+		} catch (IOException e) {
+			log.error("could not load mail template", e);
+		}
+	}
 }
