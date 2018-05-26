@@ -43,7 +43,7 @@ class Admin extends Component {
             <div>
                 {this.props.matchList.map((phase, i) => {
                     return (
-                        <Card style={styles.card}>
+                        <Card key={i} style={styles.card}>
                             <CardHeader
                                 title={phase.name}
                                 actAsExpander={true}

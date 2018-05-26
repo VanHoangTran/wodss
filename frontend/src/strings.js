@@ -69,5 +69,11 @@ export const strings = new LocalizedStrings({
         admin: "Admin",
 
         appTitle: "WM Tippspiel (G1/wodss)"
+    },
+
+    en: {
+        profile: "Profile",
+        bettingGame: "Game",
+        bettingPools: "Pools",
     }
 });
