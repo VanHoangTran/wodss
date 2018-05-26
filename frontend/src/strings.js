@@ -4,7 +4,6 @@ export const strings = new LocalizedStrings({
     de: {
         ok: "OK",
         errorOccurred: "Ein Fehler ist aufgetreten",
-        navTitle:"WM Tippspiel G1",
         login: "Login",
         username: "Benutzername",
         password: "Passwort",

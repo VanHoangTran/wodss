@@ -52,9 +52,9 @@ class Admin extends Component {
                             />
 
                             <CardText expandable={true} style={styles.cardBody}>
-                                {phase.games.map((game) => {
+                                {phase.games.map((game, i) => {
                                     return (
-                                        <div>
+                                        <div key={i}>
                                             <Divider/>
                                             <AdminMatch game={game} teams={this.props.admin.teams}/>
                                         </div>

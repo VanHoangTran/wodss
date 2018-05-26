@@ -102,7 +102,7 @@ class Header extends Component {
         const content = <div className="header">
             <div style={styles.toolbar}>
                 <div id="navTitle" style={styles.logoContainer}>
-                    {strings.navTitle}
+                    <img src={require("../../images/logo.svg")} alt={""}/>
                 </div>
                 <Tabs value={this.state.value}
                       onChange={this.openUrl}
