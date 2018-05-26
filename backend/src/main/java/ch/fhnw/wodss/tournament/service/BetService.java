@@ -3,6 +3,7 @@ package ch.fhnw.wodss.tournament.service;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -74,6 +75,12 @@ public class BetService {
 		// is match ready for betting?
 		if (!foundGame.get().isReady()) {
 			log.warn("could not PUT bet since game was not ready yet");
+			throw new IllegalArgumentException("invalid arguments provided");
+		}
+
+		// is betting allowed?
+		if (!new Date().before(foundGame.get().getDate())) {
+			log.warn("could not PUT bet since game was not open anymore");
 			throw new IllegalArgumentException("invalid arguments provided");
 		}
 
@@ -191,14 +198,14 @@ public class BetService {
 			}
 		}
 
-		float ratioDraw = draw == 0 ? 0 : draw / ((float)betsForGame.size() / 100);
-		float ratioHomeWins = homeWins == 0 ? 0 : homeWins / ((float)betsForGame.size() / 100);
-		float ratioAwayWins = awayWins == 0 ? 0 : awayWins / ((float)betsForGame.size() / 100);
-		
+		float ratioDraw = draw == 0 ? 0 : draw / ((float) betsForGame.size() / 100);
+		float ratioHomeWins = homeWins == 0 ? 0 : homeWins / ((float) betsForGame.size() / 100);
+		float ratioAwayWins = awayWins == 0 ? 0 : awayWins / ((float) betsForGame.size() / 100);
+
 		// rounding rule
 		DecimalFormat df = new DecimalFormat("#");
 		df.setRoundingMode(RoundingMode.FLOOR);
-		
+
 		return new BetStatisticsDTO(df.format(ratioHomeWins), df.format(ratioAwayWins), df.format(ratioDraw));
 	}
 }
