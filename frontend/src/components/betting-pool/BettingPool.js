@@ -7,7 +7,7 @@ import {strings} from "../../strings";
 import "./BettingPool.css"
 import PoolDetail from './PoolDetail';
 
-const visiblePoolsPerPage = 3;
+const visiblePoolsPerPage = 5;
 
 class BettingPool extends Component {
 
