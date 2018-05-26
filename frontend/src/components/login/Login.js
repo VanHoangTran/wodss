@@ -74,6 +74,7 @@ class Login extends Component {
             param: param,
             dialogTitle: dialogTitle,
             dialogMessage: dialogMessage,
+            authenticated: false,
         };
     }
 
@@ -103,11 +104,14 @@ class Login extends Component {
     }
 
     handleAuthenticationSuccessful() {
+        this.setState({
+            authenticated: true,
+        });
         this.props.getAccountInformation();
     }
 
     handleLoginSuccessful() {
-        this.props.history.push(pages.matchList);
+        this.props.history.push(pages.root);
     }
 
     handleLoginFailed() {
@@ -115,6 +119,7 @@ class Login extends Component {
             password: "",
             failAnimationActive: true,
             loginOngoing: false,
+            authenticated: false,
         });
     }
 
@@ -159,6 +164,7 @@ class Login extends Component {
         ];
         return (
             <div>
+                {!this.state.authenticated &&
                 <Card className={this.state.failAnimationActive ? "shake animated" : ""}
                       onAnimationEnd={this.onAnimationEnd}
                       style={styles.card}>
@@ -194,8 +200,8 @@ class Login extends Component {
                             <NavLink exact to={pages.registration}>{strings.registration}</NavLink>
                         </div>
                     </CardText>
-                </Card>
-                <Dialog
+                </Card>}
+                < Dialog
                     title={this.state.dialogTitle}
                     actions={actions}
                     modal={false}
@@ -203,6 +209,7 @@ class Login extends Component {
                     onRequestClose={this.handleCloseDialog}>
                     {this.state.dialogMessage}
                 </Dialog>
+
             </div>
         );
     }
