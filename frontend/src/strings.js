@@ -61,7 +61,7 @@ export const strings = new LocalizedStrings({
         joinPool: "Beitreten",
         leavePool: "Gruppe verlassen",
         newGroupHint: "Name neuer Gruppe...",
-        groupAlreadyExists: "Gruppe mit identischem Namen existiert bereits.\nBitte wählen Sie einen anderen Gruppen-Namen.",
+        groupAlreadyExists: "Name der Gruppe ungültig.\nBitte wählen Sie einen angemessenen Gruppen-Namen.",
         unableToJoinOrLeave: "Verlassen oder Beitreten der Gruppe ist fehlgeschlagen, versuchen Sie es später nochmals.",
         failedToDeleteBet: "Tipp konnte nicht gelöscht werden!",
         betDeleted: "Tipp wurde gelöscht!",
