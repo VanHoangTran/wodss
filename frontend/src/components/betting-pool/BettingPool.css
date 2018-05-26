@@ -62,6 +62,7 @@ span.ranking {
     margin-right: 1rem;
     font-size: 1.5rem;
     width: 2rem;
+    text-align: center;
 }
 
 span.points {
