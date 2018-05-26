@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {getAvatarUrl} from "../../util/imageUtil";
 import {strings} from "../../strings";
 import {withRouter} from 'react-router';
+import './Header.css';
 
 const styles = {
     toolbar: {
@@ -15,8 +16,9 @@ const styles = {
         color: colors.light,
     },
     logoContainer: {
-        width: '5rem',
+        width: '10rem',
         display: 'inline-block',
+        textIndent: '1rem'
     },
     tabs: {
         width: '20rem',
@@ -99,8 +101,8 @@ class Header extends Component {
         const loggedIn = this.props.user.username && this.props.user.token;
         const content = <div className="header">
             <div style={styles.toolbar}>
-                <div style={styles.logoContainer}>
-                    LOGO
+                <div id="navTitle" style={styles.logoContainer}>
+                    {strings.navTitle}
                 </div>
                 <Tabs value={this.state.value}
                       onChange={this.openUrl}

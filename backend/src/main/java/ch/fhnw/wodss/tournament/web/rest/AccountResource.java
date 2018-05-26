@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ch.fhnw.wodss.tournament.domain.Account;
 import ch.fhnw.wodss.tournament.service.AccountService;
-import ch.fhnw.wodss.tournament.service.dto.AccountDTO;
+import ch.fhnw.wodss.tournament.service.dto.MyAccountDTO;
 import ch.fhnw.wodss.tournament.util.SecurityUtil;
 import ch.fhnw.wodss.tournament.util.ValidationUtil;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.FinalizeRecoveryViewModel;
@@ -167,12 +167,12 @@ public class AccountResource {
 	}
 
 	@GetMapping("/account")
-	public ResponseEntity<AccountDTO> getAccount() {
+	public ResponseEntity<MyAccountDTO> getAccount() {
 		log.info("call to GET account information. username:{}", securityUtil.getUsername());
 
 		try {
 			Account account = accountService.getAccountByName(securityUtil.getUsername());
-			AccountDTO accountDTO = new AccountDTO(account);
+			MyAccountDTO accountDTO = new MyAccountDTO(account);
 			return new ResponseEntity<>(accountDTO, HttpStatus.OK);
 
 		} catch (IllegalArgumentException iae) {
