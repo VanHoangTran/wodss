@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {apiCreateGroup, apiLoadAllBettingPools} from "../../actions/betting-pool-actions";
 import {colors} from "../../util/constants";
-import {FlatButton, IconButton, Paper, RaisedButton, TextField} from "material-ui";
+import {Dialog, FlatButton, IconButton, Paper, RaisedButton, TextField} from "material-ui";
 import {strings} from "../../strings";
 import "./BettingPool.css"
 import PoolDetail from './PoolDetail';
@@ -26,6 +26,7 @@ class BettingPool extends Component {
             selectedIndex: 0,
             visiblePools: [],
             numberOfPages: 0,
+            dialog: undefined,
         };
     }
 
@@ -44,9 +45,19 @@ class BettingPool extends Component {
         if (props.poolStore.action === "reload") {
             this.props.loadPools();
         } else if (props.poolStore.action === "unableToCreate") {
-            alert(strings.groupAlreadyExists);
+            this.setState({
+                dialog: {
+                    title: strings.errorOccurred,
+                    content: strings.groupAlreadyExists,
+                },
+            });
         } else if (props.poolStore.action === "unableToJoinOrLeave") {
-            alert(strings.unableToJoinOrLeave);
+            this.setState({
+                dialog: {
+                    title: strings.errorOccurred,
+                    content: strings.unableToJoinOrLeave,
+                },
+            });
         }
     }
 
@@ -95,6 +106,12 @@ class BettingPool extends Component {
         }
     }
 
+    handleCloseDialog = () => {
+        this.setState({
+            dialog: undefined,
+        });
+    };
+
     render() {
         let pagingButtons = [];
         for (let i = 0; i < this.state.numberOfPages; i++) {
@@ -139,6 +156,24 @@ class BettingPool extends Component {
                         disabled={this.state.selectedIndex === this.state.numberOfPages - 1}
                         iconClassName="material-icons">chevron_right</IconButton>
                 </Paper>
+                }
+
+                {this.state.dialog &&
+                <Dialog
+                    title={this.state.dialog.title}
+                    actions={[
+                        <FlatButton
+                            label={strings.ok}
+                            primary={true}
+                            keyboardFocused={true}
+                            onClick={this.handleCloseDialog}
+                        />
+                    ]}
+                    modal={false}
+                    open={!!this.state.dialog}
+                    onRequestClose={this.handleCloseDialog}>
+                    {this.state.dialog.content}
+                </Dialog>
                 }
             </div>
         );
