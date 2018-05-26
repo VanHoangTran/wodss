@@ -79,6 +79,11 @@ class Header extends Component {
         this.openUrl(menuItem.props.url);
     }
 
+    handleLanguageChange = (event) => {
+        strings.setLanguage(event.target.innerText);
+        this.setState({});
+    };
+
     openUrl(url) {
         let activeTab = url;
         if (url === pages.logout) {
@@ -126,6 +131,24 @@ class Header extends Component {
                             style={styles.avatarButton}>
                     <img style={styles.avatar} alt="" src={getAvatarUrl(this.props.user.username)}/>
                 </FlatButton>
+
+
+                {
+                    strings.getAvailableLanguages().map((language, i) => {
+                        let className = "btn-change-language";
+                        if (language === strings.getLanguage()) {
+                            className += " active";
+                        }
+                        return (
+                            <FlatButton key={i}
+                                        onClick={this.handleLanguageChange}
+                                        rippleColor={colors.light}
+                                        className={className}>
+                                {language}
+                            </FlatButton>
+                        );
+                    })
+                }
 
                 <Popover
                     open={this.state.menuOpen}
