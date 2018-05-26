@@ -97,6 +97,8 @@ public class TournamentManager implements Runnable {
 				log.info("noting to update");
 			}
 
+		} else {
+			log.info("noting to update");
 		}
 
 	}

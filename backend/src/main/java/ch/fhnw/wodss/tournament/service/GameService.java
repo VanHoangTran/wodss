@@ -237,8 +237,8 @@ public class GameService {
 		Game rightGame = findGameById(rightGameId);
 
 		// determine which teams are in next match - no draw here!
-		Team home = leftGame.getHomeGoals() > rightGame.getHomeGoals() ? leftGame.getHome() : leftGame.getAway();
-		Team away = rightGame.getHomeGoals() > rightGame.getHomeGoals() ? rightGame.getHome() : rightGame.getAway();
+		Team home = leftGame.getHomeGoals() > leftGame.getAwayGoals() ? leftGame.getHome() : leftGame.getAway();
+		Team away = rightGame.getHomeGoals() > rightGame.getAwayGoals() ? rightGame.getHome() : rightGame.getAway();
 
 		nextGame.setHome(home);
 		nextGame.setAway(away);
@@ -258,8 +258,8 @@ public class GameService {
 		Game rightGame = findGameById(rightGameId);
 
 		// determine which teams are in next match - no draw here!
-		Team home = leftGame.getHomeGoals() > rightGame.getHomeGoals() ? leftGame.getAway() : leftGame.getHome();
-		Team away = rightGame.getHomeGoals() > rightGame.getHomeGoals() ? rightGame.getAway() : rightGame.getHome();
+		Team home = leftGame.getHomeGoals() < leftGame.getAwayGoals() ? leftGame.getHome() : leftGame.getAway();
+		Team away = rightGame.getHomeGoals() < rightGame.getAwayGoals() ? rightGame.getHome() : rightGame.getAway();
 
 		nextGame.setHome(home);
 		nextGame.setAway(away);
