@@ -1,6 +1,7 @@
 package ch.fhnw.wodss.tournament.service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ import ch.fhnw.wodss.tournament.domain.BettingPool;
 import ch.fhnw.wodss.tournament.repository.BettingPoolRepository;
 import ch.fhnw.wodss.tournament.service.dto.AccountDTO;
 import ch.fhnw.wodss.tournament.service.dto.BettingPoolDTO;
+import ch.fhnw.wodss.tournament.service.dto.RankingDTO;
 import ch.fhnw.wodss.tournament.util.SecurityUtil;
 
 /**
@@ -61,8 +63,24 @@ public class BettingPoolService {
 			log.info("current user is " + (isMember ? "" : "not") + " member of pool {}", pool.getName());
 			pool.setMember(isMember);
 			pool.setRanking(rankingService.getRankingOfPool(pool.getId()));
+			
+			// calculate sum of all points to display pool ranking
+			int totalPointsPool = 0;
+			for(RankingDTO ranking : pool.getRanking()) {
+				totalPointsPool += ranking.getPoints();
+			}
+			
+			if(pool.isSpecialGroup()) {
+				pool.setTotalPointsOfGroup(Integer.MAX_VALUE);
+			} else {
+				int ratioAccount = totalPointsPool / pool.getMembers().size();
+				pool.setTotalPointsOfGroup(ratioAccount);
+			}
 		}
 
+		// order pools by total points
+		dtoList.sort(Comparator.comparing(BettingPoolDTO::getTotalPointsOfGroup).reversed());
+		
 		return dtoList;
 	}
 
