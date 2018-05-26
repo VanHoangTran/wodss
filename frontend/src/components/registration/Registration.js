@@ -11,7 +11,7 @@ const styles = {
     card: {
         width: '46rem',
         margin: 'auto',
-        marginTop: dimensions.formCardMarginTop,
+        marginTop: '5rem',
     },
     cardHeader: {
         backgroundColor: colors.primaryColor,
