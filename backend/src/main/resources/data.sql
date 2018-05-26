@@ -119,80 +119,80 @@ insert into stadium (id, city, name) values (11, 'Sotschi', 'Fischt-Stadion');
 insert into stadium (id, city, name) values (12, 'Wolgograd', 'Wolgograd-Arena');
 
 -- gruppenspiele
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (1, '2018-06-14 18:00:00', 0, 0, 1, 2, 1, 4, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (2, '2018-06-15 17:00:00', 0, 0, 3, 4, 1, 1, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (3, '2018-06-15 18:00:00', 0, 0, 7, 8, 1, 8, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (4, '2018-06-15 18:00:00', 0, 0, 5, 6, 1, 11, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (1, '2018-06-14 17:00:00', 0, 0, 1, 2, 1, 4, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (2, '2018-06-15 14:00:00', 0, 0, 3, 4, 1, 1, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (3, '2018-06-15 17:00:00', 0, 0, 7, 8, 1, 8, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (4, '2018-06-15 20:00:00', 0, 0, 5, 6, 1, 11, 0);
 insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (5, '2018-06-16 21:00:00', 0, 0, 15, 16, 1, 2, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (6, '2018-06-16 13:00:00', 0, 0, 9, 10, 1, 3, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (7, '2018-06-16 16:00:00', 0, 0, 13, 14, 1, 5, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (8, '2018-06-16 19:00:00', 0, 0, 11, 12, 1, 10, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (9, '2018-06-17 18:00:00', 0, 0, 21, 22, 1, 4, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (10, '2018-06-17 21:00:00', 0, 0, 17, 18, 1, 7, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (11, '2018-06-17 16:00:00', 0, 0, 19, 20, 1, 9, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (12, '2018-06-18 15:00:00', 0, 0, 23, 24, 1, 6, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (13, '2018-06-18 19:00:00', 0, 0, 25, 26, 1, 11, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (14, '2018-06-18 21:00:00', 0, 0, 27, 28, 1, 12, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (15, '2018-06-19 18:00:00', 0, 0, 29, 30, 1, 5, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (16, '2018-06-19 21:00:00', 0, 0, 1, 3, 1, 8, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (17, '2018-06-19 15:00:00', 0, 0, 31, 32, 1, 10, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (18, '2018-06-20 21:00:00', 0, 0, 8, 6, 1, 3, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (19, '2018-06-20 15:00:00', 0, 0, 5, 7, 1, 4, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (20, '2018-06-20 18:00:00', 0, 0, 4, 2, 1, 7, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (21, '2018-06-21 20:00:00', 0, 0, 9, 11, 1, 1, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (22, '2018-06-21 21:00:00', 0, 0, 13, 15, 1, 6, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (23, '2018-06-21 16:00:00', 0, 0, 12, 10, 1, 9, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (6, '2018-06-16 12:00:00', 0, 0, 9, 10, 1, 3, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (7, '2018-06-16 15:00:00', 0, 0, 13, 14, 1, 5, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (8, '2018-06-16 18:00:00', 0, 0, 11, 12, 1, 10, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (9, '2018-06-17 17:00:00', 0, 0, 21, 22, 1, 4, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (10, '2018-06-17 20:00:00', 0, 0, 17, 18, 1, 7, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (11, '2018-06-17 14:00:00', 0, 0, 19, 20, 1, 9, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (12, '2018-06-18 14:00:00', 0, 0, 23, 24, 1, 6, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (13, '2018-06-18 17:00:00', 0, 0, 25, 26, 1, 11, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (14, '2018-06-18 20:00:00', 0, 0, 27, 28, 1, 12, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (15, '2018-06-19 17:00:00', 0, 0, 29, 30, 1, 5, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (16, '2018-06-19 20:00:00', 0, 0, 1, 3, 1, 8, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (17, '2018-06-19 14:00:00', 0, 0, 31, 32, 1, 10, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (18, '2018-06-20 20:00:00', 0, 0, 8, 6, 1, 3, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (19, '2018-06-20 14:00:00', 0, 0, 5, 7, 1, 4, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (20, '2018-06-20 17:00:00', 0, 0, 4, 2, 1, 7, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (21, '2018-06-21 17:00:00', 0, 0, 9, 11, 1, 1, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (22, '2018-06-21 20:00:00', 0, 0, 13, 15, 1, 6, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (23, '2018-06-21 14:00:00', 0, 0, 12, 10, 1, 9, 0);
 insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (24, '2018-06-22 20:00:00', 0, 0, 20, 18, 1, 2, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (25, '2018-06-22 15:00:00', 0, 0, 17, 19, 1, 8, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (26, '2018-06-22 18:00:00', 0, 0, 16, 14, 1, 12, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (27, '2018-06-23 15:00:00', 0, 0, 25, 27, 1, 5, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (28, '2018-06-23 18:00:00', 0, 0, 24, 22, 1, 7, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (29, '2018-06-23 21:00:00', 0, 0, 21, 23, 1, 11, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (30, '2018-06-24 20:00:00', 0, 0, 32, 30, 1, 1, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (31, '2018-06-24 21:00:00', 0, 0, 29, 31, 1, 3, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (32, '2018-06-24 15:00:00', 0, 0, 28, 26, 1, 6, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (25, '2018-06-22 14:00:00', 0, 0, 17, 19, 1, 8, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (26, '2018-06-22 17:00:00', 0, 0, 16, 14, 1, 12, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (27, '2018-06-23 14:00:00', 0, 0, 25, 27, 1, 5, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (28, '2018-06-23 17:00:00', 0, 0, 24, 22, 1, 7, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (29, '2018-06-23 20:00:00', 0, 0, 21, 23, 1, 11, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (30, '2018-06-24 17:00:00', 0, 0, 32, 30, 1, 1, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (31, '2018-06-24 20:00:00', 0, 0, 29, 31, 1, 3, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (32, '2018-06-24 14:00:00', 0, 0, 28, 26, 1, 6, 0);
 insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (33, '2018-06-25 20:00:00', 0, 0, 6, 7, 1, 2, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (34, '2018-06-25 18:00:00', 0, 0, 4, 1, 1, 9, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (35, '2018-06-25 21:00:00', 0, 0, 8, 5, 1, 10, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (36, '2018-06-25 17:00:00', 0, 0, 2, 3, 1, 12, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (37, '2018-06-26 17:00:00', 0, 0, 12, 9, 1, 4, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (38, '2018-06-26 21:00:00', 0, 0, 14, 15, 1, 7, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (39, '2018-06-26 21:00:00', 0, 0, 16, 13, 1, 8, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (40, '2018-06-26 17:00:00', 0, 0, 10, 11, 1, 11, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (41, '2018-06-27 19:00:00', 0, 0, 22, 23, 1, 1, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (42, '2018-06-27 17:00:00', 0, 0, 24, 21, 1, 3, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (43, '2018-06-27 21:00:00', 0, 0, 20, 17, 1, 5, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (44, '2018-06-27 21:00:00', 0, 0, 18, 19, 1, 6, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (34, '2018-06-25 16:00:00', 0, 0, 4, 1, 1, 9, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (35, '2018-06-25 20:00:00', 0, 0, 8, 5, 1, 10, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (36, '2018-06-25 16:00:00', 0, 0, 2, 3, 1, 12, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (37, '2018-06-26 16:00:00', 0, 0, 12, 9, 1, 4, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (38, '2018-06-26 20:00:00', 0, 0, 14, 15, 1, 7, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (39, '2018-06-26 20:00:00', 0, 0, 16, 13, 1, 8, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (40, '2018-06-26 16:00:00', 0, 0, 10, 11, 1, 11, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (41, '2018-06-27 16:00:00', 0, 0, 22, 23, 1, 1, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (42, '2018-06-27 16:00:00', 0, 0, 24, 21, 1, 3, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (43, '2018-06-27 20:00:00', 0, 0, 20, 17, 1, 5, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (44, '2018-06-27 20:00:00', 0, 0, 18, 19, 1, 6, 0);
 insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (45, '2018-06-28 20:00:00', 0, 0, 28, 25, 1, 2, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (46, '2018-06-28 18:00:00', 0, 0, 30, 31, 1, 9, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (47, '2018-06-28 21:00:00', 0, 0, 26, 27, 1, 10, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (48, '2018-06-28 17:00:00', 0, 0, 32, 29, 1, 12, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (46, '2018-06-28 16:00:00', 0, 0, 30, 31, 1, 9, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (47, '2018-06-28 20:00:00', 0, 0, 26, 27, 1, 10, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (48, '2018-06-28 16:00:00', 0, 0, 32, 29, 1, 12, 0);
 
 -- achtelfinale
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (49, '2018-06-30 17:00:00', 0, 0, 103, 112, 2, 3, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (50, '2018-06-30 21:00:00', 0, 0, 101, 110, 2, 11, 0); 
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (51, '2018-07-01 17:00:00', 0, 0, 102, 109, 2, 4, 0); 
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (52, '2018-07-01 21:00:00', 0, 0, 104, 111, 2, 6, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (53, '2018-07-02 18:00:00', 0, 0, 105, 114, 2, 9, 0); 
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (54, '2018-07-02 21:00:00', 0, 0, 107, 116, 2, 7, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (55, '2018-07-03 17:00:00', 0, 0, 106, 113, 2, 8, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (56, '2018-07-03 21:00:00', 0, 0, 108, 115, 2, 5, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (49, '2018-06-30 16:00:00', 0, 0, 103, 112, 2, 3, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (50, '2018-06-30 20:00:00', 0, 0, 101, 110, 2, 11, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (51, '2018-07-01 16:00:00', 0, 0, 102, 109, 2, 4, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (52, '2018-07-01 20:00:00', 0, 0, 104, 111, 2, 6, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (53, '2018-07-02 16:00:00', 0, 0, 105, 114, 2, 9, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (54, '2018-07-02 20:00:00', 0, 0, 107, 116, 2, 7, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (55, '2018-07-03 16:00:00', 0, 0, 106, 113, 2, 8, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (56, '2018-07-03 20:00:00', 0, 0, 108, 115, 2, 5, 0);
 
 -- viertelfinale
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (57, '2018-07-06 17:00:00', 0, 0, 201, 202, 3, 6, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (58, '2018-07-06 21:00:00', 0, 0, 205, 206, 3, 3, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (59, '2018-07-07 18:00:00', 0, 0, 207, 208, 3, 9, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (60, '2018-07-07 21:00:00', 0, 0, 203, 204, 3, 11, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (57, '2018-07-06 16:00:00', 0, 0, 201, 202, 3, 6, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (58, '2018-07-06 20:00:00', 0, 0, 205, 206, 3, 3, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (59, '2018-07-07 16:00:00', 0, 0, 207, 208, 3, 9, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (60, '2018-07-07 20:00:00', 0, 0, 203, 204, 3, 11, 0);
 
 -- halbfinale
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (61, '2018-07-10 21:00:00', 0, 0, 301, 302, 4, 8, 0);
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (62, '2018-07-11 21:00:00', 0, 0, 303, 304, 4, 4, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (61, '2018-07-10 20:00:00', 0, 0, 301, 302, 4, 8, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (62, '2018-07-11 20:00:00', 0, 0, 303, 304, 4, 4, 0);
 
 -- platz 3
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (63, '2018-07-14 17:00:00', 0, 0, 401, 402, 5, 8, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (63, '2018-07-14 16:00:00', 0, 0, 401, 402, 5, 8, 0);
 
 -- finale
-insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (64, '2018-07-15 18:00:00', 0, 0, 501, 502, 6, 4, 0);
+insert into game (id, date, away_goals, home_goals, home_id, away_id, phase_id, stadium_id, results_entered) values (64, '2018-07-15 17:00:00', 0, 0, 501, 502, 6, 4, 0);
 
 -- all user group
 insert into betting_pool (id, name, owner_id, special) values (1, "Rangliste aller Tipper", 1, 1);
