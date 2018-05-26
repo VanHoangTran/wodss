@@ -175,8 +175,8 @@ class PoolDetail extends Component {
                     style={styles.cardHeader}
                     children={
                         !isSpecial ? [
-                            <span className={"ranking"}>{pool.poolRank}</span>,
-                            <span className={"points"}>{pool.totalPointsOfGroup}</span>
+                            <span key={"ranking"} className={"ranking"}>{pool.poolRank}</span>,
+                            <span key={"points"} className={"points"}>{pool.totalPointsOfGroup}</span>
                         ] : []
                     }
                 />
