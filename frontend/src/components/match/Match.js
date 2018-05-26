@@ -1,13 +1,45 @@
 import React, {Component} from 'react';
-import {IconButton} from "material-ui";
+import {Dialog, FlatButton, IconButton} from "material-ui";
 import {strings} from "../../strings";
 import {connect} from 'react-redux';
 import "./Match.css"
 import Bet from '../bet/Bet';
 import {getFlagImage} from "../../util/imageUtil";
 import {Col, Row} from "react-grid-system";
+import GameStats from "../game-stats/GameStats";
 
 class Match extends Component {
+
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            dialog: undefined,
+        };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+    }
+
+    handleShowStatsButtonClick = () => {
+        let dialogContent = (
+            <GameStats game={this.props.match}/>
+        );
+        this.setState({
+            dialog: {
+                title: strings.stats,
+                content: dialogContent,
+            },
+        });
+    };
+
+    handleCloseDialog = () => {
+        this.setState({
+            dialog: undefined,
+        });
+    };
 
     render() {
         let match = this.props.match;
@@ -29,7 +61,9 @@ class Match extends Component {
                         <span>{formatDate(matchDate)}</span>
                         <span>{match.stadium.name} - {match.stadium.city}</span>
                     </div>
-                    <IconButton iconClassName="material-icons">cancel</IconButton>
+                    <IconButton iconClassName="material-icons" onClick={this.handleShowStatsButtonClick}>
+                        insert_chart
+                    </IconButton>
                 </div>
                 <Row className="row">
                     <Col xs={4.5} className="col country-name">
@@ -57,6 +91,25 @@ class Match extends Component {
                     <Col xs={4.5}>
                     </Col>
                 </Row>
+
+                {this.state.dialog &&
+                <Dialog
+                    title={this.state.dialog.title}
+                    actions={[
+                        <FlatButton
+                            label={strings.ok}
+                            primary={true}
+                            keyboardFocused={true}
+                            onClick={this.handleCloseDialog}
+                        />
+                    ]}
+                    modal={false}
+                    open={!!this.state.dialog}
+                    onRequestClose={this.handleCloseDialog}
+                    bodyStyle={{padding: 0}}>
+                    {this.state.dialog.content}
+                </Dialog>
+                }
             </div>
         );
     }

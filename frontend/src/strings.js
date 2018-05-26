@@ -45,6 +45,11 @@ export const strings = new LocalizedStrings({
         bettingGame: "Tippspiel",
         goals: "Tore",
         points: "Punkte",
+        stats: "Statistik",
+        gameResult: "Spielergebnis",
+        tipsOfOtherUsers: "Tipps aller Benutzer",
+        draw: "Unentschieden",
+        winner: "Sieger",
 
         failedToUpdateGame: "Spiel konnte nicht aktualisiert werden.",
 

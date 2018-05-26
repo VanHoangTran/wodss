@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Match from "../match/Match";
-import {Card, CardHeader, CardText, Divider, Table, TableBody} from "material-ui";
+import {Card, CardHeader, CardText, Divider} from "material-ui";
 import {colors, dimensions} from "../../util/constants";
 import {connect} from "react-redux";
 import {apiLoadMatchList} from "../../actions/match-list-actions";
@@ -44,16 +44,14 @@ class MatchList extends Component {
                             />
 
                             <CardText expandable={true} style={styles.cardBody}>
-                                <Table>
-                                    <TableBody displayRowCheckbox={false}>
-                                        {phase.games.map((game, i) => {
-                                            return <div>
-                                                <Match key={i} match={game}/>
-                                                <Divider/>
-                                            </div>
-                                        })}
-                                    </TableBody>
-                                </Table>
+                                {phase.games.map((game, i) => {
+                                    return (
+                                        <div key={i}>
+                                            <Match match={game}/>
+                                            <Divider/>
+                                        </div>
+                                    );
+                                })}
                             </CardText>
                         </Card>
                     );

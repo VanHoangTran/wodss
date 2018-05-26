@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {TextField} from "material-ui";
+import {Dialog, FlatButton, TextField} from "material-ui";
 import {apiDeleteBet, apiPutBet} from '../../actions/bet-actions'
 import {apiLoadMatchList} from '../../actions/match-list-actions'
 import {strings} from "../../strings";
@@ -14,7 +14,8 @@ class Bet extends Component {
         this.handleAwayGoalsChange = this.handleAwayGoalsChange.bind(this);
 
         this.state = {
-            background: {backgroundColor: 'transparent'}
+            background: {backgroundColor: 'transparent'},
+            dialog: undefined,
         };
 
         // check if we got a bet for this match!
@@ -45,33 +46,41 @@ class Bet extends Component {
         if (nextProps.betStore.lastDeleted.gameId === this.props.matchId) {
             this.setState({background: {backgroundColor: 'transparent'}});
             if (nextProps.betStore.lastDeleted.success === false) {
-                alert(strings.failedToDeleteBet);
+                this.setState({
+                    dialog: {
+                        title: strings.errorOccurred,
+                        content: strings.failedToDeleteBet,
+                    },
+                });
             } else if (nextProps.betStore.lastDeleted.success === true) {
-                alert(strings.betDeleted);
+                this.setState({
+                    dialog: {
+                        title: strings.betDeleted,
+                        content: "",
+                    },
+                });
             }
         }
     }
 
     handleHomeGoalsChange = (event) => {
         let value = Bet.formatGoalsValue(event.target.value);
-        if (value === undefined) {
-            // keep old value if new value not valid
-            value = this.state.homeGoals;
+        // keep old value if new value not valid
+        if (value !== undefined) {
+            this.setState({
+                homeGoals: value,
+            }, this.onStateChanged);
         }
-        this.setState({
-            homeGoals: value,
-        }, this.onStateChanged);
     };
 
     handleAwayGoalsChange = (event) => {
         let value = Bet.formatGoalsValue(event.target.value);
-        if (value === undefined) {
-            // keep old value if new value not valid
-            value = this.state.awayGoals;
+        // keep old value if new value not valid
+        if (value !== undefined) {
+            this.setState({
+                awayGoals: value,
+            }, this.onStateChanged);
         }
-        this.setState({
-            awayGoals: value,
-        }, this.onStateChanged);
     };
 
     onStateChanged = () => {
@@ -93,6 +102,12 @@ class Bet extends Component {
         if (homeGoals !== "" && !isNaN(homeGoals) && awayGoals !== "" && !isNaN(awayGoals)) {
             this.props.putBet(this.props.matchId, homeGoals, awayGoals);
         }
+    };
+
+    handleCloseDialog = () => {
+        this.setState({
+            dialog: undefined,
+        });
     };
 
     static formatGoalsValue(value) {
@@ -123,15 +138,35 @@ class Bet extends Component {
                                onChange={this.handleHomeGoalsChange}
                                disabled={!this.props.open}
                                style={this.state.background}
-                               className={"textfield"}/>
+                               className={"textfield"}
+                               name={"text-field-home"}/>
                 </div>
                 <div className={"away"}>
                     <TextField value={this.state.awayGoals}
                                onChange={this.handleAwayGoalsChange}
                                disabled={!this.props.open}
                                style={this.state.background}
-                               className={"textfield"}/>
+                               className={"textfield"}
+                               name={"text-field-away"}/>
                 </div>
+
+                {this.state.dialog &&
+                <Dialog
+                    title={this.state.dialog.title}
+                    actions={[
+                        <FlatButton
+                            label={strings.ok}
+                            primary={true}
+                            keyboardFocused={true}
+                            onClick={this.handleCloseDialog}
+                        />
+                    ]}
+                    modal={false}
+                    open={!!this.state.dialog}
+                    onRequestClose={this.handleCloseDialog}>
+                    {this.state.dialog.content}
+                </Dialog>
+                }
             </div>
         );
     }
