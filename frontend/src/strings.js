@@ -55,6 +55,7 @@ export const strings = new LocalizedStrings({
         bettingPools: "Tippgruppen",
         newBettingPool: "Neue Gruppe erstellen",
         member: "Mitglied",
+        notMember: "Nicht Mitglied",
         ranking: "Rang",
         delPool: "Gruppe löschen",
         joinPool: "Beitreten",
