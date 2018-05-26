@@ -20,6 +20,8 @@ public class BettingPoolDTO {
 	private List<RankingDTO> ranking;
 	
 	private int totalPointsOfGroup;
+	
+	private int poolRank;
 
 	private boolean isSpecialGroup;
 
@@ -93,6 +95,14 @@ public class BettingPoolDTO {
 
 	public void setTotalPointsOfGroup(int totalPointsOfGroup) {
 		this.totalPointsOfGroup = totalPointsOfGroup;
+	}
+
+	public int getPoolRank() {
+		return poolRank;
+	}
+
+	public void setPoolRank(int poolRank) {
+		this.poolRank = poolRank;
 	}
 
 	/**
