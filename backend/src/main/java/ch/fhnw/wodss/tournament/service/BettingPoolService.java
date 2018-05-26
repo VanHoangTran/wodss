@@ -81,6 +81,11 @@ public class BettingPoolService {
 		// order pools by total points
 		dtoList.sort(Comparator.comparing(BettingPoolDTO::getTotalPointsOfGroup).reversed());
 		
+		int pos = 1;
+		for(BettingPoolDTO pool : dtoList) {
+			pool.setPoolRank(pos++);
+		}
+		
 		return dtoList;
 	}
 
