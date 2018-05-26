@@ -55,3 +55,18 @@
 .btn-grp-paging.detail {
     margin-top: 0.5rem;
 }
+
+span.ranking {
+    line-height: 2rem;
+    float: left;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    width: 2rem;
+}
+
+span.points {
+    line-height: 2rem;
+    float: right;
+    margin-right: 2rem;
+    text-align: right;
+}

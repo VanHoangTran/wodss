@@ -148,7 +148,7 @@ class PoolDetail extends Component {
         let isMember = pool.members.find(u => u.username === this.props.user.username) !== undefined;
         let isSpecial = pool.specialGroup;
 
-        let subtitle = isOwner ? strings.admin : (isMember ? strings.member : '');
+        let subtitle = isOwner ? strings.admin : (isMember ? strings.member : strings.notMember);
 
         let pagingButtons = [];
         for (let i = 0; i < this.state.numberOfPages; i++) {
@@ -173,6 +173,12 @@ class PoolDetail extends Component {
                     showExpandableButton={true}
                     subtitle={!isSpecial && subtitle}
                     style={styles.cardHeader}
+                    children={
+                        !isSpecial ? [
+                            <span className={"ranking"}>{pool.poolRank}</span>,
+                            <span className={"points"}>{pool.totalPointsOfGroup}</span>
+                        ] : []
+                    }
                 />
 
                 <CardText className={"card-body"} expandable={true}>
