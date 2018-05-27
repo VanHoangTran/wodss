@@ -1,19 +1,5 @@
 package ch.fhnw.wodss.tournament.service;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import ch.fhnw.wodss.tournament.domain.Account;
 import ch.fhnw.wodss.tournament.domain.Bet;
 import ch.fhnw.wodss.tournament.domain.Game;
@@ -23,6 +9,19 @@ import ch.fhnw.wodss.tournament.service.dto.BetDTO;
 import ch.fhnw.wodss.tournament.service.dto.BetStatisticsDTO;
 import ch.fhnw.wodss.tournament.util.SecurityUtil;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.BetVM;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service responsible for interaction with bets
@@ -163,9 +162,9 @@ public class BetService {
 	}
 
 	/**
-	 * Deletes a bet by it's id
+	 * Deletes a bet by given game id
 	 * 
-	 * @param betId to delete
+	 * @param gameId
 	 */
 	public void deleteByGameId(Long gameId) {
 		final String username = securityUtil.getUsername();
