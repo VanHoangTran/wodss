@@ -10,7 +10,7 @@ import ch.fhnw.wodss.tournament.domain.AccountRecovery;
  */
 public class LinkUtils {
 
-	private static final String BASE_URL = "https://server1107.cs.technik.fhnw.ch";
+	private static final String BASE_URL = "https://46.101.218.251";
 
 	public static String getActivationLink(Account account) {
 		return BASE_URL + "/activate/" + account.getActivationKey();

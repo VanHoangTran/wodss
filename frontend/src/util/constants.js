@@ -1,4 +1,4 @@
-export const API_ENDPOINT = 'https://server1107.cs.technik.fhnw.ch:8080/api/';
+export const API_ENDPOINT = 'https://46.101.218.251:8080/api/';
 export const API_ACTION_AUTH = 'authenticate';
 export const API_ACTION_REGISTER = 'registration';
 export const API_ACTION_RECOVERY = 'recovery';

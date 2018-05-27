@@ -1,4 +1,5 @@
 #!/bin/bash
+export PATH=$PATH:/opt/gradle/gradle-4.7/bin
 
 # pull latest code from git
 echo "Pulling latest code from github!"
@@ -8,6 +9,7 @@ git pull
 # build frontend
 echo "Building frontend application!"
 cd frontend
+yarn install
 npm run build
 
 rm -rf /var/www/html/*
