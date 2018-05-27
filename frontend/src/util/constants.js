@@ -10,7 +10,7 @@ export const API_ACTION_POOLS = 'betting-pool';
 export const API_ACTION_TEAMS = 'teams';
 
 export const MAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/;
-export const PASSWORD_REGEX = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\S+$).{8,}/;
+export const PASSWORD_REGEX = /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[,.:\-_#+~<>!§$%&(){}=?@])(?=\S+$).{8,}/;
 
 
 // pages

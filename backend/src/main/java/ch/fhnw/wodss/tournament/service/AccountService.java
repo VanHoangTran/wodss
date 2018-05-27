@@ -1,15 +1,5 @@
 package ch.fhnw.wodss.tournament.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.apache.commons.lang3.RandomStringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import ch.fhnw.wodss.tournament.domain.Account;
 import ch.fhnw.wodss.tournament.domain.AccountRecovery;
 import ch.fhnw.wodss.tournament.repository.AccountRecoveryRepository;
@@ -19,6 +9,15 @@ import ch.fhnw.wodss.tournament.util.ValidationUtil;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.FinalizeRecoveryViewModel;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.RegisterViewModel;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.StartRecoveryViewModel;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Service responsible for managing the user accounts.
@@ -139,7 +138,7 @@ public class AccountService {
 		}
 
 		// invalidate all existing AccountRecoveries for this account!
-		invalidateRecovieries(foundByMail);
+		invalidateRecoveries(foundByMail);
 
 		// create a new recovery entry
 		AccountRecovery recovery = createRecovery(foundByMail);
@@ -175,7 +174,7 @@ public class AccountService {
 		changePassword(recoveryViewModel.getPassword(), account);
 
 		// invalidate all recovery entries
-		invalidateRecovieries(account);
+		invalidateRecoveries(account);
 	}
 
 	/**
@@ -210,7 +209,7 @@ public class AccountService {
 	 * 
 	 * @param account to invalidate recoveries for
 	 */
-	private void invalidateRecovieries(Account account) {
+	private void invalidateRecoveries(Account account) {
 		List<AccountRecovery> active = accountRecoveryRepository.findAllByAccount(account);
 		accountRecoveryRepository.deleteAll(active);
 
@@ -237,7 +236,7 @@ public class AccountService {
 	}
 
 	/**
-	 * Finds a account by it's username and returns it's id
+	 * Finds a account by it's username and returns it
 	 * 
 	 * @param username
 	 */
@@ -251,9 +250,9 @@ public class AccountService {
 	}
 
 	/**
-	 * Finds a account by it's username and returns it's id
+	 * Finds a account by it's user id and returns it
 	 * 
-	 * @param username
+	 * @param userId
 	 */
 	public Account getAccountById(Long userId) {
 		Optional<Account> account = accountRepository.findById(userId);

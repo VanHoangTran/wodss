@@ -19,7 +19,7 @@ public class ValidationUtil {
 	 * 
 	 * Taken from : https://stackoverflow.com/questions/3802192/regexp-java-for-password-validation
 	 */
-	private static final String PASSWORD_REGEX = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}";
+	private static final String PASSWORD_REGEX = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[,.:\\-_#+~<>!§$%&(){}=?@])(?=\\S+$).{8,}";
 	
 	/**
 	 * Validation of eMail address.
