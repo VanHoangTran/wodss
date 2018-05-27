@@ -1,16 +1,5 @@
 package ch.fhnw.wodss.tournament.service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import ch.fhnw.wodss.tournament.domain.Account;
 import ch.fhnw.wodss.tournament.domain.BettingPool;
 import ch.fhnw.wodss.tournament.repository.BettingPoolRepository;
@@ -18,6 +7,16 @@ import ch.fhnw.wodss.tournament.service.dto.AccountDTO;
 import ch.fhnw.wodss.tournament.service.dto.BettingPoolDTO;
 import ch.fhnw.wodss.tournament.service.dto.RankingDTO;
 import ch.fhnw.wodss.tournament.util.SecurityUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Service responsible for interaction with betting pools
@@ -95,7 +94,7 @@ public class BettingPoolService {
 	 * @param name of the new betting pool
 	 */
 	public void createPool(String name) {
-		if (name == null || name == "" || name.length() > 100) {
+		if (name == null || name.isEmpty() || name.length() > 100) {
 			throw new IllegalArgumentException("name of betting pool is invalid");
 		}
 
@@ -126,7 +125,7 @@ public class BettingPoolService {
 	 * @param name of pool to delete
 	 */
 	public void deletePool(String name) {
-		if (name == null || name == "" || name.length() > 100) {
+		if (name == null || name.isEmpty() || name.length() > 100) {
 			throw new IllegalArgumentException("name of betting pool is invalid");
 		}
 
@@ -145,7 +144,7 @@ public class BettingPoolService {
 		final String username = securityUtil.getUsername();
 		Account currentUser = accountService.getAccountByName(username);
 
-		if (foundByName.getOwner().getId() != currentUser.getId()) {
+		if (!foundByName.getOwner().getId().equals(currentUser.getId())) {
 			throw new IllegalArgumentException("access to pool denied");
 		}
 
@@ -158,7 +157,7 @@ public class BettingPoolService {
 	 * @param name of betting pool
 	 */
 	public BettingPoolDTO leaveGroup(String name) {
-		if (name == null || name == "" || name.length() > 100) {
+		if (name == null || name.isEmpty() || name.length() > 100) {
 			throw new IllegalArgumentException("name of betting pool is invalid");
 		}
 
@@ -173,7 +172,7 @@ public class BettingPoolService {
 			throw new IllegalArgumentException("can't leave protected pools");
 		}
 
-		// is current user owner of pool?
+		// is current user member of pool?
 		final String username = securityUtil.getUsername();
 		Account currentUser = accountService.getAccountByName(username);
 
@@ -203,7 +202,7 @@ public class BettingPoolService {
 	 * @param name of betting pool
 	 */
 	public BettingPoolDTO joinGroup(String name) {
-		if (name == null || name == "" || name.length() > 100) {
+		if (name == null || name.isEmpty() || name.length() > 100) {
 			throw new IllegalArgumentException("name of betting pool is invalid");
 		}
 
