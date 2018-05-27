@@ -1,24 +1,19 @@
 package ch.fhnw.wodss.tournament.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import ch.fhnw.wodss.tournament.domain.Game;
 import ch.fhnw.wodss.tournament.domain.Team;
 import ch.fhnw.wodss.tournament.repository.GameRepository;
 import ch.fhnw.wodss.tournament.repository.TeamRepository;
 import ch.fhnw.wodss.tournament.service.dto.GameDTO;
 import ch.fhnw.wodss.tournament.service.dto.TeamDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Service responsible for interaction with games
@@ -104,12 +99,6 @@ public class GameService {
 		return true;
 	}
 
-	/**
-	 * TODO
-	 * 
-	 * @param groupId
-	 * @return
-	 */
 	public List<TeamDTO> getGroupRanking(Long groupId) {
 		List<Game> allGames = gameRepository.findAll();
 
@@ -177,13 +166,6 @@ public class GameService {
 		return weightedTeams;
 	}
 
-	/**
-	 * TODO
-	 * 
-	 * @param gameId
-	 * @param homeDTO
-	 * @param awayDTO
-	 */
 	public void updateOpponents(Long gameId, TeamDTO homeDTO, TeamDTO awayDTO) {
 		Game game = findGameById(gameId);
 
@@ -224,13 +206,6 @@ public class GameService {
 		return result.get();
 	}
 
-	/**
-	 * TODO
-	 * 
-	 * @param gameId
-	 * @param leftGameId
-	 * @param rightGameId
-	 */
 	public void gameFromKO(Long gameId, Long leftGameId, Long rightGameId) {
 		Game nextGame = findGameById(gameId);
 		Game leftGame = findGameById(leftGameId);
@@ -245,13 +220,6 @@ public class GameService {
 		gameRepository.save(nextGame);
 	}
 
-	/**
-	 * TODO
-	 * 
-	 * @param gameId
-	 * @param leftGameId
-	 * @param rightGameId
-	 */
 	public void luckyLooserGameFromKO(Long gameId, Long leftGameId, Long rightGameId) {
 		Game nextGame = findGameById(gameId);
 		Game leftGame = findGameById(leftGameId);

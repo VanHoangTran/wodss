@@ -1,10 +1,8 @@
 package ch.fhnw.wodss.tournament.config;
 
-import java.util.concurrent.TimeUnit;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-
+import ch.fhnw.wodss.tournament.service.GameService;
+import ch.fhnw.wodss.tournament.service.GroupService;
+import ch.fhnw.wodss.tournament.service.jobs.TournamentManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +14,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import ch.fhnw.wodss.tournament.service.GameService;
-import ch.fhnw.wodss.tournament.service.GroupService;
-import ch.fhnw.wodss.tournament.service.jobs.TournamentManager;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class WebConfigurer implements ServletContextInitializer {
@@ -42,7 +40,6 @@ public class WebConfigurer implements ServletContextInitializer {
 
 	@Bean
 	public CorsFilter corsFilter() {
-		// TODO: review these settings for production
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		CorsConfiguration config = new CorsConfiguration();
 		config.addAllowedOrigin("*");

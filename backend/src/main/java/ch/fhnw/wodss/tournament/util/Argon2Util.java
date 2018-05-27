@@ -60,7 +60,6 @@ public class Argon2Util {
         if (defaultHashLength == 0) {
             defaultHashLength = Argon2Constants.DEFAULT_HASH_LENGTH;
         }
-        // TODO make type configurable => de.mkammerer.argon2.Argon2Factory.Argon2Types
         return Argon2Factory.create(defaultSaltLength, defaultHashLength);
     }
 
@@ -84,9 +83,6 @@ public class Argon2Util {
      * @see Argon2#hash(int, int, int, String)
      */
     public String hash(String password) {
-        // TODO use findIterations() to calculate optimal number of iterations for current system?
-        //int iterations = Argon2Helper.findIterations(argon2, 1000, 65536, 1);
-
         Argon2 argon2 = createArgon2Instance();
         return argon2.hash(iterations, memory, parallelism, password);
     }
