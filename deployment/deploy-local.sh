@@ -9,6 +9,7 @@ git pull
 # build frontend
 echo "Building frontend application!"
 cd frontend
+yarn install
 npm run build
 
 rm -rf /var/www/html/*
