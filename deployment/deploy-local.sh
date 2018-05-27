@@ -1,4 +1,5 @@
 #!/bin/bash
+export PATH=$PATH:/opt/gradle/gradle-4.7/bin
 
 # pull latest code from git
 echo "Pulling latest code from github!"
