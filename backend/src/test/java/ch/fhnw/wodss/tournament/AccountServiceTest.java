@@ -15,6 +15,7 @@ import ch.fhnw.wodss.tournament.domain.AccountRecovery;
 import ch.fhnw.wodss.tournament.repository.AccountRecoveryRepository;
 import ch.fhnw.wodss.tournament.repository.AccountRepository;
 import ch.fhnw.wodss.tournament.service.AccountService;
+import ch.fhnw.wodss.tournament.service.BettingPoolService;
 import ch.fhnw.wodss.tournament.service.MailService;
 import ch.fhnw.wodss.tournament.util.Argon2Util;
 import ch.fhnw.wodss.tournament.web.rest.viewmodel.FinalizeRecoveryViewModel;
@@ -54,6 +55,9 @@ public class AccountServiceTest {
 	@MockBean
 	private AccountRecoveryRepository accountRecoveryRepository;
 
+	@MockBean
+	private BettingPoolService bettingPoolService;
+	
 	@Test
 	public void testRegister() {
 		// valid view model
