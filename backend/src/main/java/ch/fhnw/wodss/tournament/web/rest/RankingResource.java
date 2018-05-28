@@ -34,7 +34,7 @@ public class RankingResource {
 	private SecurityUtil securityUtil;
 	
 	@GetMapping
-	public ResponseEntity<List<RankingDTO>> createOrUpdateBet(@RequestParam Long poolId) {
+	public ResponseEntity<List<RankingDTO>> getRankingForPool(@RequestParam Long poolId) {
 		log.info("call to GET ranking. username:{}", securityUtil.getUsername());
 
 		try {
