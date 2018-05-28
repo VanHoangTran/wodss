@@ -1,8 +1,9 @@
 package ch.fhnw.wodss.tournament;
 
-import ch.fhnw.wodss.tournament.domain.Phase;
-import ch.fhnw.wodss.tournament.repository.PhaseRepository;
-import ch.fhnw.wodss.tournament.service.PhaseService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,9 +14,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import ch.fhnw.wodss.tournament.domain.Phase;
+import ch.fhnw.wodss.tournament.repository.PhaseRepository;
+import ch.fhnw.wodss.tournament.service.PhaseService;
 
 /**
  * Performs test of phase service

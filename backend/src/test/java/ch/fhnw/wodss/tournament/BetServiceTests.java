@@ -1,16 +1,20 @@
 package ch.fhnw.wodss.tournament;
 
-import ch.fhnw.wodss.tournament.domain.Account;
-import ch.fhnw.wodss.tournament.domain.Bet;
-import ch.fhnw.wodss.tournament.domain.Game;
-import ch.fhnw.wodss.tournament.repository.BetRepository;
-import ch.fhnw.wodss.tournament.repository.GameRepository;
-import ch.fhnw.wodss.tournament.service.AccountService;
-import ch.fhnw.wodss.tournament.service.BetService;
-import ch.fhnw.wodss.tournament.service.RankingService;
-import ch.fhnw.wodss.tournament.service.dto.BetDTO;
-import ch.fhnw.wodss.tournament.util.SecurityUtil;
-import ch.fhnw.wodss.tournament.web.rest.viewmodel.BetVM;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,9 +26,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.*;
-
-import static org.mockito.Mockito.*;
+import ch.fhnw.wodss.tournament.domain.Account;
+import ch.fhnw.wodss.tournament.domain.Bet;
+import ch.fhnw.wodss.tournament.domain.Game;
+import ch.fhnw.wodss.tournament.repository.BetRepository;
+import ch.fhnw.wodss.tournament.repository.GameRepository;
+import ch.fhnw.wodss.tournament.service.AccountService;
+import ch.fhnw.wodss.tournament.service.BetService;
+import ch.fhnw.wodss.tournament.service.RankingService;
+import ch.fhnw.wodss.tournament.service.dto.BetDTO;
+import ch.fhnw.wodss.tournament.util.SecurityUtil;
+import ch.fhnw.wodss.tournament.web.rest.viewmodel.BetVM;
 
 /**
  * Performs test of bet service

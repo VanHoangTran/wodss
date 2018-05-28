@@ -1,14 +1,15 @@
 package ch.fhnw.wodss.tournament.service;
 
-import ch.fhnw.wodss.tournament.repository.TeamRepository;
-import ch.fhnw.wodss.tournament.service.dto.TeamDTO;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import ch.fhnw.wodss.tournament.repository.TeamRepository;
+import ch.fhnw.wodss.tournament.service.dto.TeamDTO;
 
 @Service
 @Transactional

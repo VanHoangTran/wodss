@@ -1,9 +1,10 @@
 package ch.fhnw.wodss.tournament.repository;
 
-import ch.fhnw.wodss.tournament.domain.Team;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import ch.fhnw.wodss.tournament.domain.Team;
 
 public interface TeamRepository extends JpaRepository<Team, Long> {
 
