@@ -1,13 +1,16 @@
 package ch.fhnw.wodss.tournament;
 
-import ch.fhnw.wodss.tournament.domain.Account;
-import ch.fhnw.wodss.tournament.domain.BettingPool;
-import ch.fhnw.wodss.tournament.repository.BettingPoolRepository;
-import ch.fhnw.wodss.tournament.service.AccountService;
-import ch.fhnw.wodss.tournament.service.BettingPoolService;
-import ch.fhnw.wodss.tournament.service.RankingService;
-import ch.fhnw.wodss.tournament.service.dto.BettingPoolDTO;
-import ch.fhnw.wodss.tournament.util.SecurityUtil;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,11 +21,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import static org.mockito.Mockito.*;
+import ch.fhnw.wodss.tournament.domain.Account;
+import ch.fhnw.wodss.tournament.domain.BettingPool;
+import ch.fhnw.wodss.tournament.repository.BettingPoolRepository;
+import ch.fhnw.wodss.tournament.service.AccountService;
+import ch.fhnw.wodss.tournament.service.BettingPoolService;
+import ch.fhnw.wodss.tournament.service.RankingService;
+import ch.fhnw.wodss.tournament.service.dto.BettingPoolDTO;
+import ch.fhnw.wodss.tournament.util.SecurityUtil;
 
 /**
  * Performs test of betting pool service

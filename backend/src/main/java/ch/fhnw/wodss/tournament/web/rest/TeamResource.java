@@ -1,7 +1,7 @@
 package ch.fhnw.wodss.tournament.web.rest;
 
-import ch.fhnw.wodss.tournament.service.TeamService;
-import ch.fhnw.wodss.tournament.service.dto.TeamDTO;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import ch.fhnw.wodss.tournament.service.TeamService;
+import ch.fhnw.wodss.tournament.service.dto.TeamDTO;
 
 /**
  * REST controller to manage the team requests

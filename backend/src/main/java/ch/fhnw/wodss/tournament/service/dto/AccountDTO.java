@@ -1,10 +1,11 @@
 package ch.fhnw.wodss.tournament.service.dto;
 
-import ch.fhnw.wodss.tournament.domain.Account;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import ch.fhnw.wodss.tournament.domain.Account;
 
 public class AccountDTO {
 

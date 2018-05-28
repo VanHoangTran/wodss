@@ -1,8 +1,10 @@
 package ch.fhnw.wodss.tournament.config;
 
-import ch.fhnw.wodss.tournament.service.GameService;
-import ch.fhnw.wodss.tournament.service.GroupService;
-import ch.fhnw.wodss.tournament.service.jobs.TournamentManager;
+import java.util.concurrent.TimeUnit;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import java.util.concurrent.TimeUnit;
+import ch.fhnw.wodss.tournament.service.GameService;
+import ch.fhnw.wodss.tournament.service.GroupService;
+import ch.fhnw.wodss.tournament.service.jobs.TournamentManager;
 
 @Configuration
 public class WebConfigurer implements ServletContextInitializer {
