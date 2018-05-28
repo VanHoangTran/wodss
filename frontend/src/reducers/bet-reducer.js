@@ -1,7 +1,5 @@
 import {DELETE_BET, PUT_BET, SET_ACCOUNT_BETS} from '../actions/bet-actions';
 
-export const RELOAD_BET = 'reload';
-
 const initialState = {
     bets: [],
     lastAdded: {},
